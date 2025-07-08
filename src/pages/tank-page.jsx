@@ -4,7 +4,7 @@ import { TankHeader } from "@/components/tank-header"
 import { Navbar } from "@/components/nav-bar"
 
 
-function App() {
+function TankPage() {
 
   return (
     <>
@@ -20,4 +20,4 @@ function App() {
   )
 }
 
-export default App
+export default TankPage

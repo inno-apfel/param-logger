@@ -12,6 +12,8 @@ import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button"
 
+import { Link } from "react-router-dom";
+
 function Navbar() {
 
     const [scrolled, setScrolled] = useState(false);
@@ -60,10 +62,14 @@ function Navbar() {
                         {/* Right Nav */}
                         <div className="flex gap-2">
                             <Button asChild variant="outline" size="sm" className="border-none bg-opacity-0 text-xl shadow-none">
-                            <a>Login</a>
+                                <Link to="/login">
+                                    Login
+                                </Link>
                             </Button>
                             <Button asChild variant="outline" size="sm" className="border-none bg-opacity-0 text-xl shadow-none">
-                            <a>Sign Up</a>
+                                <Link to="/signup">
+                                    Sign Up
+                                </Link>
                             </Button>
                         </div>
                     </nav>
