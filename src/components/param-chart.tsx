@@ -1,7 +1,8 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
+import { CartesianGrid, Line, LineChart, ReferenceLine, XAxis, YAxis } from "recharts"
+
+import { Button } from "@/components/ui/button"
 
 import {
   Card,
@@ -40,9 +41,9 @@ export function ParamChart() {
   return (
     <Card className="m-2">
       <CardHeader>
-        <div className="flex justify-between">
+        <div className="flex justify-between relative">
             <CardTitle>Alkalinity</CardTitle>
-            <CardTitle>O</CardTitle>
+            <Button className="absolute right-0 bg-blue-400">Add</Button>
         </div>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
@@ -64,9 +65,21 @@ export function ParamChart() {
               tickMargin={8}
               tickFormatter={(value) => value.slice(0, 3)}
             />
+            <YAxis 
+                dataKey="desktop"
+                tickLine={false}
+                axisLine={false} 
+                tickMargin={0}
+                width={15}/>
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
+            />
+            <ReferenceLine
+                y={200}
+                stroke="orange"
+                strokeDasharray="4 2"
+                label={{ value: '', position: 'bottom', fill: 'red', fontSize: 12 }}
             />
             <Line
               dataKey="desktop"
@@ -75,6 +88,7 @@ export function ParamChart() {
               strokeWidth={2}
               dot={false}
             />
+            
           </LineChart>
         </ChartContainer>
       </CardContent>
