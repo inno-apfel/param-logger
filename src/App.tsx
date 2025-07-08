@@ -10,7 +10,7 @@ function App() {
     <>
       <Navbar/>
       <TankHeader/>
-      <div className="flex min-h-500 justify-center m-2">
+      <div className="flex justify-center m-2">
         <div className="flex w-7xl">
           <Content/>
           <Sidebar/>
