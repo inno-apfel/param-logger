@@ -1,3 +1,9 @@
+<div align="center">
+  <br><br>
+  <img src="https://www.svgrepo.com/show/216069/coral.svg" alt="Logo" width="200">
+  <br><br>
+</div>
+
 # Overview
 
 A web application designed to help aquarium and reef tank owners log, visualize, and monitor key water parameters like calcium, alkalinity, magnesium, nitrate, and more. Stay on top of your water chemistry and track trends over time.
