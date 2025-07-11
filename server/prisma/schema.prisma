@@ -15,6 +15,39 @@ datasource db {
 }
 
 model User {
-  id   Int    @id @default(autoincrement())
-  name String
+  id            String @id @default(uuid())
+  username      String @unique
+  password_hash String
+  preferences   Json
+  tanks         Tank[]
+}
+
+model Tank {
+  id         String      @id @default(uuid())
+  name       String
+  owner      User        @relation(fields: [owner_id], references: [id], onDelete: Cascade)
+  owner_id   String
+  parameters Parameter[]
+}
+
+model Parameter {
+  id              String        @id @default(uuid())
+  name            String
+  reference_value Float
+  unit_of_measure String
+  tank            Tank          @relation(fields: [tank_id], references: [id], onDelete: Cascade)
+  tank_id         String
+  observations    Observation[]
+
+  @@unique([tank_id, name])
+}
+
+model Observation {
+  id           String    @id @default(uuid())
+  value        Float
+  recorded_at  DateTime  @default(now())
+  parameter    Parameter @relation(fields: [parameter_id], references: [id], onDelete: Cascade)
+  parameter_id String
+
+  @@index([parameter_id, recorded_at])
 }
