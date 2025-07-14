@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import * as userService from './services/users';
-import prisma from './db/client';
+import tankRouter from './routes/tanks';
+import userRouter from './routes/users';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -11,20 +11,13 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(express.json());
 
+app.use('/users', userRouter)
+app.use('/tanks', tankRouter)
 
-app.get('/api', (req: Request, res: Response) => {
-
-  userService.getAllUsers()
-    .catch(e => {
-      console.error(e.message)
-    })
-    .finally(async () => {
-      await prisma.$disconnect()
-    })
-
-
-  res.json({"params": ["alk", 'cal', "mag"]});
+app.get('/', async (req: Request, res: Response) => {
+  res.send('home page')
 });
 
 
