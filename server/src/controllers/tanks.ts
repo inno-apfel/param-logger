@@ -17,7 +17,7 @@ export const getTankParameters = async function (req: Request, res: Response) {
 }
 
 export const createTankParameter = async function (req: Request, res: Response) {
-    const newParameter = await parameterService.createParameter(req.body.param_name, req.body.reference_value, req.body.unit_of_measure, req.body.tank_id)
+    const newParameter = await parameterService.createParameter(req.body.param_name, req.body.reference_value, req.body.unit_of_measure, req.params.tankId)
     res.status(201).json(newParameter);
 }
 
