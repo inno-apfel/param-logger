@@ -51,7 +51,13 @@ function Navbar() {
                             <NavigationMenu className="">
                                 <NavigationMenuList>
                                     <NavigationMenuItem>
-                                        <NavigationMenuTrigger className="text-xl">Tanks</NavigationMenuTrigger>
+                                        <NavigationMenuTrigger className="text-xl">
+                                            <Button asChild variant="outline" size="sm" className="border-none bg-opacity-0 text-xl shadow-none">
+                                                <Link to="/my-tanks">
+                                                    Tanks
+                                                </Link>
+                                            </Button>
+                                        </NavigationMenuTrigger>
                                         <NavigationMenuContent>
                                             <NavigationMenuLink asChild>
                                                 <Link to="/dashboard/25302a04-139c-47ef-8ced-7754aac35c4a">Test Tank</Link>
