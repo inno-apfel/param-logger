@@ -1,12 +1,10 @@
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
 } from "@/components/ui/navigation-menu"
 import { useEffect, useState } from "react";
 
@@ -54,6 +52,11 @@ function Navbar() {
                                 <NavigationMenuList>
                                     <NavigationMenuItem>
                                         <NavigationMenuTrigger className="text-xl">Tanks</NavigationMenuTrigger>
+                                        <NavigationMenuContent>
+                                            <NavigationMenuLink asChild>
+                                                <Link to="/dashboard/25302a04-139c-47ef-8ced-7754aac35c4a">Test Tank</Link>
+                                            </NavigationMenuLink>
+                                        </NavigationMenuContent>
                                     </NavigationMenuItem>
                                 </NavigationMenuList>
                             </NavigationMenu>
