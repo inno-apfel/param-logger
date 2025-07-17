@@ -1,4 +1,5 @@
 import prisma from '../db/client';
+import { User } from "../generated/prisma/client";
 
 async function createUser(
     username: string, 
@@ -12,9 +13,9 @@ async function createUser(
     });
 };
 
-async function getUser(id: string) {
+async function getUser(username: string): Promise<User | null> {
     return await prisma.user.findUnique({
-        where:{ id }
+        where:{ username }
     });
 };
 
