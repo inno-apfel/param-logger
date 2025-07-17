@@ -9,19 +9,21 @@ import { ParamChart } from "@/components/param-chart"
 
 import axios from 'axios'
 
-import { useState, useEffect, type JSX } from 'react'
+import { useState, useEffect } from 'react'
+
+import { useParams } from 'react-router-dom';
+
+import { type Parameter } from '../types/prisma-models'
 
 function Content() {
 
-  const nums =  Array.from({ length: 6 }, (_, x) => x);
+  const { tankId } = useParams();
 
-  const [array, setArray] = useState([]);
+  const [parameters, setParameters] = useState<Parameter[]>([]);
 
   const fetchAPI = async () => {
-    const response = await axios.get("http://localhost:8080/api");
-    // console.log(response.data.params);
-    setArray(response.data.params);
-    console.log(array);
+    const response = await axios.get(`http://localhost:8080/tanks/${tankId}/observations`);
+    setParameters(response.data);
   };
 
   useEffect(() => {
@@ -39,17 +41,20 @@ function Content() {
           <hr className="-mx-6 mt-4  border-gray-100" />
         </CardHeader>
         <CardContent>
-            {array.map((fruit: string): JSX.Element => (
-              <p>{fruit}</p>
-            )) }
+            Content
         </CardContent>
       </Card>
-
-      {nums.map(() => (
-        <ParamChart/>
+     
+      {parameters.map((param: Parameter) => (
+        
+          <ParamChart 
+          key={param.id} 
+          {... param}
+        />
+  
       ))}
-    
-    </div>
+
+      </div>
   )
 }
 

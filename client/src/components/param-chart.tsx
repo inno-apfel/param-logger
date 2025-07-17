@@ -1,5 +1,3 @@
-"use client"
-
 import { CartesianGrid, Line, LineChart, ReferenceLine, XAxis, YAxis } from "recharts"
 
 import { Button } from "@/components/ui/button"
@@ -8,7 +6,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -19,87 +16,71 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-export const description = "A linear line chart"
+import { type Parameter } from '../types/prisma-models'
 
-const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
-]
+import { formatToDMY } from '../utils/date'
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  value: {
+    label: "Value",
     color: "var(--chart-1)",
-  },
+  }
 } satisfies ChartConfig
 
-export function ParamChart() {
+export function ParamChart(param: Parameter) {
+
+  const dates = param.observations.map(obs => new Date(obs.recorded_at));
+  const minDate = formatToDMY(Math.min(...dates.map(d => d.getTime())))
+  const maxDate = formatToDMY(Math.max(...dates.map(d => d.getTime())))
+
   return (
-    <Card className="m-2">
+      <Card className="m-2">
       <CardHeader>
         <div className="flex justify-between relative">
-            <CardTitle>Alkalinity</CardTitle>
-            <Button className="absolute right-0 bg-blue-400">Add</Button>
+            <CardTitle>{param.name}</CardTitle>
+            <Button className="absolute right-0 bg-blue-500">Add</Button>
         </div>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardDescription>{minDate} - {maxDate}</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="h-30 w-full">
+        <ChartContainer config={chartConfig} className='h-min-30 w-full'>
           <LineChart
             accessibilityLayer
-            data={chartData}
+            data={param.observations}
             margin={{
               left: 12,
               right: 12,
-            }}
-          >
+            }}>
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
-              tickLine={false}
+              dataKey="recorded_at"
+              tickLine={true}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
+              tickFormatter={(value) => formatToDMY(value)}/>
             <YAxis 
-                dataKey="desktop"
+                dataKey="value"
                 tickLine={false}
                 axisLine={false} 
                 tickMargin={0}
                 width={15}/>
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
+              content={<ChartTooltipContent hideLabel />}/>
             <ReferenceLine
-                y={200}
+                y={param.reference_value}
                 stroke="orange"
                 strokeDasharray="4 2"
-                label={{ value: '', position: 'bottom', fill: 'red', fontSize: 12 }}
-            />
+                label={{ value: '', position: 'bottom', fill: 'red', fontSize: 12 }}/>
             <Line
-              dataKey="desktop"
+              dataKey="value"
               type="linear"
-              stroke="var(--color-desktop)"
+              stroke="var(--chart-1)"
               strokeWidth={2}
-              dot={false}
-            />
-            
+              dot={false}/>
           </LineChart>
         </ChartContainer>
       </CardContent>
-      {/* <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 leading-none font-medium">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="text-muted-foreground leading-none">
-          Showing total visitors for the last 6 months
-        </div>
-      </CardFooter> */}
     </Card>
   )
 }
