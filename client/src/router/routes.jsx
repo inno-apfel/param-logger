@@ -3,6 +3,7 @@ import LoginPage from "../pages/login-page";
 import SignupPage from "../pages/signup-page";
 import Error404 from "../pages/error-404";
 import MyTanks from "../pages/my-tanks";
+import LandingPage from "../pages/landing-page";
 
 const routes = [
   {
@@ -21,6 +22,10 @@ const routes = [
   {
     path: "signup",
     element: <SignupPage />,
+  },
+  {
+    path: "/",
+    element: <LandingPage />,
   },
 ];
 
