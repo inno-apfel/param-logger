@@ -12,10 +12,15 @@ import { useNavigate, Link } from 'react-router-dom';
 
 import api from '../lib/api'
 
+import { useUser } from '@/hooks/useUser'
+
 export function SignupForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+
+  const { refreshUser } = useUser()
+
   const navigate = useNavigate()
 
   const handleSignup = async (e: React.FormEvent) => {
@@ -31,6 +36,7 @@ export function SignupForm({
         // Login successful
         // e.g. save token, redirect, show success message
         alert("Signup successful!");
+        refreshUser()
         navigate('/my-tanks');
         
       } else {
