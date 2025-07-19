@@ -18,7 +18,7 @@ import { useTank } from "@/hooks/useTank";
 function Content() {
 
   const { tank } = useTank();
-
+  
   const [parameters, setParameters] = useState<Parameter[]>([]);
 
   const fetchAPI = async () => {
@@ -27,8 +27,9 @@ function Content() {
   };
 
   useEffect(() => {
+    if (!tank) return
     fetchAPI();
-  }, []);
+  }, [tank]);
 
   return (
     <div className="grid grid-cols-2 grow-5">

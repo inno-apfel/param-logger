@@ -12,6 +12,8 @@ import { Label } from "@/components/ui/label"
 
 import { useNavigate, Link } from 'react-router-dom';
 
+import { useUser } from "@/hooks/useUser"
+
 import api from '../lib/api'
 
 export function LoginForm({
@@ -20,6 +22,8 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
 
   const navigate = useNavigate();
+
+  const { refreshUser } = useUser()
 
   const handleLogin = async (e: React.FormEvent) => {
 
@@ -38,6 +42,7 @@ export function LoginForm({
         // Login successful
         // e.g. save token, redirect, show success message
         alert("Login successful!");
+        refreshUser()
         navigate('/my-tanks');
         // window.location.href = "/dashboard";
       } else {

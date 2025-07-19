@@ -30,7 +30,7 @@ export const TankProvider = ({
 
   useEffect(() => {
     fetchTank();
-  }, []);
+  }, [tankId]);
 
   const refreshTank = async () => {
     setLoading(true);
