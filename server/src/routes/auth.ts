@@ -42,11 +42,16 @@ router.post('/logout', function(req, res, next) {
 
 router.post('/signup', async function(req, res, next) {
   try{
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-    // copy of createUser from controllers/users
-    const newUser = await userService.createUser(req.body.username, hashedPassword);
+      // copy of createUser from controllers/users
+      const newUser = await userService.createUser(req.body.username, hashedPassword);
+
+       req.login(newUser, (err) => {
+        if (err) return next(err);
         res.status(200).json({ success: true, newUser });
+      });
+      
   }
   catch(err) {
       return next(err);

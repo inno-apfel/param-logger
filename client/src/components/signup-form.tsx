@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import api from '../lib/api'
 
@@ -16,8 +16,10 @@ export function SignupForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const navigate = useNavigate()
 
   const handleSignup = async (e: React.FormEvent) => {
+
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const username = (form.username as HTMLInputElement).value;
@@ -29,7 +31,8 @@ export function SignupForm({
         // Login successful
         // e.g. save token, redirect, show success message
         alert("Signup successful!");
-        // window.location.href = "/dashboard";
+        navigate('/my-tanks');
+        
       } else {
         // Login failed
        alert("Signup failed!");
