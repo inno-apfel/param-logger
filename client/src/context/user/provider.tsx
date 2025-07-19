@@ -13,7 +13,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       const res = await api.get(
         '/auth/me'
     );
-      setUser(res.data);
+      setUser(res.data.user);
     } catch {
       setUser(null);
     } finally {
