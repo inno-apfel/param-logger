@@ -1,38 +1,8 @@
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react'
-import { type Parameter } from '../types/prisma-models'
-import api from '../lib/api'
-
-type Tank = {
-  id: string;
-  name: string;
-  owner_id: string;
-  parameters: Parameter[];
-};
+import { useTank } from '@/hooks/useTank';
 
 function TankHeader() {
 
-    const { tankId } = useParams();
-    
-
-    const emptyTank: Tank = {
-        id: '',
-        name: '',
-        owner_id: '',
-        parameters: [],
-        };
-
-    const [tank, setTank] = useState<Tank>(emptyTank);
-
-    const fetchAPI = async () => {
-
-        const response = await api.get(`/tanks/${tankId}`);
-        setTank(response.data);
-    };
-
-    useEffect(() => {
-        fetchAPI();
-    }, []);
+    const { tank } = useTank();
 
     return (
         <>
@@ -51,7 +21,7 @@ function TankHeader() {
             <div className="flex justify-center">
                 <div className="flex w-7xl relative">
                     <p className="absolute bottom-20 left-5">
-                        <span className="text-extrabold text-3xl text-white">{tank.name}</span>
+                        <span className="text-extrabold text-3xl text-white">{tank?.name}</span>
                         <br></br>
                         <span className="text-white">Default signature given to everyone~</span>
                     </p>

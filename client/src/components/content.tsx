@@ -7,22 +7,22 @@ import {
 
 import { ParamChart } from "@/components/param-chart"
 
-import axios from 'axios'
+import api from '@/lib/api'
 
 import { useState, useEffect } from 'react'
 
-import { useParams } from 'react-router-dom';
-
 import { type Parameter } from '../types/prisma-models'
+
+import { useTank } from "@/hooks/useTank";
 
 function Content() {
 
-  const { tankId } = useParams();
+  const { tank } = useTank();
 
   const [parameters, setParameters] = useState<Parameter[]>([]);
 
   const fetchAPI = async () => {
-    const response = await axios.get(`http://localhost:8080/tanks/${tankId}/observations`);
+    const response = await api.get(`/tanks/${tank?.id}/observations`);
     setParameters(response.data);
   };
 
