@@ -7,8 +7,14 @@ export const getTank = async function (req: Request, res: Response) {
     res.send(await tankService.getTank(req.params.tankId))
 }
 
+export const getAllTanksForUser = async function (req: Request, res: Response) {
+    // @ts-ignore
+    res.send(await tankService.getAllTanksForUser(req.user.id))
+}
+
 export const createTank = async function (req: Request, res: Response) {
-    const newTank = await tankService.createTank(req.body.tank_name, req.body.owner_id);
+    // @ts-ignore
+    const newTank = await tankService.createTank(req.body.tank_name, req.user.id);
     res.status(201).json(newTank);
 }
 

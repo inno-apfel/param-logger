@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { 
     createTank, 
-    getTank, 
+    getTank,
+    getAllTanksForUser,
     getTankParameters, 
     createTankParameter, 
     getTankObservations, 
@@ -19,6 +20,8 @@ router.get('/:tankId/parameters', getTankParameters)
 router.post('/:tankId/parameters', createTankParameter)
 
 router.get('/:tankId', getTank)
+
+router.get('/', getAllTanksForUser) 
 
 router.post('/', createTank) 
 
