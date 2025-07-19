@@ -25,7 +25,7 @@ export function SignupForm({
     try {
       const response = await api.post(`/auth/signup`, { username: username, password: password });
       // Example: response.data contains user info or token
-      if (response.status === 200) {
+      if (response.data['success'] === true) {
         // Login successful
         // e.g. save token, redirect, show success message
         alert("Signup successful!");

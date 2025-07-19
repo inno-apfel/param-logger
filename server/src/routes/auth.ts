@@ -46,7 +46,7 @@ router.post('/signup', async function(req, res, next) {
 
     // copy of createUser from controllers/users
     const newUser = await userService.createUser(req.body.username, hashedPassword);
-        res.status(201).json(newUser);
+        res.status(200).json({ success: true, newUser });
   }
   catch(err) {
       return next(err);
