@@ -7,7 +7,7 @@ function MyTanks() {
 
   return (
     <div>
-      <Navbar/>
+      <Navbar variant='tanks-list'/>
       <TankHeader/>
       <TanksList/>
     </div>

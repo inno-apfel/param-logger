@@ -8,7 +8,7 @@ function TankPage() {
 
   return (
     <>
-      <Navbar/>
+      <Navbar variant='dashboard'/>
       <TankHeader/>
       <div className="flex justify-center m-2">
         <div className="flex w-7xl">

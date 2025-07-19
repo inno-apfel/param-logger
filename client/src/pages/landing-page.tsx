@@ -4,7 +4,7 @@ import { HeroSection } from "@/components/hero-section"
 const LandingPage = () => {
   return (
     <div className="">
-      <Navbar/>
+      <Navbar variant='landing'/>
       <HeroSection/>
     </div>
   );
