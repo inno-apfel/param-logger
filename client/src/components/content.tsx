@@ -87,7 +87,7 @@ function Content() {
   return (
     <div className="grid grid-cols-2 grow-5">
 
-      <Card className="col-span-2 m-2 shadow-none">
+      {/* <Card className="col-span-2 m-2 shadow-none">
         <CardHeader>
           <CardTitle>
               Stuff
@@ -97,7 +97,7 @@ function Content() {
         <CardContent>
             Content
         </CardContent>
-      </Card>
+      </Card> */}
      
       {parameters.map((param: Parameter) => (
         

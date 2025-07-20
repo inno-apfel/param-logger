@@ -10,7 +10,7 @@ function Sidebar() {
   return (
     <div className="flex grow-1 flex-col">
 
-        <Card className="m-2 shadow-none w-full">
+        {/* <Card className="m-2 shadow-none w-full">
             <CardHeader>
                 <CardTitle>
                 To Do
@@ -24,7 +24,7 @@ function Sidebar() {
                     <li>Task 3</li>
                 </ul>
             </CardContent>
-        </Card>
+        </Card> */}
 
         <p className="p-2 m-2 shadow-none text-[#86878A]">
           <strong>Contact Us</strong><br></br>
