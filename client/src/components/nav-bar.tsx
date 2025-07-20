@@ -124,13 +124,13 @@ function Navbar({ variant }: { variant: "landing" | "dashboard" | "tanks-list"})
                         <div className="flex gap-2">
                             
                             <DropdownMenu>
-                                <DropdownMenuTrigger>
+                                <DropdownMenuTrigger asChild>
                                     <Avatar>
                                         <AvatarImage src="" />
                                         <AvatarFallback className="text-black">CU</AvatarFallback>
                                     </Avatar>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end">
+                                <DropdownMenuContent align="end" className="border-0 shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
                                     <DropdownMenuLabel>{user?.username}</DropdownMenuLabel>
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem>Profile</DropdownMenuItem>
