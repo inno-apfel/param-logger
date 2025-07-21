@@ -8,14 +8,22 @@ export const getTank = async function (req: Request, res: Response) {
 }
 
 export const getAllTanksForUser = async function (req: Request, res: Response) {
-    // @ts-ignore
-    res.send(await tankService.getAllTanksForUser(req.user.id))
+
+    const authenticatedUser = req.user;
+    if (authenticatedUser){
+        return res.send(await tankService.getAllTanksForUser(authenticatedUser.id))
+    }
+    
 }
 
 export const createTank = async function (req: Request, res: Response) {
-    // @ts-ignore
-    const newTank = await tankService.createTank(req.body.tank_name, req.user.id);
-    res.status(201).json(newTank);
+
+    const authenticatedUser = req.user;
+    if (authenticatedUser){
+        const newTank = await tankService.createTank(req.body.tank_name, authenticatedUser.id);
+        return res.status(201).json(newTank);
+    }
+    
 }
 
 export const getTankParameters = async function (req: Request, res: Response) {
