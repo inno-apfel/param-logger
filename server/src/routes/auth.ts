@@ -7,9 +7,10 @@ const router = Router()
 
 router.get('/me', (req, res, next) => {
   if (req.isAuthenticated()){
+    const {password_hash, ...safeUser} = req.user
     res.json({
       success: true,
-      user: req.user})
+      user: safeUser})
   }
   else{
     res.json({
