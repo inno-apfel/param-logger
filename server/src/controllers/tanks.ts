@@ -13,6 +13,7 @@ export const getAllTanksForUser = async function (req: Request, res: Response) {
     if (authenticatedUser){
         return res.send(await tankService.getAllTanksForUser(authenticatedUser.id))
     }
+    return res.status(400)
     
 }
 
@@ -23,6 +24,7 @@ export const createTank = async function (req: Request, res: Response) {
         const newTank = await tankService.createTank(req.body.tank_name, authenticatedUser.id);
         return res.status(201).json(newTank);
     }
+    return res.status(400)
     
 }
 
