@@ -2,7 +2,6 @@ import passport from 'passport'
 import { Strategy as LocalStrategy, VerifyFunction } from "passport-local";
 import userService from '../services/users'
 import bcrypt from 'bcryptjs';
-import { User } from '../generated/prisma';
 
 const verifyPassword: VerifyFunction = async (username, password, done) => {
     try {
@@ -28,7 +27,7 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, (user as User).username);
+  done(null, user.username);
 });
 
 passport.deserializeUser(async (username: string, done) => {
