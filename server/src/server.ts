@@ -11,28 +11,28 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
+app.use(cors({
+  origin: ["http://localhost:5173"],
+  credentials: true
+}));
+
+app.use(session({
+  secret: 'ocellaris',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: false, // set true in production with HTTPS
+    sameSite: 'lax'
+  }
+}));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors({
-  origin: ['http://localhost:5173'],
-  credentials: true,
-}));
-app.use(
-  session({
-    secret: 'ocellaris',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      secure: false, // set true in production with HTTPS
-      sameSite: 'lax',
-    },
-  }),
-);
 
-app.use('/users', userRouter);
-app.use('/tanks', tankRouter);
-app.use('/auth', authRouter);
+
+app.use('/users', userRouter)
+app.use('/tanks', tankRouter)
+app.use('/auth', authRouter)
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
