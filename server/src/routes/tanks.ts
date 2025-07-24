@@ -1,28 +1,29 @@
-import { Router } from 'express';
-import { 
-    createTank, 
-    getTank,
-    getAllTanksForUser,
-    getTankParameters, 
-    createTankParameter, 
-    getTankObservations, 
-    createTankObservation 
-} from '../controllers/tanks'
+import {Router} from 'express';
+
+import {
+  createTank,
+  createTankObservation,
+  createTankParameter,
+  getAllTanksForUser,
+  getTank,
+  getTankObservations,
+  getTankParameters,
+} from '../controllers/tanks';
 
 const router = Router();
 
-router.get('/:tankId/observations', getTankObservations)
+router.get('/:tankId/observations', getTankObservations);
 
-router.post('/:tankId/observations', createTankObservation)
+router.post('/:tankId/observations', createTankObservation);
 
-router.get('/:tankId/parameters', getTankParameters)
+router.get('/:tankId/parameters', getTankParameters);
 
-router.post('/:tankId/parameters', createTankParameter)
+router.post('/:tankId/parameters', createTankParameter);
 
-router.get('/:tankId', getTank)
+router.get('/:tankId', getTank);
 
-router.get('/', getAllTanksForUser) 
+router.get('/', getAllTanksForUser);
 
-router.post('/', createTank) 
+router.post('/', createTank);
 
-export default router
+export default router;

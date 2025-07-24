@@ -1,62 +1,74 @@
-import { Router } from 'express'
-import passport from '../config/passport'
-import bcrypt from "bcryptjs";
-import userService from '../services/users'
+import bcrypt from 'bcryptjs';
+import {
+  Request, 
+  Response, 
+  NextFunction,
+  Router
+} from 'express';
 
-const router = Router()
+import passport from '../config/passport';
+import userService from '../services/users';
 
-router.get('/me', (req, res, next) => {
-  if (req.isAuthenticated()){
-    const {password_hash, ...safeUser} = req.user
+const router = Router();
+
+router.get('/me', (req: Request, res: Response) => {
+  if (req.isAuthenticated()) {
+    const {password_hash, ...safeUser} = req.user;
     res.json({
       success: true,
-      user: safeUser})
-  }
-  else{
-    res.json({
-    success: false,
-    user: null})
-  }
-  
-})
-
-// send form
-router.post('/login/password', (req, res, next) => {
-  passport.authenticate('local', (err: any, user: Express.User | false, info: any) => {
-    if (err) return next(err);
-    if (!user) return res.status(401).json({ success: false, message: info.message || 'Login failed' });
-
-    req.logIn(user, function(err) {
-      if (err) return next(err);
-      return res.status(200).json({ success: true, user });
+      user: safeUser,
     });
-
-  })(req, res, next);
+  } else {
+    res.json({
+      success: false,
+      user: null,
+    });
+  }
 });
 
-router.post('/logout', function(req, res, next) {
-  req.logout(function(err) {
-    if (err) { return next(err); }
+router.post('/login/password', (req: Request, res: Response, next: NextFunction) => {
+  passport.authenticate(
+    'local',
+    (err: any, user: Express.User | false, info: any) => {
+      if (err) return next(err);
+      if (!user)
+        return res
+          .status(401)
+          .json({success: false, message: info.message || 'Login failed'});
+
+      req.logIn(user, err => {
+        if (err) return next(err);
+        return res.status(200).json({success: true, user});
+      });
+    },
+  )(req, res, next);
+});
+
+router.post('/logout', (req: Request, res: Response, next: NextFunction) => {
+  req.logout(err => {
+    if (err) {
+      return next(err);
+    }
     res.redirect('/');
   });
 });
 
-router.post('/signup', async function(req, res, next) {
-  try{
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+router.post('/signup', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-      // copy of createUser from controllers/users
-      const newUser = await userService.createUser(req.body.username, hashedPassword);
+    const newUser = await userService.createUser(
+      req.body.username,
+      hashedPassword,
+    );
 
-       req.login(newUser, (err) => {
-        if (err) return next(err);
-        res.status(200).json({ success: true, newUser });
-      });
-      
-  }
-  catch(err) {
-      return next(err);
+    req.login(newUser, err => {
+      if (err) return next(err);
+      res.status(200).json({success: true, newUser});
+    });
+  } catch (err) {
+    return next(err);
   }
 });
 
-export default router
+export default router;

@@ -5,11 +5,11 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "rootDir": ".",
-    "outDir": "build"
+    "outDir": "build",
   },
   "include": [
     "src",
     "test",
     "types"
-  ]
+  ],
 }
