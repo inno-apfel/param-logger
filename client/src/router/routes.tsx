@@ -1,33 +1,33 @@
 import { type RouteObject } from "react-router-dom";
 
-import TankPage from "../pages/tank-page";
-import LoginPage from "../pages/login-page";
-import SignupPage from "../pages/signup-page";
-import Error404 from "../pages/error-404";
-import MyTanks from "../pages/my-tanks";
-import LandingPage from "../pages/landing-page";
+import LandingPage from "@/pages/landing-page";
+import Error404 from "@/pages/error-404";
+import LoginPage from "@/pages/login-page";
+import MyTanks from "@/pages/my-tanks";
+import SignupPage from "@/pages/signup-page";
+import TankPage from "@/pages/tank-page";
 
 const routes: RouteObject[] = [
   {
     path: "my-tanks",
-    element: <MyTanks />,
+    element: <MyTanks/>,
   },
   {
     path: "/dashboard/:tankId",
-    element: <TankPage />,
+    element: <TankPage/>,
     errorElement: <Error404 />,
   },
   {
     path: "login",
-    element: <LoginPage />,
+    element: <LoginPage/>,
   },
   {
     path: "signup",
-    element: <SignupPage />,
+    element: <SignupPage/>,
   },
   {
     path: "/",
-    element: <LandingPage />,
+    element: <LandingPage/>,
   },
 ];
 

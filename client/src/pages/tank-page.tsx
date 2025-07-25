@@ -1,9 +1,11 @@
+import { useParams } from 'react-router-dom'
+
 import { Content } from "@/components/content"
+import { Navbar } from "@/components/nav-bar"
 import { Sidebar } from "@/components/sidebar"
 import { TankHeader } from "@/components/tank-header"
-import { Navbar } from "@/components/nav-bar"
 import { TankProvider } from '@/context/tank/provider';
-import { useParams } from 'react-router-dom'
+
 
 
 function TankPage() {

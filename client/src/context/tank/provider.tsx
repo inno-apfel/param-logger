@@ -1,8 +1,8 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { TankContext } from './context'
-import { type Tank } from '../../types/prisma-models'
 
-import api from '../../lib/api'
+import api from '@/lib/api'
+import { type Tank } from '@/types/prisma-models'
+import { TankContext } from './context'
 
 export const TankProvider = ({
   tankId,

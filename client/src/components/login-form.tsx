@@ -1,4 +1,5 @@
-import { cn } from "@/lib/utils"
+import { useNavigate, Link } from 'react-router-dom';
+
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -9,12 +10,10 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { cn } from "@/lib/utils"
 
-import { useNavigate, Link } from 'react-router-dom';
-
+import api from '@/lib/api'
 import { useUser } from "@/hooks/useUser"
-
-import api from '../lib/api'
 
 export function LoginForm({
   className,
@@ -33,18 +32,12 @@ export function LoginForm({
     const username = (form.username as HTMLInputElement).value;
     const password = (form.password as HTMLInputElement).value;
     try {
-      const response = await api.post(`/auth/login/password`, 
-        { username: username, password: password }, 
-        { withCredentials: true });
-      // Example: response.data contains user info or token
-      console.log(response)
+      const response = await api.post(`/auth/login/password`, { username: username, password: password });
       if (response.data['success'] === true) {
         // Login successful
-        // e.g. save token, redirect, show success message
         alert("Login successful!");
         refreshUser()
         navigate('/my-tanks');
-        // window.location.href = "/dashboard";
       } else {
         // Login failed
         alert("Login failed!");

@@ -1,8 +1,7 @@
-import TanksList from '../components/tanks-list'
+import TanksList from '@/components/tanks-list'
 import { Navbar } from "@/components/nav-bar"
 
 function MyTanks() {
-
 
   return (
     <div>

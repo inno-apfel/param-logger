@@ -1,8 +1,8 @@
-import { useUser } from '../hooks/useUser';
-import { useEffect } from "react"
+import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import { LoginForm } from "@/components/login-form"
+import { useUser } from '@/hooks/useUser';
 
 const LoginPage = () => {
 

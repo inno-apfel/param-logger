@@ -1,3 +1,16 @@
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -7,46 +20,25 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { useUser } from '@/hooks/useUser';
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-
-import { useEffect, useState } from "react";
-
-import { Button } from "@/components/ui/button"
-
-import { Link } from "react-router-dom";
-
-import { useUser } from '../hooks/useUser';
-
-import { useNavigate } from 'react-router-dom';
-
+const logo = {
+    src: "https://www.svgrepo.com/show/216069/coral.svg",
+    alt: "logo",
+    title: "ParamLogger",
+}
 
 function Navbar({ variant }: { variant: "landing" | "dashboard" | "tanks-list"}) {
 
     const { user, logout } = useUser();
-
     const navigate = useNavigate();
+    const [scrolled, setScrolled] = useState(false);
 
-    const handleLogout = async () => {
-        await logout()
-        navigate('/')
-    }
-    
     let scrollBorderLimit = 0;
     if (variant === 'dashboard'){
         scrollBorderLimit = 150
     }
 
-    const [scrolled, setScrolled] = useState(false);
-    
     useEffect(() => {
         const onScroll = () => {
         setScrolled(window.scrollY > scrollBorderLimit);
@@ -57,16 +49,19 @@ function Navbar({ variant }: { variant: "landing" | "dashboard" | "tanks-list"})
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
-    const logo = {
-        src: "https://www.svgrepo.com/show/216069/coral.svg",
-        alt: "logo",
-        title: "ParamLogger",
+    const handleLogout = async () => {
+        await logout()
+        navigate('/')
     }
 
+    const navBarStyle = {
+        bgColor: (scrolled || (variant !== 'dashboard') ) ? "bg-white text-black" : "bg-transparent text-white",
+        textColor: scrolled || (variant !== 'dashboard') ? "" : "invert",
+        bottomBorder: (scrolled) ? "border-b border-gray-200" : ""
+    }
+    
     return (
-        <section className={`py-4 fixed w-full z-50 
-                            ${(scrolled || (variant !== 'dashboard') ) ? "bg-white text-black" : "bg-transparent text-white"}
-                            ${(scrolled) ? "border-b border-gray-200" : ""}`}>
+        <section className={`py-4 fixed w-full z-50 ${navBarStyle.bgColor}`}>
             <div className="px-6">
 
                 {/* Desktop Menu */}
@@ -76,7 +71,7 @@ function Navbar({ variant }: { variant: "landing" | "dashboard" | "tanks-list"})
                     <div className="flex items-center gap-6">
                         {/* Logo */}
                         <Link to="/" className="flex items-center gap-2">
-                            <img src={logo.src} className={`max-h-10 filter ${scrolled || (variant !== 'dashboard') ? "" : "invert"}`} alt={logo.alt} />
+                            <img src={logo.src} className={`max-h-10 filter ${navBarStyle.bottomBorder} ${navBarStyle.textColor}`} alt={logo.alt} />
                             <span className="text-2xl font-semibold tracking-tighter text-shadow-xl ">
                                 {logo.title}
                             </span>

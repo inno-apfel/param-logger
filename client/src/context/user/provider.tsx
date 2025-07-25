@@ -1,10 +1,11 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { UserContext } from './context'
-import { type User } from '../../types/prisma-models'
 
-import api from '../../lib/api'
+import api from '@/lib/api'
+import { UserContext } from './context'
+import { type User } from '@/types/prisma-models'
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
+
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -34,8 +35,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     await api.post('/auth/logout', {});
     setUser(null);
   };
-
-  
 
   return (
     <UserContext.Provider value={{ user, loading, refreshUser, logout }}>

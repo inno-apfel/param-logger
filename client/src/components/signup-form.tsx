@@ -1,4 +1,5 @@
-import { cn } from "@/lib/utils"
+import { useNavigate, Link } from 'react-router-dom';
+
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -8,11 +9,10 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useNavigate, Link } from 'react-router-dom';
-
-import api from '../lib/api'
+import { cn } from "@/lib/utils"
 
 import { useUser } from '@/hooks/useUser'
+import api from '@/lib/api'
 
 export function SignupForm({
   className,
@@ -20,12 +20,12 @@ export function SignupForm({
 }: React.ComponentProps<"div">) {
 
   const { refreshUser } = useUser()
-
   const navigate = useNavigate()
 
   const handleSignup = async (e: React.FormEvent) => {
 
     e.preventDefault();
+
     const form = e.target as HTMLFormElement;
     const username = (form.username as HTMLInputElement).value;
     const password = (form.password as HTMLInputElement).value;
@@ -34,11 +34,8 @@ export function SignupForm({
       // Example: response.data contains user info or token
       if (response.data['success'] === true) {
         // Login successful
-        // e.g. save token, redirect, show success message
-        alert("Signup successful!");
         refreshUser()
         navigate('/my-tanks');
-        
       } else {
         // Login failed
        alert("Signup failed!");
