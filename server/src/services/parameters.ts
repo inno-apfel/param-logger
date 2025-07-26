@@ -29,47 +29,8 @@ async function getParametersWithObservationsForTank(tank_id: string): Promise<Pa
   return parameter;
 }
 
-// unused
-async function getParameter(id: string) {
-  return await prisma.parameter.findUnique({
-    where: {id},
-  });
-}
-
-// unused
-async function getAllParametersForTank(tank_id: string) {
-  return await prisma.parameter.findMany({
-    where: {tank_id},
-  });
-}
-
-// unused
-async function updateParameter(
-  id: string,
-  data: {
-    name?: string;
-    reference_value?: number;
-    unit_of_measure?: string;
-  },
-) {
-  return await prisma.parameter.update({
-    where: {id},
-    data,
-  });
-}
-
-// unused
-async function deleteParameter(id: string) {
-  return await prisma.parameter.delete({
-    where: {id},
-  });
-}
 
 export default {
   createParameter,
-  getParameter,
-  getAllParametersForTank,
-  updateParameter,
-  deleteParameter,
   getParametersWithObservationsForTank,
 };

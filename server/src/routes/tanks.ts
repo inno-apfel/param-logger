@@ -8,7 +8,6 @@ import {
   getAllTanksForUser,
   getTank,
   getTankObservations,
-  getTankParameters,
 } from '../controllers/tanks';
 import handleValidationErrors from '../middlewares/handleValidationErrors'
 import tankService from '../services/tanks';
@@ -61,8 +60,6 @@ const createObservationValidation = [
 router.get('/:tankId/observations', getTankObservations);
 
 router.post('/:tankId/observations', createObservationValidation, handleValidationErrors, createTankObservation);
-
-router.get('/:tankId/parameters', getTankParameters); // unused
 
 router.post('/:tankId/parameters', createParameterValidation, handleValidationErrors, createTankParameter);
 

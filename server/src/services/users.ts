@@ -20,36 +20,7 @@ async function getUser(username: string): Promise<User> {
   return user
 }
 
-// unused
-async function getAllUsers() {
-  return await prisma.user.findMany();
-}
-
-// unused
-async function updateUser(
-  id: string,
-  data: {
-    username?: string;
-    password_hash?: string;
-  },
-) {
-  return await prisma.user.update({
-    where: {id},
-    data,
-  });
-}
-
-// unused
-async function deleteUser(id: string) {
-  return await prisma.user.delete({
-    where: {id},
-  });
-}
-
 export default {
   createUser,
   getUser,
-  getAllUsers,
-  updateUser,
-  deleteUser,
 };

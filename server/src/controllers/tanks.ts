@@ -31,10 +31,6 @@ export async function createTank(req: Request, res: Response) {
   return res.status(400);
 };
 
-export async function getTankParameters(req: Request, res: Response) {
-  res.send(await parameterService.getAllParametersForTank(req.params.tankId));
-};
-
 export async function createTankParameter(
   req: Request,
   res: Response,

@@ -30,30 +30,8 @@ async function getAllTanksForUser(owner_id: string): Promise<Tank[]> {
   });
 }
 
-// unused
-async function updateTank(
-  id: string,
-  data: {
-    name?: string;
-  },
-) {
-  return await prisma.tank.update({
-    where: {id},
-    data,
-  });
-}
-
-// unused
-async function deleteTank(id: string) {
-  return await prisma.tank.delete({
-    where: {id},
-  });
-}
-
 export default {
   createTank,
   getTank,
   getAllTanksForUser,
-  updateTank,
-  deleteTank,
 };
