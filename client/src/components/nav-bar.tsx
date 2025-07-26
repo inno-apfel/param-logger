@@ -118,7 +118,7 @@ function Navbar({ variant }: { variant: "landing" | "dashboard" | "tanks-list"})
                      ) : (
                         <div className="flex gap-2">
                             
-                            <DropdownMenu>
+                            <DropdownMenu modal={false}>
                                 <DropdownMenuTrigger asChild>
                                     <Avatar>
                                         <AvatarImage src="" />
@@ -131,11 +131,7 @@ function Navbar({ variant }: { variant: "landing" | "dashboard" | "tanks-list"})
                                     <DropdownMenuItem>Profile</DropdownMenuItem>
                                     <DropdownMenuItem>Settings</DropdownMenuItem>
                                     <DropdownMenuSeparator />
-                                    <DropdownMenuItem>
-                                        <button  onClick={handleLogout}>
-                                            Logout
-                                        </button >
-                                    </DropdownMenuItem>
+                                    <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
                         </div>
