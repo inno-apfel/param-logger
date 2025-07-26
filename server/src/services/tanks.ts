@@ -1,6 +1,7 @@
 import prisma from '../db/client';
+import {type Tank} from '../generated/prisma/client';
 
-async function createTank(name: string, owner_id: string) {
+async function createTank(name: string, owner_id: string): Promise<Tank> {
   return await prisma.tank.create({
     data: {
       name,
@@ -11,20 +12,25 @@ async function createTank(name: string, owner_id: string) {
   });
 }
 
-async function getTank(id: string) {
-  return await prisma.tank.findUnique({
+async function getTank(id: string): Promise<Tank> {
+  const tank = await prisma.tank.findUnique({
     where: {
       id,
     },
   });
+  if (!tank) {
+    throw new Error(`Tank ${id} not found`)
+  }
+  return tank;
 }
 
-async function getAllTanksForUser(owner_id: string) {
+async function getAllTanksForUser(owner_id: string): Promise<Tank[]> {
   return await prisma.tank.findMany({
     where: {owner_id},
   });
 }
 
+// unused
 async function updateTank(
   id: string,
   data: {
@@ -37,6 +43,7 @@ async function updateTank(
   });
 }
 
+// unused
 async function deleteTank(id: string) {
   return await prisma.tank.delete({
     where: {id},

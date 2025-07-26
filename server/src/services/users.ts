@@ -1,7 +1,7 @@
 import prisma from '../db/client';
 import {type User} from '../generated/prisma/client';
 
-async function createUser(username: string, password_hash: string) {
+async function createUser(username: string, password_hash: string): Promise<User> {
   return await prisma.user.create({
     data: {
       username,
@@ -10,16 +10,22 @@ async function createUser(username: string, password_hash: string) {
   });
 }
 
-async function getUser(username: string): Promise<User | null> {
-  return await prisma.user.findUnique({
+async function getUser(username: string): Promise<User> {
+  const user = await prisma.user.findUnique({
     where: {username},
   });
+  if (!user){
+    throw new Error(`User ${username} not found`); 
+  }
+  return user
 }
 
+// unused
 async function getAllUsers() {
   return await prisma.user.findMany();
 }
 
+// unused
 async function updateUser(
   id: string,
   data: {
@@ -33,6 +39,7 @@ async function updateUser(
   });
 }
 
+// unused
 async function deleteUser(id: string) {
   return await prisma.user.delete({
     where: {id},

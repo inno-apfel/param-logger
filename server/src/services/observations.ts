@@ -1,6 +1,7 @@
 import prisma from '../db/client';
+import {type Observation} from '../generated/prisma/client';
 
-async function createObservation(value: number, parameter_id: string) {
+async function createObservation(value: number, parameter_id: string): Promise<Observation> {
   return await prisma.observation.create({
     data: {
       value,
@@ -11,6 +12,7 @@ async function createObservation(value: number, parameter_id: string) {
   });
 }
 
+// unused
 async function createManyObservations(
   data: {
     value: number;
@@ -22,18 +24,21 @@ async function createManyObservations(
   });
 }
 
+// unused
 async function getObservation(id: string) {
   return await prisma.observation.findUnique({
     where: {id},
   });
 }
 
+// unused
 async function getAllObservationsForParameter(parameter_id: string) {
   return await prisma.observation.findMany({
     where: {parameter_id},
   });
 }
 
+// unused
 async function updateObservation(
   id: string,
   data: {
@@ -46,6 +51,7 @@ async function updateObservation(
   });
 }
 
+// unused
 async function deleteObservation(id: string) {
   return await prisma.observation.delete({
     where: {id},
