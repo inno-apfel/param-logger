@@ -11,7 +11,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 
-import { UserDropdown } from '@/components/UserDropdown'
+import { UserDropdown } from '@/components/user-dropdown'
 
 const logo = {
     src: "https://www.svgrepo.com/show/216069/coral.svg",
