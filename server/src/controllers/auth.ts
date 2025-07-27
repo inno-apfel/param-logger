@@ -12,15 +12,9 @@ export async function checkUserAuthentication(req: Request, res: Response) {
   if (req.isAuthenticated()) {
     // remove password_hash from being sent to client
     const {password_hash, ...safeUser} = req.user;
-    res.json({
-      success: true,
-      user: safeUser,
-    });
+    res.json(safeUser);
   } else {
-    res.json({
-      success: false,
-      user: null,
-    });
+    res.status(401).send('User not authenticated');
   }
 };
 

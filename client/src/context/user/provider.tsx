@@ -4,6 +4,8 @@ import api from '@/lib/api'
 import { UserContext } from './context'
 import { type User } from '@/types/prisma-models'
 
+import errorLogger from '@/utils/errorLogger'
+
 export const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const [user, setUser] = useState<User | null>(null);
@@ -13,10 +15,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     try {
       const res = await api.get(
         '/auth/me'
-    );
-      setUser(res.data.user);
-    } catch {
-      setUser(null);
+      );
+      setUser(res.data);
+    } catch (error: any) {
+      errorLogger(error);
     } finally {
       setLoading(false);
     }
