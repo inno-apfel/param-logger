@@ -1,5 +1,6 @@
 import prisma from '../db/client';
 import {type User} from '../generated/prisma/client';
+import { NotFoundError } from '../errors/NotFoundError'
 
 async function createUser(username: string, password_hash: string): Promise<User> {
   return await prisma.user.create({
@@ -15,7 +16,7 @@ async function getUser(username: string): Promise<User> {
     where: {username},
   });
   if (!user){
-    throw new Error(`User ${username} not found`); 
+    throw new NotFoundError('User', username); 
   }
   return user
 }

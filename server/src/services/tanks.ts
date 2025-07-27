@@ -1,5 +1,6 @@
 import prisma from '../db/client';
 import {type Tank} from '../generated/prisma/client';
+import { NotFoundError } from '../errors/NotFoundError'
 
 async function createTank(name: string, owner_id: string): Promise<Tank> {
   return await prisma.tank.create({
@@ -19,7 +20,7 @@ async function getTank(id: string): Promise<Tank> {
     },
   });
   if (!tank) {
-    throw new Error(`Tank ${id} not found`)
+    throw new NotFoundError('Tank', id); 
   }
   return tank;
 }
