@@ -10,10 +10,10 @@ import userService from '../services/users';
 const verifyPassword = async function(username, password, done){
   try {
     // get user
-    const user = await userService.getUser(username);
-    if (!user) {
-      throw new Error('User not found');
-    }
+    const user = await userService.getUserByUsername(username);
+    // if (!user) {
+    //   throw new Error('User not found');
+    // }
     // check password match
     const match = await bcrypt.compare(password, user.password_hash);
     if (!match) {
@@ -32,13 +32,13 @@ passport.use(new LocalStrategy(verifyPassword));
 passport.serializeUser((user, done) => {
   // passportjs wants to serialize and send only an identifier to client
   // identifier is used get whole object from at deserialization
-  done(null, user.username);
+  done(null, user.id);
 });
 
-passport.deserializeUser(async (username: string, done) => {
+passport.deserializeUser(async (id: string, done) => {
   try {
-    // grab user using with seralized username
-    const user = await userService.getUser(username);
+    // grab user using with seralized id
+    const user = await userService.getUserById(id);
     done(null, user);
   } 
   catch (err) {

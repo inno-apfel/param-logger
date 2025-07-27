@@ -11,7 +11,17 @@ async function createUser(username: string, password_hash: string): Promise<User
   });
 }
 
-async function getUser(username: string): Promise<User> {
+async function getUserById(id: string): Promise<User> {
+  const user = await prisma.user.findUnique({
+    where: {id},
+  });
+  if (!user){
+    throw new NotFoundError('User', id); 
+  }
+  return user
+}
+
+async function getUserByUsername(username: string): Promise<User> {
   const user = await prisma.user.findUnique({
     where: {username},
   });
@@ -23,5 +33,6 @@ async function getUser(username: string): Promise<User> {
 
 export default {
   createUser,
-  getUser,
+  getUserById,
+  getUserByUsername,
 };
