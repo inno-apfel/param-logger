@@ -11,7 +11,6 @@ function handleValidationErrors(req: Request, res: Response, next: NextFunction)
     return res.status(400).json({ errors: errors.array() });
   }
   else{
-    console.log('next')
     return next();
   }
 };

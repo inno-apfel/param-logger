@@ -68,6 +68,6 @@ export async function signupNewUser(req: Request, res: Response, next: NextFunct
       res.status(200).json({success: true, newUser});
     });
   } catch (err) {
-    return next(err);
+    next(err)
   }
 };
