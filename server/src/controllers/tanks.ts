@@ -1,7 +1,6 @@
 import {
   Request, 
-  Response,
-  NextFunction
+  Response
 } from 'express';
 
 import observationService from '../services/observations';
