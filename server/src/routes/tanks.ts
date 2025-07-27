@@ -10,6 +10,7 @@ import {
   getTankObservations,
 } from '../controllers/tanks';
 import handleValidationErrors from '../middlewares/handleValidationErrors'
+import requireAuthentication from '../middlewares/requireAuthentication'
 import tankService from '../services/tanks';
 
 const router = Router();
@@ -56,6 +57,8 @@ const createObservationValidation = [
       .toFloat()
       .withMessage("Value must be a valid numerical value")
 ]
+
+router.use(requireAuthentication);
 
 router.get('/:tankId/observations', getTankObservations);
 

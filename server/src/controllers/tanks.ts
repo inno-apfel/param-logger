@@ -1,6 +1,7 @@
 import {
   Request, 
-  Response
+  Response,
+  NextFunction
 } from 'express';
 
 import observationService from '../services/observations';
@@ -12,23 +13,16 @@ export async function getTank(req: Request, res: Response) {
 };
 
 export async function getAllTanksForUser(req: Request, res: Response) {
-  const authenticatedUser = req.user;
-  if (authenticatedUser) {
-    return res.send(await tankService.getAllTanksForUser(authenticatedUser.id));
-  }
-  return res.status(400);
+  const tanks = await tankService.getAllTanksForUser(req.user!.id)
+  res.json(tanks);
 };
 
 export async function createTank(req: Request, res: Response) {
-  const authenticatedUser = req.user;
-  if (authenticatedUser) {
     const newTank = await tankService.createTank(
       req.body.tank_name,
-      authenticatedUser.id,
+      req.user!.id,
     );
-    return res.status(201).json(newTank);
-  }
-  return res.status(400);
+    res.status(201).json(newTank);
 };
 
 export async function createTankParameter(
@@ -59,7 +53,7 @@ export async function createTankObservation(
   req: Request,
   res: Response,
 ) {
-  res.send(
+  res.status(201).json(
     await observationService.createObservation(
       req.body.value,
       req.body.param_id,
