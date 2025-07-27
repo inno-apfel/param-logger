@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils"
 
 import api from '@/lib/api'
 import { useUser } from "@/hooks/useUser"
+import errorLogger from '@/utils/errorLogger'
 
 export function LoginForm({
   className,
@@ -32,19 +33,12 @@ export function LoginForm({
     const username = (form.username as HTMLInputElement).value;
     const password = (form.password as HTMLInputElement).value;
     try {
-      const response = await api.post(`/auth/login/password`, { username: username, password: password });
-      if (response.data['success'] === true) {
-        // Login successful
-        alert("Login successful!");
-        refreshUser()
-        navigate('/my-tanks');
-      } else {
-        // Login failed
-        alert("Login failed!");
-      }
-    } catch (error: unknown) {
-      // Handle error (e.g. wrong credentials, server error)
-      alert(error || "Login error");
+      await api.post(`/auth/login/password`, { username: username, password: password });
+      refreshUser()
+      navigate('/my-tanks');
+    } 
+    catch (error: any) {
+      errorLogger(error, 'alert');
     }
   };
 

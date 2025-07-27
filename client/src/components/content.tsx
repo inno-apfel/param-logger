@@ -9,6 +9,7 @@ import { ParamChart } from "@/components/param-chart"
 import api from '@/lib/api'
 import { useTank } from "@/hooks/useTank";
 import { type Parameter } from '@/types/prisma-models'
+import errorLogger from '@/utils/errorLogger'
 
 /**
  * Main content block for tanks dashboard
@@ -26,8 +27,13 @@ function Content() {
   }, [tank]);
 
   async function fetchObservations() {
-    const response = await api.get(`/tanks/${tank?.id}/observations`);
-    setParameters(response.data);
+    try {
+      const response = await api.get(`/tanks/${tank?.id}/observations`);
+      setParameters(response.data);
+    } 
+    catch (error: any) {
+      errorLogger(error, 'log');
+    } 
   };
 
   return (

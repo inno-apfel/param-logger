@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import errorLogger from '@/utils/errorLogger'
 
 type Field = {
   name: string;
@@ -54,22 +55,20 @@ function CreateEntityDialog({fields, postUrl, itemName, parent_id, refreshData, 
             const parsedValue = (type === 'number') ? parseFloat(String(value)): String(value)
             payload[name] = parsedValue;
         });
-        if (parent_id){payload[parent_id.name] = parent_id.value}
+        
+        if (parent_id) {
+            payload[parent_id.name] = parent_id.value
+        }
         try {
-            const response = await api.post(
+            await api.post(
                 postUrl,
                 payload
             );
-            // cleanup and return
-            if (response.data) {
-                alert(`${itemName} creation successful!`);
-                refreshData(); // refresh observations tank 
-                setDialogOpen(false); // close dialog
-            } else {
-                alert(`${itemName} creation failed!`);
-            }
-        } catch (error: any) {
-            alert(error || `${itemName} creation error`);
+            refreshData(); // refresh observations tank 
+            setDialogOpen(false); // close dialog
+        } 
+        catch (error: any) {
+            errorLogger(error, 'alert')
         }
     };
 

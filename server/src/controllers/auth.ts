@@ -26,13 +26,13 @@ export async function loginWithPassword(req: Request, res: Response, next: NextF
               return next(err); 
             }
             if (!user) {
-              return res.status(401).json({success: false, message: info.message || 'Login failed'});
+              return res.status(401).send(info.message);
             }
             req.logIn(user, err => {
                 if (err) {
                   return next(err);
                 }
-                return res.status(200).json({success: true, user});
+                return res.status(200).json('user');
             });
         },
     )(req, res, next);
@@ -59,7 +59,7 @@ export async function signupNewUser(req: Request, res: Response, next: NextFunct
       if (err) { 
         return next(err);
       }
-      res.status(200).json({success: true, newUser});
+      res.status(200).json(newUser);
     });
   } catch (err) {
     next(err)

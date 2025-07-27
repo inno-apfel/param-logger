@@ -7,6 +7,7 @@ import CreateEntityDialog from '@/components/create-entity-dialog'
 
 import api from '@/lib/api'
 import { type Tank } from '@/types/prisma-models'
+import errorLogger from '@/utils/errorLogger'
 
 function TanksList() {
 
@@ -20,8 +21,9 @@ function TanksList() {
     try {
       const res = await api.get('/tanks');
       setTanks(res.data);
-    } catch {
-      setTanks(null);
+    } 
+    catch (error: any) {
+      errorLogger(error, 'alert')
     } 
   };
 

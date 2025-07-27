@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils"
 
 import { useUser } from '@/hooks/useUser'
 import api from '@/lib/api'
+import errorLogger from '@/utils/errorLogger'
 
 export function SignupForm({
   className,
@@ -30,19 +31,11 @@ export function SignupForm({
     const username = (form.username as HTMLInputElement).value;
     const password = (form.password as HTMLInputElement).value;
     try {
-      const response = await api.post(`/auth/signup`, { username: username, password: password });
-      // Example: response.data contains user info or token
-      if (response.data['success'] === true) {
-        // Login successful
-        refreshUser()
-        navigate('/my-tanks');
-      } else {
-        // Login failed
-       alert("Signup failed!");
-      }
-    } catch (error: unknown) {
-      // Handle error (e.g. wrong credentials, server error)
-      alert(error || "Signup error");
+      await api.post(`/auth/signup`, { username: username, password: password });
+      refreshUser()
+      navigate('/my-tanks');
+    } catch (error: any) {
+      errorLogger(error, 'alert');
     }
   };
 
