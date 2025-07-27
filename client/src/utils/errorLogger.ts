@@ -1,11 +1,18 @@
 import { isAxiosError } from 'axios';
 
-function errorLogger(error: Error){
+type modeTypes = 'alert' | 'log'
+
+function errorLogger(error: Error, mode: modeTypes){
     let log = 'Unknown Error';
     if (isAxiosError(error)) {
         log = `ERROR \n\nStatus Code: ${error.response?.status}\nMessage:${error.response?.data}`
     }
-    alert(log);
+    if (mode === 'alert'){
+        alert(log);
+    }
+    else{
+        console.error(log);
+    }
 }
 
 export default errorLogger;

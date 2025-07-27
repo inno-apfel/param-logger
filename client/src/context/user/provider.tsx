@@ -18,7 +18,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       );
       setUser(res.data);
     } catch (error: any) {
-      errorLogger(error);
+      errorLogger(error, 'log');
     } finally {
       setLoading(false);
     }
