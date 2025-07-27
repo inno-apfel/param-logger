@@ -1,5 +1,5 @@
 import cors from 'cors';
-import express from 'express';
+import express, { Request, Response } from 'express';
 import session from 'express-session';
 import passport from 'passport';
 
@@ -12,6 +12,7 @@ const port = process.env.PORT || 8080;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 app.use(cors({
   origin: ["http://localhost:5173"],
   credentials: true
@@ -31,7 +32,9 @@ app.use(passport.session());
 
 app.use('/tanks', tankRouter)
 app.use('/auth', authRouter)
-
+app.get('/', async (req: Request, res: Response) => {
+  res.send('OK')
+});
 app.use(globalErrorHandler)
 
 app.listen(port, () => {
