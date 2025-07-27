@@ -18,8 +18,8 @@ export function UserDropdown() {
     const navigate = useNavigate();
 
     const handleLogout = async () => {
-        await logout()
         navigate('/')
+        await logout()
     }
 
     return (
