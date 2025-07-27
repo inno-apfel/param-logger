@@ -39,9 +39,6 @@ passport.deserializeUser(async (username: string, done) => {
   try {
     // grab user using with seralized username
     const user = await userService.getUser(username);
-    if (!user) {
-      throw new Error('User not found');
-    }
     done(null, user);
   } 
   catch (err) {
