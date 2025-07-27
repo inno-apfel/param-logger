@@ -1,16 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -20,7 +11,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 
-import { useUser } from '@/hooks/useUser';
+import { UserDropdown } from '@/components/UserDropdown'
 
 const logo = {
     src: "https://www.svgrepo.com/show/216069/coral.svg",
@@ -30,8 +21,6 @@ const logo = {
 
 function Navbar({ variant }: { variant: "landing" | "dashboard" | "tanks-list"}) {
 
-    const { user, logout } = useUser();
-    const navigate = useNavigate();
     const [scrolled, setScrolled] = useState(false);
 
     let scrollBorderLimit = 0;
@@ -48,11 +37,6 @@ function Navbar({ variant }: { variant: "landing" | "dashboard" | "tanks-list"})
 
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
-
-    const handleLogout = async () => {
-        await logout()
-        navigate('/')
-    }
 
     const navBarStyle = {
         bgColor: (scrolled || (variant !== 'dashboard') ) ? "bg-white text-black" : "bg-transparent text-white",
@@ -116,25 +100,7 @@ function Navbar({ variant }: { variant: "landing" | "dashboard" | "tanks-list"})
                             </Button>
                         </div>
                      ) : (
-                        <div className="flex gap-2">
-                            
-                            <DropdownMenu modal={false}>
-                                <DropdownMenuTrigger asChild>
-                                    <Avatar>
-                                        <AvatarImage src="" />
-                                        <AvatarFallback className="text-black">CU</AvatarFallback>
-                                    </Avatar>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="border-0 shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
-                                    <DropdownMenuLabel>{user?.username}</DropdownMenuLabel>
-                                    <DropdownMenuSeparator />
-                                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                                    <DropdownMenuItem>Settings</DropdownMenuItem>
-                                    <DropdownMenuSeparator />
-                                    <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-                        </div>
+                        <UserDropdown />
                      )}
                     
 
