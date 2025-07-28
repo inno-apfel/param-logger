@@ -30,7 +30,7 @@ export async function createTankParameter(
 ) {
   const newParameter = await parameterService.createParameter(
     req.body.param_name,
-    req.body.reference_value,
+    parseFloat(req.body.reference_value),
     req.body.unit_of_measure,
     req.params.tankId,
   );
@@ -54,7 +54,7 @@ export async function createTankObservation(
 ) {
   res.status(201).json(
     await observationService.createObservation(
-      req.body.value,
+      parseFloat(req.body.value),
       req.body.param_id,
     ),
   );
