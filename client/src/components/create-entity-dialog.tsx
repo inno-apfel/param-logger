@@ -19,7 +19,7 @@ import errorLogger from '@/utils/errorLogger'
 type Field = {
   name: string;
   label: string;
-  defaultValue?: string;
+  defaultValue: string;
   type?: string;
 };
 
@@ -98,12 +98,21 @@ function CreateEntityDialog({fields, postUrl, itemName, parent_id, refreshData, 
                     </DialogDescription>
                 </DialogHeader>
 
-                {fields.map(({ name, label, defaultValue, type = 'text' }) => (
-                    <div className="grid gap-3">
-                        <Label htmlFor={name}>{label}</Label>
-                        <Input id={name} name={name} type={type} defaultValue={defaultValue} />
-                    </div>
-                ))}
+                {fields.map(({ name, label, defaultValue, type='text' }) => {
+                    // handle incremenet steps for numerical inputs
+                    let step: number | undefined;
+                    if (type === 'number'){
+                        const mantissa = defaultValue.split('.')[1];
+                        const power = mantissa ? -mantissa.length : 0
+                        step = Math.pow(10, power)
+                    }
+                    return (
+                        <div className="grid gap-3">
+                            <Label htmlFor={name}>{label}</Label>
+                            <Input id={name} name={name} type={type}  step={step} defaultValue={defaultValue} />
+                        </div>
+                    )
+                })}
 
                 <DialogFooter>
                     <DialogClose asChild>
