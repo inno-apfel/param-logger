@@ -47,34 +47,34 @@ export function ParamChart({ param, refreshObservations }: { param: Parameter, r
   const maxVal = Math.max(...values);
 
   return (
-      <Card className="m-2">
-      <CardHeader>
-        <div className="flex justify-between relative">
-            <CardTitle>{param.name}</CardTitle>
-            <Button variant="secondary" size="icon" className="absolute right-0 bg-blue-500 rounded-4xl">
-                <Plus className="text-white size-6 font-extrabold"/>
-            </Button>
-
-            <CreateEntityDialog
-              fields={[
-                {name: 'value', label: 'Value', defaultValue: '1.025', type: 'number'}
-              ]}
-              postUrl={`/tanks/${tank?.id}/observations`}
-              itemName={'Observation'}
-              parent_id={{name: 'param_id', value:param.id}}
-              refreshData={refreshObservations}
-            >
+      <Card className="m-2 grow-1 aspect-[5/2]">
+        <CardHeader>
+          <div className="flex justify-between relative">
+              <CardTitle>{param.name}</CardTitle>
               <Button variant="secondary" size="icon" className="absolute right-0 bg-blue-500 rounded-4xl">
-                <Plus className="text-white size-6 font-extrabold"/>
+                  <Plus className="text-white size-6 font-extrabold"/>
               </Button>
-            </CreateEntityDialog>
 
-        </div>
-        <CardDescription>{minDate} - {maxDate}</CardDescription>
-      </CardHeader>
-      <CardContent>
+              <CreateEntityDialog
+                fields={[
+                  {name: 'value', label: 'Value', defaultValue: '1.025', type: 'number'}
+                ]}
+                postUrl={`/tanks/${tank?.id}/observations`}
+                itemName={'Observation'}
+                parent_id={{name: 'param_id', value:param.id}}
+                refreshData={refreshObservations}
+              >
+                <Button variant="secondary" size="icon" className="absolute right-0 bg-blue-500 rounded-4xl">
+                  <Plus className="text-white size-6 font-extrabold"/>
+                </Button>
+              </CreateEntityDialog>
 
-        <ChartContainer config={chartConfig} className='h-min-30 w-full'>
+          </div>
+          <CardDescription>{minDate} - {maxDate}</CardDescription>
+        </CardHeader>
+      <CardContent className="h-full">
+
+        <ChartContainer config={chartConfig}>
           <LineChart
             accessibilityLayer
             data={param.observations}

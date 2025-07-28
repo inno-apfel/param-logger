@@ -1,7 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Plus } from "lucide-react"
 
-import { Card } from "@/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 import CreateEntityDialog from '@/components/create-entity-dialog'
 import { ParamChart } from "@/components/param-chart"
@@ -37,7 +43,7 @@ function Content() {
   };
 
   return (
-    <div className="grid grid-cols-2 grow-5">
+    <div className="grid grid-cols-2 grow-5 pt-2">
 
       {/* <Card className="col-span-2 m-2 shadow-none">
         <CardHeader>
@@ -72,10 +78,23 @@ function Content() {
         parent_id={{name: 'tank_id', value:tank?.id}}
         refreshData={fetchObservations}
       >
-        <Card className="m-2 bg-transparent border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center hover:border-blue-400 hover:bg-blue-50 cursor-pointer transition-colors">
-          <Plus className="text-gray-400 size-10"/>
-          <span className="text-gray-600 font-medium">Add New Parameter</span>
-          <span className="text-gray-400 text-sm">Click to create</span>
+        <Card className="relative m-2 grow-1 aspect-[5/2] bg-transparent border-2 border-dashed border-gray-300 rounded-lg p-6  hover:border-blue-400 hover:bg-blue-50 cursor-pointer transition-colors">
+            
+            <CardHeader>
+                  <CardTitle className='text-transparent'>
+                    Hello
+                  </CardTitle>
+              <CardDescription></CardDescription>
+            </CardHeader>
+          <CardContent className='text-transparent h-full'>
+            World
+            <div className="flex flex-col items-center justify-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+              <Plus className="text-gray-400 size-10"/>
+              <span className="text-gray-600 font-medium">Add New Parameter</span>
+              <span className="text-gray-400 text-sm">Click to create</span>
+            </div>
+            
+          </CardContent>
         </Card>
       </CreateEntityDialog>
 
