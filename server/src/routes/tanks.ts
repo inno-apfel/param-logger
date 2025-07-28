@@ -49,13 +49,16 @@ const createParameterValidation = [
 const createObservationValidation = [
     body("value")
       .trim()
+      .notEmpty()
+      .withMessage('Value is required')
       .isFloat()
       .withMessage("Value must be a valid numerical value"),
     body('param_id')
       .trim()
-      .isFloat()
-      .toFloat()
-      .withMessage("Value must be a valid numerical value")
+      .notEmpty()
+      .withMessage('Parameter ID is required')
+      .isUUID()
+      .withMessage("Parameter ID must be a valid UUID")
 ]
 
 router.use(requireAuthentication);
