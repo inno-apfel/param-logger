@@ -34,7 +34,7 @@ function TanksList() {
           <div className="flex flex-col w-7xl items-center gap-3">
 
             {tanks?.map(tank => (
-              <Link to={`/dashboard/${tank.id}`}>
+              <Link to={`/dashboard/${tank.id}`} key={tank.id}>
                 <Card key={tank.id} className="bg-blue-400 w-4xl h-40 py-3">
                   <CardHeader className="w-4xl px-3">
                     <p className="bg-white rounded-lg py-2 px-4 w-fit font-bold">
