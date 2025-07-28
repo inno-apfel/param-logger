@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 import { Button } from "@/components/ui/button"
@@ -22,8 +23,9 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
 
   const navigate = useNavigate();
-
-  const { refreshUser } = useUser()
+  const { refreshUser } = useUser();
+  const [errors, setErrors] = useState<string[]>([]);
+  
 
   const handleLogin = async (e: React.FormEvent) => {
 
@@ -38,7 +40,8 @@ export function LoginForm({
       navigate('/my-tanks');
     } 
     catch (error: any) {
-      errorLogger(error, 'alert');
+      const caught_errors = errorLogger(error, 'alert');
+      setErrors(caught_errors);
     }
   };
 
@@ -52,6 +55,13 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
+          {errors.length > 0 ? 
+          <div className='text-red-500 pb-8'>
+              {errors.map((message) => {
+                  return <>&lt;{message}&gt;</>
+              })}
+          </div>
+          : null}
           <form onSubmit={handleLogin}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">

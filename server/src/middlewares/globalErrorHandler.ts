@@ -3,6 +3,8 @@ import {
     Response, 
     NextFunction 
 } from 'express';
+
+import BadUsernamePasswordError from '../errors/BadUsernamePasswordError'
 import NotFoundError from '../errors/NotFoundError';
 import NotAuthenticatedError from '../errors/NotAuthenticatedError';
 import ValidationError from '../errors/ValidationError';
@@ -21,7 +23,8 @@ const globalErrorHandler = (err: Error, req: Request, res: Response, next: NextF
     // Handle custom errors
     if (err instanceof NotFoundError || 
         err instanceof NotAuthenticatedError ||
-        err instanceof ValidationError) {
+        err instanceof ValidationError ||
+        err instanceof BadUsernamePasswordError) {
         res.status(err.statusCode).json({
             messages: err.messages,
             timestamp: new Date().toISOString()

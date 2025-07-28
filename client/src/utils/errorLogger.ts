@@ -5,7 +5,10 @@ type modeTypes = 'alert' | 'log'
 
 function errorLogger(error: AxiosError, mode: modeTypes){
 
+    alert(JSON.stringify(error))
+
     let log = '';
+    let errorArray: string[] = ['Unknown Error'];
 
     log += `ERROR ${error.response?.status}\n`;
 
@@ -19,12 +22,15 @@ function errorLogger(error: AxiosError, mode: modeTypes){
         error_data['messages'] instanceof Array)
         {
         const messages = error_data.messages;
+        if (typeof error.status === 'number' && (error.status >= 400 && error.status < 500)){
+            errorArray = messages;
+        }
         messages.map((msg) => {
             log += `\n${msg}`
         })
     }
     else {
-       log += '\nUnknown Error'
+       log += '\nUnknown Error';
     }
 
     if (mode === 'alert'){
@@ -33,6 +39,7 @@ function errorLogger(error: AxiosError, mode: modeTypes){
     else{
         console.error(log);
     }
+    return errorArray;
 }
 
 export default errorLogger;

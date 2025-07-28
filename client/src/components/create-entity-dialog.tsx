@@ -40,6 +40,7 @@ type Props = {
 function CreateEntityDialog({fields, postUrl, itemName, parent_id, refreshData, children}: Props) {
 
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [errors, setErrors] = useState<string[]>([]);
 
     const handleCreateNew = async (e: React.FormEvent) => {
 
@@ -66,9 +67,11 @@ function CreateEntityDialog({fields, postUrl, itemName, parent_id, refreshData, 
             );
             refreshData(); // refresh observations tank 
             setDialogOpen(false); // close dialog
+            setErrors([]);
         } 
         catch (error: any) {
-            errorLogger(error, 'alert')
+            const caught_errors = errorLogger(error, 'alert');
+            setErrors(caught_errors);
         }
     };
 
@@ -85,6 +88,13 @@ function CreateEntityDialog({fields, postUrl, itemName, parent_id, refreshData, 
                     <DialogTitle>Create new {itemName}</DialogTitle>
                     <DialogDescription>
                         Create your {itemName} here. Click save when you're done.
+                        {errors.length > 0 ? 
+                        <div className='text-red-500 pb-2'>
+                            {errors.map((message) => {
+                                return <><br/>&lt;{message}&gt;</>
+                            })}
+                        </div>
+                        : null}
                     </DialogDescription>
                 </DialogHeader>
 

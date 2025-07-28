@@ -7,6 +7,7 @@ import {
 
 import passport from '../config/passport';
 import userService from '../services/users';
+import BadUsernamePasswordError from '../errors/BadUsernamePasswordError'
 
 export async function checkUserAuthentication(req: Request, res: Response) {
   if (req.isAuthenticated()) {
@@ -26,7 +27,7 @@ export async function loginWithPassword(req: Request, res: Response, next: NextF
               return next(err); 
             }
             if (!user) {
-              return res.status(401).json({ messages: [info.messages] });
+              throw new BadUsernamePasswordError();
             }
             req.logIn(user, err => {
                 if (err) {

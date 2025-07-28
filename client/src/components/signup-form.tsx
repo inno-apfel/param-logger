@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 import { Button } from "@/components/ui/button"
@@ -22,6 +23,7 @@ export function SignupForm({
 
   const { refreshUser } = useUser()
   const navigate = useNavigate()
+  const [errors, setErrors] = useState<string[]>([]);
 
   const handleSignup = async (e: React.FormEvent) => {
 
@@ -35,7 +37,8 @@ export function SignupForm({
       refreshUser()
       navigate('/my-tanks');
     } catch (error: any) {
-      errorLogger(error, 'alert');
+      const caught_errors = errorLogger(error, 'alert');
+      setErrors(caught_errors);
     }
   };
 
@@ -46,6 +49,13 @@ export function SignupForm({
           <CardTitle>Sign up to ParamLogger</CardTitle>
         </CardHeader>
         <CardContent>
+          {errors.length > 0 ? 
+          <div className='text-red-500 pb-8'>
+              {errors.map((message) => {
+                  return <>&lt;{message}&gt;</>
+              })}
+          </div>
+          : null}
           <form onSubmit={handleSignup}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">
