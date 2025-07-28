@@ -8,7 +8,7 @@ import parameterService from '../services/parameters';
 import tankService from '../services/tanks';
 
 export async function getTank(req: Request, res: Response) {
-  res.send(await tankService.getTank(req.params.tankId));
+  res.json(await tankService.getTank(req.params.tankId));
 };
 
 export async function getAllTanksForUser(req: Request, res: Response) {
@@ -41,7 +41,7 @@ export async function getTankObservations(
   req: Request,
   res: Response,
 ) {
-  res.send(
+  res.json(
     await parameterService.getParametersWithObservationsForTank(
       req.params.tankId,
     ),

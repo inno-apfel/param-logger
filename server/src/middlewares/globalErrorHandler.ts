@@ -3,8 +3,9 @@ import {
     Response, 
     NextFunction 
 } from 'express';
-import { NotFoundError } from '../errors/NotFoundError';
-import { NotAuthenticatedError } from '../errors/NotAuthenticatedError';
+import NotFoundError from '../errors/NotFoundError';
+import NotAuthenticatedError from '../errors/NotAuthenticatedError';
+import ValidationError from '../errors/ValidationError';
 
 const globalErrorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
     // Log the full error for debugging (but don't send to client)
@@ -18,16 +19,18 @@ const globalErrorHandler = (err: Error, req: Request, res: Response, next: NextF
         timestamp: new Date().toISOString()
     });
     // Handle custom errors
-    if (err instanceof NotFoundError || err instanceof NotAuthenticatedError) {
+    if (err instanceof NotFoundError || 
+        err instanceof NotAuthenticatedError ||
+        err instanceof ValidationError) {
         res.status(err.statusCode).json({
-            error: err.message,
+            messages: err.messages,
             timestamp: new Date().toISOString()
         });
     }
     // Else send generic error response to frontend
     if (!res.headersSent) {
         res.status(500).json({
-            error: 'Something went wrong on our end. Please try again.',
+            messages: ['Something went wrong on our end. Please try again.'],
             timestamp: new Date().toISOString()
         });
     }

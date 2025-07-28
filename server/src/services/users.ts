@@ -1,6 +1,6 @@
 import prisma from '../db/client';
 import {type User} from '../generated/prisma/client';
-import { NotFoundError } from '../errors/NotFoundError'
+import NotFoundError from '../errors/NotFoundError'
 
 async function createUser(username: string, password_hash: string): Promise<User> {
   return await prisma.user.create({

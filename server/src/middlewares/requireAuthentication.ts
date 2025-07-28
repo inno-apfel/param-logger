@@ -1,4 +1,4 @@
-import { NotAuthenticatedError } from '../errors/NotAuthenticatedError';
+import NotAuthenticatedError from '../errors/NotAuthenticatedError';
 import { 
     Request, 
     Response, 

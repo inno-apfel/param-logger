@@ -14,7 +14,7 @@ export async function checkUserAuthentication(req: Request, res: Response) {
     const {password_hash, ...safeUser} = req.user;
     res.json(safeUser);
   } else {
-    res.status(401).send('User not authenticated');
+    res.status(401).json({ messages: ['User not authenticated'] });
   }
 };
 
@@ -26,7 +26,7 @@ export async function loginWithPassword(req: Request, res: Response, next: NextF
               return next(err); 
             }
             if (!user) {
-              return res.status(401).send(info.message);
+              return res.status(401).json({ messages: [info.messages] });
             }
             req.logIn(user, err => {
                 if (err) {
