@@ -17,10 +17,12 @@ function TankPage() {
       <TankProvider tankId={tankId}>
         <Navbar variant='dashboard'/>
         <TankHeader/>
-        <div className="flex justify-center m-2">
-          <div className="flex w-7xl">
-            <Content/>
-            <Sidebar/>
+        <div className='bg-[oklch(0.9738_0.0067_277.16)] min-h-screen'>
+          <div className="flex justify-center m-2 ">
+            <div className="flex w-7xl">
+              <Content/>
+              <Sidebar/>
+            </div>
           </div>
         </div>
       </TankProvider>
