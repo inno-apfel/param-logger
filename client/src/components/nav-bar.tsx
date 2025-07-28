@@ -45,7 +45,7 @@ function Navbar({ variant }: { variant: "landing" | "dashboard" | "tanks-list"})
     }
     
     return (
-        <section className={`py-4 fixed w-full z-50 ${navBarStyle.bgColor}`}>
+        <section className={`py-4 fixed w-full z-50 ${navBarStyle.bgColor} ${navBarStyle.bottomBorder}`}>
             <div className="px-6">
 
                 {/* Desktop Menu */}
@@ -55,7 +55,7 @@ function Navbar({ variant }: { variant: "landing" | "dashboard" | "tanks-list"})
                     <div className="flex items-center gap-6">
                         {/* Logo */}
                         <Link to="/" className="flex items-center gap-2">
-                            <img src={logo.src} className={`max-h-10 filter ${navBarStyle.bottomBorder} ${navBarStyle.textColor}`} alt={logo.alt} />
+                            <img src={logo.src} className={`max-h-10 filter ${navBarStyle.textColor}`} alt={logo.alt} />
                             <span className="text-2xl font-semibold tracking-tighter text-shadow-xl ">
                                 {logo.title}
                             </span>
