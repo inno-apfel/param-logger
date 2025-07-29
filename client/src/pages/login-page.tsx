@@ -1,8 +1,6 @@
-import { useEffect } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { LoginForm } from "@/components/login-form"
-import { useUser } from '@/hooks/useUser';
 
 const logo = {
     src: "https://www.svgrepo.com/show/216069/coral.svg",
@@ -11,16 +9,6 @@ const logo = {
 }
 
 const LoginPage = () => {
-
-  const navigate = useNavigate();
-  const { user } = useUser();
-
-  useEffect(() => {
-    if (user !== null){
-      console.log('nav')
-      navigate('/my-tanks')
-    }
-  },[user])
 
   return (
     <>
