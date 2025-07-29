@@ -3,8 +3,13 @@ import { HeroSection } from "@/components/hero-section";
 
 const LandingPage = () => {
   return (
-    <div className="">
-      <Navbar variant='landing'/>
+    <div>
+      <Navbar
+        authenticatedPage={false}
+        fontColor = 'white'
+        bgAlwaysSolid={true}
+        scrollTransitionThreshold={0}
+      />
       <HeroSection/>
     </div>
   );

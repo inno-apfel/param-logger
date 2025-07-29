@@ -5,7 +5,12 @@ function MyTanks() {
 
   return (
     <div>
-      <Navbar variant='tanks-list'/>
+      <Navbar
+        authenticatedPage={true}
+        fontColor = 'black'
+        bgAlwaysSolid={false}
+        scrollTransitionThreshold={Infinity}
+      />
       <TanksList/>
     </div>
   );

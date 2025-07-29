@@ -19,19 +19,32 @@ const logo = {
     title: "ParamLogger",
 }
 
-function Navbar({ variant }: { variant: "landing" | "dashboard" | "tanks-list"}) {
+type navItem = {
+    label: string,
+    to_url: string,
+    content: {
+        label: string,
+        to_url: string,
+    }[]
+}
+
+type Props = {
+    authenticatedPage: boolean,
+    noLoginSignup?: boolean,
+    fontColor: string,
+    bgAlwaysSolid: boolean,
+    scrollTransitionThreshold?: number,
+    navItems?: navItem[],
+}
+
+function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, scrollTransitionThreshold=0, navItems=[] }: Props) {
 
     const [scrolled, setScrolled] = useState(false);
 
-    let scrollBorderLimit = 0;
-    if (variant === 'dashboard'){
-        scrollBorderLimit = 150
-    }
-
     useEffect(() => {
         const onScroll = () => {
-        setScrolled(window.scrollY > scrollBorderLimit);
-        };
+            setScrolled(window.scrollY > scrollTransitionThreshold);
+            };
 
         window.addEventListener("scroll", onScroll);
 
@@ -39,8 +52,9 @@ function Navbar({ variant }: { variant: "landing" | "dashboard" | "tanks-list"})
     }, []);
 
     const navBarStyle = {
-        bgColor: (scrolled || (variant !== 'dashboard') ) ? "bg-white text-black" : "bg-transparent text-white",
-        textColor: scrolled || (variant !== 'dashboard') ? "" : "invert",
+        bgColor: (scrolled || bgAlwaysSolid) ? `bg-white` : `bg-transparent`,
+        textColor: (scrolled || bgAlwaysSolid) ? 'text-black' : `text-${fontColor}`,
+        logoColor: (scrolled || bgAlwaysSolid || (fontColor === 'black')) ? '': 'invert',
         bottomBorder: (scrolled) ? "border-b border-gray-200" : ""
     }
     
@@ -49,63 +63,70 @@ function Navbar({ variant }: { variant: "landing" | "dashboard" | "tanks-list"})
             <div className="px-6">
 
                 {/* Desktop Menu */}
-                <nav className="hidden justify-between sm:flex">
+                <nav className={`hidden justify-between sm:flex ${navBarStyle.textColor}`}>
 
                     {/* Left Nav */}
                     <div className="flex items-center gap-6">
                         {/* Logo */}
                         <Link to="/" className="flex items-center gap-2">
-                            <img src={logo.src} className={`max-h-10 filter ${navBarStyle.textColor}`} alt={logo.alt} />
-                            <span className="text-2xl font-semibold tracking-tighter text-shadow-xl ">
+                            <img src={logo.src} className={`max-h-10 filter ${navBarStyle.logoColor}`} alt={logo.alt} />
+                            <span className="text-2xl font-semibold tracking-tighter text-shadow-xl">
                                 {logo.title}
                             </span>
                         </Link>
-                        {variant === 'dashboard' ? (
-                            <div className="flex items-center">
-                                    <NavigationMenu className="">
-                                        <NavigationMenuList>
+                        <div className="flex items-center">
+                            <NavigationMenu className="">
+                                <NavigationMenuList>
+                                    {navItems.map(({ label, to_url, content }) => {
+                                        return (
                                             <NavigationMenuItem>
                                                 <NavigationMenuTrigger className="text-xl">
                                                     <Button asChild variant="outline" size="sm" className="border-none bg-opacity-0 text-xl shadow-none">
-                                                        <Link to="/my-tanks">
-                                                            Tanks
+                                                        <Link to={to_url}>
+                                                            {label}
                                                         </Link>
                                                     </Button>
                                                 </NavigationMenuTrigger>
                                                 <NavigationMenuContent>
-                                                    <NavigationMenuLink asChild>
-                                                        <Link to="/dashboard/25302a04-139c-47ef-8ced-7754aac35c4a">Test Tank</Link>
-                                                    </NavigationMenuLink>
+                                                    {content.map(({ label, to_url }) => {
+                                                        return (
+                                                            <NavigationMenuLink asChild>
+                                                                <Link to={to_url}>{label}</Link>
+                                                            </NavigationMenuLink>
+                                                        )
+                                                    })}
                                                 </NavigationMenuContent>
                                             </NavigationMenuItem>
-                                        </NavigationMenuList>
-                                    </NavigationMenu>
-                                </div>
-                        ) : null}
-                        
+                                        )
+                                    })}
+                                </NavigationMenuList>
+                            </NavigationMenu>
+                        </div>
                     </div>
 
                     {/* Right Nav */}
-                     {variant === 'landing' ? (
-                        <div className="flex gap-2">
-                            <Button asChild variant="outline" size="sm" className="border-none bg-opacity-0 text-xl shadow-none">
-                                <Link to="/login">
-                                    Login
-                                </Link>
-                            </Button>
-                            <Button asChild variant="outline" size="sm" className="border-none bg-opacity-0 text-xl shadow-none">
-                                <Link to="/signup">
-                                    Sign Up
-                                </Link>
-                            </Button>
-                        </div>
-                     ) : (
-                        <UserDropdown />
-                     )}
-                    
-
+                    {noLoginSignup ? null : (
+                        <>
+                            {authenticatedPage ? (
+                                <UserDropdown />
+                            ) : (
+                                <div className="flex gap-2">
+                                    <Button asChild variant="outline" size="sm" className="border-none bg-opacity-0 text-xl shadow-none">
+                                        <Link to="/login">
+                                            Login
+                                        </Link>
+                                    </Button>
+                                    <Button asChild variant="outline" size="sm" className="border-none bg-opacity-0 text-xl shadow-none">
+                                        <Link to="/signup">
+                                            Sign Up
+                                        </Link>
+                                    </Button>
+                                </div>
+                            )}
+                        </>
+                    )}
+                     
                 </nav>
-
             </div>
         </section>
         

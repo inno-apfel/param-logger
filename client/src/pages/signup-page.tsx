@@ -1,30 +1,17 @@
-import { Link } from 'react-router-dom';
+import { Navbar } from "@/components/nav-bar"
 
 import { SignupForm } from "@/components/signup-form"
-
-const logo = {
-    src: "https://www.svgrepo.com/show/216069/coral.svg",
-    alt: "logo",
-    title: "ParamLogger",
-}
 
 const SignupPage = () => {
   return (
     <>
-      {/* Logo */}
-      <section className={`py-4 fixed w-full z-50`}>
-        <div className="px-6">
-            <div className="flex items-center gap-6">
-              {/* Logo */}
-              <Link to="/" className="flex items-center gap-2">
-                <img src={logo.src} className={`max-h-10 filter `} alt={logo.alt} />
-                <span className="text-2xl font-semibold tracking-tighter text-shadow-xl ">
-                  {logo.title}
-                </span>
-              </Link>
-            </div>
-        </div>
-      </section>
+      <Navbar
+        authenticatedPage={false}
+        noLoginSignup={true}
+        fontColor = 'white'
+        bgAlwaysSolid={false}
+        scrollTransitionThreshold={Infinity}
+      />
 
       <div className="grid min-h-svh lg:grid-cols-2">
         <div className="bg-muted relative hidden lg:block">
