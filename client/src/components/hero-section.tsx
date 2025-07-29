@@ -6,11 +6,14 @@ function HeroSection(){
             <div className="flex flex-col items-center">
                 <div  className="flex flex-row items-center py-37">
                 <header className="space-y-2  max-w-lg">
-                        <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                        The AI workspace that works for you.
+                        <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-5xl/none">
+                        The AI-powered tank assistant for you.
                         </h1>
-                        <h2 className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-                        One place where teams find every answer, automate the busywork, and get projects done.
+                        <h2 className="max-w-[700px] text-gray-500 md:text-lg dark:text-gray-400">
+                        Track your parameters. 
+                        Share your tanks. 
+                        Access AI-powered insights. 
+                        Anytime. Anywhere. Across all your devices.
                         </h2>
                     </header>
                     <video width="600">
