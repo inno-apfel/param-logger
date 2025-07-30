@@ -53,7 +53,7 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, sc
 
     const navBarStyle = {
         bgColor: (scrolled || bgAlwaysSolid) ? `bg-white` : `bg-transparent`,
-        textColor: (scrolled || bgAlwaysSolid) ? 'text-black' : `text-${fontColor}`,
+        textColor: (scrolled || bgAlwaysSolid) ? 'black' : `${fontColor}`,
         logoColor: (scrolled || bgAlwaysSolid || (fontColor === 'black')) ? '': 'invert',
         bottomBorder: (scrolled) ? "border-b border-gray-200" : ""
     }
@@ -63,14 +63,14 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, sc
             <div className="px-6">
 
                 {/* Desktop Menu */}
-                <nav className={`hidden justify-between sm:flex ${navBarStyle.textColor}`}>
+                <nav className={`hidden justify-between sm:flex text-${navBarStyle.textColor}`}>
 
                     {/* Left Nav */}
                     <div className="flex items-center gap-6">
                         {/* Logo */}
                         <Link to="/" className="flex items-center gap-2">
                             <img src={logo.src} className={`max-h-10 filter ${navBarStyle.logoColor}`} alt={logo.alt} />
-                            <span className="text-2xl font-semibold tracking-tighter text-shadow-xl">
+                            <span className="text-2xl font-semibold tracking-tighter text-shadow-xl leading-none">
                                 {logo.title}
                             </span>
                         </Link>
@@ -80,21 +80,26 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, sc
                                     {navItems.map(({ label, to_url, content }) => {
                                         return (
                                             <NavigationMenuItem>
-                                                <NavigationMenuTrigger className="text-xl">
-                                                    <Button asChild variant="outline" size="sm" className="border-none bg-opacity-0 text-xl shadow-none">
-                                                        <Link to={to_url}>
-                                                            {label}
-                                                        </Link>
-                                                    </Button>
+                                                <NavigationMenuTrigger underlineColor={`${(navBarStyle.textColor !== 'black' ? 'bg-' + navBarStyle.textColor : 'bg-blue-400')}`} className="text-xl leading-none">
+                                                    <Link to={to_url}>
+                                                        {label}
+                                                    </Link>
                                                 </NavigationMenuTrigger>
                                                 <NavigationMenuContent>
-                                                    {content.map(({ label, to_url }) => {
-                                                        return (
-                                                            <NavigationMenuLink asChild>
-                                                                <Link to={to_url}>{label}</Link>
-                                                            </NavigationMenuLink>
-                                                        )
-                                                    })}
+                                                    <div className="w-[250px]">
+                                                        {content.map(({ label, to_url }) => {
+                                                            return (
+                                                                <NavigationMenuLink asChild>
+                                                                    <Link to={to_url}>
+                                                                        {label}
+                                                                        <div className="text-muted-foreground">
+                                                                            Last Updated: MM/DD/YYYY
+                                                                        </div>
+                                                                    </Link>
+                                                                </NavigationMenuLink>
+                                                            )
+                                                        })}
+                                                    </div>
                                                 </NavigationMenuContent>
                                             </NavigationMenuItem>
                                         )
