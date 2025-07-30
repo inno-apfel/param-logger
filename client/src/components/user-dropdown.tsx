@@ -23,7 +23,7 @@ export function UserDropdown() {
     }
 
     return (
-        <div className="flex gap-2">              
+        <div className="flex gap-2 relative">              
             <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
                     <Avatar className="size-10">
@@ -31,7 +31,7 @@ export function UserDropdown() {
                         <AvatarFallback className="text-black">CU</AvatarFallback>
                     </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="border-0 shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
+                <DropdownMenuContent align="end" className="absolute right-0 top-3 border-0 shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
                     <DropdownMenuLabel>{user?.username}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>Profile</DropdownMenuItem>
