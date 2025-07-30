@@ -22,7 +22,7 @@ const logo = {
 type navItem = {
     label: string,
     to_url: string,
-    content: {
+    content?: {
         label: string,
         to_url: string,
     }[]
@@ -85,6 +85,7 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, sc
                                                         {label}
                                                     </Link>
                                                 </NavigationMenuTrigger>
+                                                {content && 
                                                 <NavigationMenuContent>
                                                     <div className="w-[250px]">
                                                         {content.map(({ label, to_url }) => {
@@ -100,7 +101,7 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, sc
                                                             )
                                                         })}
                                                     </div>
-                                                </NavigationMenuContent>
+                                                </NavigationMenuContent>}
                                             </NavigationMenuItem>
                                         )
                                     })}
