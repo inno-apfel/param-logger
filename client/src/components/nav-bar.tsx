@@ -80,7 +80,10 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, sc
                                     {navItems.map(({ label, to_url, content }) => {
                                         return (
                                             <NavigationMenuItem>
-                                                <NavigationMenuTrigger underlineColor={`${(navBarStyle.textColor !== 'black' ? 'bg-' + navBarStyle.textColor : 'bg-blue-400')}`} className="text-xl leading-none">
+                                                <NavigationMenuTrigger 
+                                                    underlineColor={`${(navBarStyle.textColor !== 'black' ? 'bg-' + navBarStyle.textColor : 'bg-blue-400')}`} 
+                                                    className="text-xl leading-none"
+                                                >
                                                     <Link to={to_url}>
                                                         {label}
                                                     </Link>
@@ -116,17 +119,31 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, sc
                             {authenticatedPage ? (
                                 <UserDropdown />
                             ) : (
-                                <div className="flex gap-2">
-                                    <Button asChild variant="outline" size="sm" className="border-none bg-opacity-0 text-xl shadow-none">
-                                        <Link to="/login">
-                                            Login
-                                        </Link>
-                                    </Button>
-                                    <Button asChild variant="outline" size="sm" className="border-none bg-opacity-0 text-xl shadow-none">
-                                        <Link to="/signup">
-                                            Sign Up
-                                        </Link>
-                                    </Button>
+                                <div className="flex gap-2"> 
+                                    <NavigationMenu className="">
+                                        <NavigationMenuList>
+                                            <NavigationMenuItem>
+                                                <NavigationMenuTrigger 
+                                                    underlineColor={`${(navBarStyle.textColor !== 'black' ? 'bg-' + navBarStyle.textColor : 'bg-blue-400')}`} 
+                                                    className="text-xl leading-none"
+                                                >
+                                                    <Link to="/login">
+                                                        Login
+                                                    </Link>
+                                                </NavigationMenuTrigger>
+                                            </NavigationMenuItem>
+                                            <NavigationMenuItem>
+                                                <NavigationMenuTrigger 
+                                                    underlineColor={`${(navBarStyle.textColor !== 'black' ? 'bg-' + navBarStyle.textColor : 'bg-blue-400')}`} 
+                                                    className="text-xl leading-none"
+                                                >
+                                                    <Link to="/signup">
+                                                        Sign Up
+                                                    </Link>
+                                                </NavigationMenuTrigger>
+                                            </NavigationMenuItem>
+                                        </NavigationMenuList>
+                                    </NavigationMenu>
                                 </div>
                             )}
                         </>
