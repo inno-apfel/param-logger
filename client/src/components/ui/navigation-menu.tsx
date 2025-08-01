@@ -70,8 +70,7 @@ function NavigationMenuTrigger({
   children,
   underlineColor,
   ...props
-}: React.ComponentProps<typeof NavigationMenuPrimitive.Trigger> & { underlineColor: string }) {
-  console.log(underlineColor)
+}: React.ComponentProps<typeof NavigationMenuPrimitive.Trigger> & { underlineColor?: string }) {
   return (
     <NavigationMenuPrimitive.Trigger
       data-slot="navigation-menu-trigger"
