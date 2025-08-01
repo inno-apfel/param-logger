@@ -20,9 +20,17 @@ function TankPage() {
           scrollTransitionThreshold={150}
           navItems={[
             {
-              label: 'Tanks', 
+              label: 'My Tanks', 
               to_url: '/my-tanks', 
               content: [
+                {
+                  label: 'Test Tank', 
+                  to_url: '/dashboard/25302a04-139c-47ef-8ced-7754aac35c4a'
+                },
+                {
+                  label: 'Test Tank', 
+                  to_url: '/dashboard/25302a04-139c-47ef-8ced-7754aac35c4a'
+                },
                 {
                   label: 'Test Tank', 
                   to_url: '/dashboard/25302a04-139c-47ef-8ced-7754aac35c4a'
