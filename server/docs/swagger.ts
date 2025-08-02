@@ -3,12 +3,15 @@ import swaggerJsdoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
 import {version} from '../package.json'
 
-const stylingOptions = {
+const options = {
   customSiteTitle: 'Paramlogger Backend API Docs',
   customCss: '.topbar { display: none }',
+  swaggerOptions: {
+    defaultModelsExpandDepth: -1
+  }
 };
 
-const options: swaggerJsdoc.Options = {
+const config: swaggerJsdoc.Options = {
     definition: {
         openapi: "3.0.0",
         info: {
@@ -19,10 +22,10 @@ const options: swaggerJsdoc.Options = {
     apis: ['./src/routes/**/*.ts', './docs/schemas.ts']
 }
 
-const swaggerSpec = swaggerJsdoc(options)
+const swaggerSpec = swaggerJsdoc(config)
 
 function swaggerDocs(app: Express, port: number) {
-    app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, stylingOptions))
+    app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, options))
 
     app.get('docs.json', (req: Request, res: Response) => {
         res.setHeader('Content-Type', 'application/json');
