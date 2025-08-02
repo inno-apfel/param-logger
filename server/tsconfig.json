@@ -6,10 +6,13 @@
     "allowSyntheticDefaultImports": true,
     "rootDir": ".",
     "outDir": "build",
+    "resolveJsonModule": true
   },
   "include": [
     "src",
     "test",
-    "types"
+    "types",
+    "package.json",
+    "docs/swagger.ts"
   ],
 }

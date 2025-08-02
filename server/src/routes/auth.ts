@@ -28,12 +28,91 @@ const createUserValidation = [
         .withMessage("Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character")
 ]
 
+/**
+ * @openapi
+ * /auth/me:
+ *   get:
+ *     tags:
+ *       - Auth
+ *     summary: Check user authentication status
+ *     responses:
+ *       200:
+ *         description: User is authenticated
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ */
 router.get('/me', checkUserAuthentication);
 
+/**
+ * @openapi
+ * /auth/login/password:
+ *   post:
+ *     tags:
+ *       - Auth
+ *     summary: Log in a user with username and password
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UsernamePasswordInput'
+ *     responses:
+ *       200:
+ *         description: Successful login
+ *       401:
+ *         description: Invalid username or password
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ */
 router.post('/login/password', loginWithPassword);
 
+/**
+ * @openapi
+ * /auth/logout:
+ *   post:
+ *     tags:
+ *       - Auth
+ *     summary: Log out user if authenticated
+ *     description: Ends the user session and redirects to the home page. Uses Passport.js `req.logout()`.
+ *     responses:
+ *       200:
+ *         description: Success
+ */
 router.post('/logout', logoutUser);
 
+/**
+ * @openapi
+ * /auth/signup:
+ *   post:
+ *     tags:
+ *       - Auth
+ *     summary: Sign up and create new user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UsernamePasswordInput'
+ *     responses:
+ *       201:
+ *         description: Success
+ *         content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/UserObjectResponse'
+ *       400:
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ */
 router.post(
   '/signup', 
   createUserValidation, 

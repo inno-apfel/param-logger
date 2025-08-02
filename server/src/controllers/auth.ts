@@ -33,7 +33,7 @@ export async function loginWithPassword(req: Request, res: Response, next: NextF
                 if (err) {
                   return next(err);
                 }
-                return res.status(200).json('user');
+                return res.status(200).end();
             });
         },
     )(req, res, next);
@@ -44,7 +44,7 @@ export async function logoutUser(req: Request, res: Response, next: NextFunction
     if (err) {
       return next(err);
     }
-    res.redirect('/');
+    res.status(200).end();
   });
 };
 
@@ -60,7 +60,8 @@ export async function signupNewUser(req: Request, res: Response, next: NextFunct
       if (err) { 
         return next(err);
       }
-      res.status(200).json(newUser);
+      const {password_hash, ...safeUser} = newUser;
+      res.status(200).json(safeUser);
     });
   } catch (err) {
     next(err)

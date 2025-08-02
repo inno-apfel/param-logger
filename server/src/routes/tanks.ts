@@ -75,16 +75,218 @@ const createObservationValidation = [
 
 router.use(requireAuthentication);
 
+/**
+ * @openapi
+ * /tanks/{tankId}/observations:
+ *   get:
+ *     tags:
+ *       - Tanks
+ *     summary: Get all observations for a tank grouped by parameter
+ *     parameters:
+ *       - $ref: '#/components/parameters/TankIdParam'
+ *     responses:
+ *      200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/ParameterWithObservations'
+ *      401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ *      404:
+ *         description: Not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ */
 router.get('/:tankId/observations', getTankObservations);
 
+/**
+ * @openapi
+ * /tanks/{tankId}/observations:
+ *   post:
+ *     tags:
+ *       - Tanks
+ *     summary: Create a new observation
+ *     parameters:
+ *       - $ref: '#/components/parameters/TankIdParam'
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreateObservationInput'
+ *     responses:
+ *      201:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/CreateObservationResponse'
+ *      400:
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ *      401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ */
 router.post('/:tankId/observations', createObservationValidation, handleValidationErrors, createTankObservation);
 
+/**
+ * @openapi
+ * /tanks/{tankId}/parameters:
+ *   post:
+ *     tags:
+ *       - Tanks
+ *     summary: Create a new parameter
+ *     parameters:
+ *       - $ref: '#/components/parameters/TankIdParam'
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreateParameterInput'
+ *     responses:
+ *      201:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/CreateParameterResponse'
+ *      400:
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ *      401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ */
 router.post('/:tankId/parameters', createParameterValidation, handleValidationErrors, createTankParameter);
 
+/**
+ * @openapi
+ * /tanks/{tankId}:
+ *   get:
+ *     tags:
+ *       - Tanks
+ *     summary: Get a specific tank
+ *     parameters:
+ *       - $ref: '#/components/parameters/TankIdParam'
+ *     responses:
+ *      200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/Tank'
+ *      401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ *      404:
+ *         description: Not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ */
 router.get('/:tankId', getTank);
 
+/**
+ * @openapi
+ * /tanks:
+ *   get:
+ *     tags:
+ *       - Tanks
+ *     summary: Get all of the user's tanks
+ *     parameters:
+ *       - $ref: '#/components/parameters/TankIdParam'
+ *     responses:
+ *      200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *                type: array
+ *                items:
+ *                  $ref: '#/components/schemas/Tank'
+ *      401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ *      404:
+ *         description: Not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ */
 router.get('/', getAllTanksForUser);
 
+/**
+ * @openapi
+ * /tanks:
+ *   post:
+ *     tags:
+ *       - Tanks
+ *     summary: Create a new tank
+ *     parameters:
+ *       - $ref: '#/components/parameters/TankIdParam'
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreateTankInput'
+ *     responses:
+ *      201:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Tank'
+ *      400:
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ *      401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ *      404:
+ *         description: Not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ */
 router.post('/', createTankValidation, handleValidationErrors, createTank);
 
 export default router;

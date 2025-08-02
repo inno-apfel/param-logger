@@ -7,8 +7,10 @@ import authRouter from './routes/auth';
 import tankRouter from './routes/tanks';
 import globalErrorHandler from './middlewares/globalErrorHandler';
 
+import swaggerDocs from '../docs/swagger';
+
 const app = express();
-const port = process.env.PORT || 8080;
+const port = 8080;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -39,4 +41,5 @@ app.use(globalErrorHandler)
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
+  swaggerDocs(app, port);
 });
