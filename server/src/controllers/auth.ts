@@ -61,7 +61,7 @@ export async function signupNewUser(req: Request, res: Response, next: NextFunct
         return next(err);
       }
       const {password_hash, ...safeUser} = newUser;
-      res.status(200).json(safeUser);
+      res.status(201).json(safeUser);
     });
   } catch (err) {
     next(err)
