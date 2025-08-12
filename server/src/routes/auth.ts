@@ -9,6 +9,8 @@ import {
 } from '../controllers/auth'
 import handleValidationErrors from '../middlewares/handleValidationErrors'
 
+import userService from '../services/users'
+
 const router = Router();
 
 const createUserValidation = [
@@ -20,7 +22,15 @@ const createUserValidation = [
         .withMessage("Username can only contain letters, numbers, dots, hyphens, and underscores")
         .not()
         .matches(/^[._-]|[._-]$/)
-        .withMessage("Username cannot start or end with special characters"),
+        .withMessage("Username cannot start or end with special characters")
+        .custom(async (username) => {
+            const user = await userService.getUserByUsername(username);
+            if (user) {
+                return Promise.reject();
+            }
+            return true;
+        })
+        .withMessage("Username already exists"),
     body("password")
         .isLength({ min: 8, max: 128 })
         .withMessage("Password must be between 8-128 characters")
