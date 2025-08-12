@@ -49,13 +49,14 @@ const createParameterValidation = [
       .withMessage('Tank ID is required')
       .isUUID()
       .withMessage("Tank ID must be a valid UUID")
-      // .custom(async (tankId) => {
-      //       const tank = await tankService.getTank(tankId);
-      //       if (!tank) {
-      //           throw new Error('Tank not found');
-      //       }
-      //       return true;
-      //   })
+      .custom(async (tankId) => {
+            const tank = await tankService.getTank(tankId);
+            if (!tank) {
+                return Promise.reject();
+            }
+            return true;
+        })
+      .withMessage("Tank ID must reference an existing tank")
 ]
 
 const createObservationValidation = [
