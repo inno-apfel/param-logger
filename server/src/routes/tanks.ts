@@ -10,6 +10,7 @@ import {
   getTankObservations,
 } from '../controllers/tanks';
 import handleValidationErrors from '../middlewares/handleValidationErrors'
+import checkTankOwnership from '../middlewares/checkTankOwnership'
 import requireAuthentication from '../middlewares/requireAuthentication'
 import tankService from '../services/tanks';
 
@@ -107,7 +108,7 @@ router.use(requireAuthentication);
  *             schema:
  *                $ref: '#/components/schemas/ErrorResponse'
  */
-router.get('/:tankId/observations', getTankObservations);
+router.get('/:tankId/observations', checkTankOwnership, getTankObservations);
 
 /**
  * @openapi
@@ -144,7 +145,7 @@ router.get('/:tankId/observations', getTankObservations);
  *             schema:
  *                $ref: '#/components/schemas/ErrorResponse'
  */
-router.post('/:tankId/observations', createObservationValidation, handleValidationErrors, createTankObservation);
+router.post('/:tankId/observations', createObservationValidation, handleValidationErrors, checkTankOwnership, createTankObservation);
 
 /**
  * @openapi
@@ -181,7 +182,7 @@ router.post('/:tankId/observations', createObservationValidation, handleValidati
  *             schema:
  *                $ref: '#/components/schemas/ErrorResponse'
  */
-router.post('/:tankId/parameters', createParameterValidation, handleValidationErrors, createTankParameter);
+router.post('/:tankId/parameters', createParameterValidation, handleValidationErrors, checkTankOwnership, createTankParameter);
 
 /**
  * @openapi
@@ -212,7 +213,7 @@ router.post('/:tankId/parameters', createParameterValidation, handleValidationEr
  *             schema:
  *                $ref: '#/components/schemas/ErrorResponse'
  */
-router.get('/:tankId', getTank);
+router.get('/:tankId', checkTankOwnership, getTank);
 
 /**
  * @openapi
