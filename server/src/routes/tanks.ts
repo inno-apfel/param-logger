@@ -20,7 +20,7 @@ const createTankValidation = [
       .trim()
       .isLength({ min: 3, max: 30 })
       .withMessage("Tank name must be between 3-30 characters")
-      .isAlphanumeric()
+      .isAlphanumeric('en-US', { ignore: ' -_' })
       .withMessage("Tank name must be alphanumeric")
 ]
 
@@ -29,7 +29,7 @@ const createParameterValidation = [
       .trim()
       .isLength({ min: 1, max: 30 })
       .withMessage("Parameter name must be between 3-30 characters")
-      .isAlphanumeric()
+      .isAlphanumeric('en-US', { ignore: ' -_' })
       .withMessage("Parameter name must be alphanumeric"),
     body("reference_value")
       .trim()
@@ -41,7 +41,7 @@ const createParameterValidation = [
       .trim()
       .isLength({ min: 1, max: 30 })
       .withMessage("Unit of measure name must be between 3-30 characters")
-      .isAlphanumeric()
+      .isAlphanumeric('en-US', { ignore: ' -_' })
       .withMessage("Unit of measure na must be alphanumeric"),
     param('tankId')
       .trim()
