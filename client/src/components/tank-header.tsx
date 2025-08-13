@@ -1,4 +1,5 @@
 import { useTank } from '@/hooks/useTank';
+import FishBG from '@/assets/fish-bg.png'
 
 function TankHeader() {
 
@@ -6,13 +7,16 @@ function TankHeader() {
 
     return (
         <>
-            <div className={`bg-[url("https://t4.ftcdn.net/jpg/08/04/26/01/360_F_804260167_Mj5bjW7tj7tp9b2AJjs8sgmnQHT6mrTW.jpg")] h-75`}>
-                <div className="h-75 bg-[linear-gradient(180deg,rgba(0,0,0,0)_50%,rgba(0,0,0,0.4)_90%)]">
+            <div 
+                className="w-full h-75 bg-repeat-x bg-top bg-[length:auto_18.75rem]"
+                style={{ backgroundImage: `url(${FishBG})` }}
+            >
+                {/* <div className="h-75 bg-[linear-gradient(180deg,rgba(0,0,0,0)_50%,rgba(0,0,0,0.4)_90%)]">
                     <div className="h-75 bg-[linear-gradient(0deg,rgba(0,0,0,0)_50%,rgba(0,0,0,0.1)_90%)]">
                         <div className="fixed w-full">
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
 
             <div className="bg-white h-14">

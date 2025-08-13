@@ -24,11 +24,13 @@ const createUserValidation = [
         .matches(/^[._-]|[._-]$/)
         .withMessage("Username cannot start or end with special characters")
         .custom(async (username) => {
+          try{
             const user = await userService.getUserByUsername(username);
-            if (user) {
-                return Promise.reject();
-            }
+            return Promise.reject();
+          }
+          catch{
             return true;
+          }
         })
         .withMessage("Username already exists"),
     body("password")
