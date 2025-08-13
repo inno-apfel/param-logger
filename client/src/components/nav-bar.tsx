@@ -69,8 +69,8 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, sc
                     <div className="flex items-center gap-6">
                         {/* Logo */}
                         <Link to="/" className="flex items-center gap-2">
-                            <img src={logo.src} className={`max-h-8 filter ${navBarStyle.logoColor}`} alt={logo.alt} />
-                            <span className="text-xl font-semibold tracking-tighter text-shadow-xl leading-none">
+                            <img src={logo.src} className={`max-h-8 filter drop-shadow-[1px_1px_0_black] drop-shadow-[1px_1px_0_rgba(0,0,0,0.2)] ${navBarStyle.logoColor}`} alt={logo.alt} />
+                            <span className="text-xl font-semibold tracking-tighter leading-none text-shadow-md">
                                 {logo.title}
                             </span>
                         </Link>
@@ -82,7 +82,7 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, sc
                                             <NavigationMenuItem>
                                                 <NavigationMenuTrigger 
                                                     underlineColor={`${(navBarStyle.textColor !== 'black' ? 'bg-' + navBarStyle.textColor : 'bg-blue-400')}`} 
-                                                    className="text-lg leading-none"
+                                                    className="text-lg text-shadow-md leading-none"
                                                 >
                                                     <Link to={to_url}>
                                                         {label}
