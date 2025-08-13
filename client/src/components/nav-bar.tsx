@@ -69,8 +69,8 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, sc
                     <div className="flex items-center gap-6">
                         {/* Logo */}
                         <Link to="/" className="flex items-center gap-2">
-                            <img src={logo.src} className={`max-h-10 filter ${navBarStyle.logoColor}`} alt={logo.alt} />
-                            <span className="text-2xl font-semibold tracking-tighter text-shadow-xl leading-none">
+                            <img src={logo.src} className={`max-h-8 filter ${navBarStyle.logoColor}`} alt={logo.alt} />
+                            <span className="text-xl font-semibold tracking-tighter text-shadow-xl leading-none">
                                 {logo.title}
                             </span>
                         </Link>
@@ -82,7 +82,7 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, sc
                                             <NavigationMenuItem>
                                                 <NavigationMenuTrigger 
                                                     underlineColor={`${(navBarStyle.textColor !== 'black' ? 'bg-' + navBarStyle.textColor : 'bg-blue-400')}`} 
-                                                    className="text-xl leading-none"
+                                                    className="text-lg leading-none"
                                                 >
                                                     <Link to={to_url}>
                                                         {label}
@@ -125,7 +125,7 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, sc
                                             <NavigationMenuItem>
                                                 <NavigationMenuTrigger 
                                                     underlineColor={`${(navBarStyle.textColor !== 'black' ? 'bg-' + navBarStyle.textColor : 'bg-blue-400')}`} 
-                                                    className="text-xl leading-none"
+                                                    className="text-md leading-none"
                                                 >
                                                     <Link to="/login">
                                                         Login
@@ -138,7 +138,10 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, sc
                                                     className="text-xl leading-none"
                                                 >
                                                     <Link to="/signup">
-                                                        Sign Up
+                                                    <Button className="bg-blue-500">
+                                                        Get ParamLogger Free
+                                                    </Button>
+                                                        
                                                     </Link>
                                                 </NavigationMenuTrigger>
                                             </NavigationMenuItem>

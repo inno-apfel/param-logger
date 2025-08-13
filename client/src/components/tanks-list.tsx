@@ -35,9 +35,9 @@ function TanksList() {
 
             {tanks?.map(tank => (
               <Link to={`/dashboard/${tank.id}`} key={tank.id}>
-                <Card key={tank.id} className="bg-blue-400 w-4xl h-40 py-3">
+                <Card key={tank.id} className="bg-neutral-200 rounded-lg w-4xl h-40 py-3">
                   <CardHeader className="w-4xl px-3">
-                    <p className="bg-white rounded-lg py-2 px-4 w-fit font-bold">
+                    <p className="bg-white rounded-md py-2 px-4 w-fit font-bold">
                       {tank.name}
                     </p>
                   </CardHeader>
