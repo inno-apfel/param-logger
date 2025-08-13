@@ -5,6 +5,7 @@ import {
 } from 'express';
 
 import BadUsernamePasswordError from '../errors/BadUsernamePasswordError'
+import ForbiddenError from '../errors/ForbiddenError'
 import NotFoundError from '../errors/NotFoundError';
 import NotAuthenticatedError from '../errors/NotAuthenticatedError';
 import ValidationError from '../errors/ValidationError';
@@ -24,7 +25,8 @@ const globalErrorHandler = (err: Error, req: Request, res: Response, next: NextF
     if (err instanceof NotFoundError || 
         err instanceof NotAuthenticatedError ||
         err instanceof ValidationError ||
-        err instanceof BadUsernamePasswordError) {
+        err instanceof BadUsernamePasswordError ||
+        err instanceof ForbiddenError) {
         res.status(err.statusCode).json({
             messages: err.messages,
             timestamp: new Date().toISOString()
