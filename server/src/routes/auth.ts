@@ -25,7 +25,7 @@ const createUserValidation = [
         .withMessage("Username cannot start or end with special characters")
         .custom(async (username) => {
           try{
-            const user = await userService.getUserByUsername(username);
+            await userService.getUserByUsername(username);
             return Promise.reject();
           }
           catch{

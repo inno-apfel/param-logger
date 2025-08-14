@@ -13,6 +13,7 @@ import handleValidationErrors from '../middlewares/handleValidationErrors'
 import checkTankOwnership from '../middlewares/checkTankOwnership'
 import requireAuthentication from '../middlewares/requireAuthentication'
 import tankService from '../services/tanks';
+import parameterService from '../services/parameters';
 
 const router = Router();
 
@@ -26,12 +27,40 @@ const createTankValidation = [
 ]
 
 const createParameterValidation = [
+    param('tankId')
+      .trim()
+      .notEmpty()
+      .withMessage('Tank ID is required')
+      .isUUID()
+      .withMessage("Tank ID must be a valid UUID")
+      .custom(async (tankId) => {
+          try{
+            await tankService.getTank(tankId);
+            return true;
+          }
+          catch{
+            
+            return Promise.reject();
+          }
+        })
+      .withMessage("Tank ID must reference an existing tank"),
     body("param_name")
       .trim()
       .isLength({ min: 1, max: 30 })
       .withMessage("Parameter name must be between 3-30 characters")
       .isAlphanumeric('en-US', { ignore: ' -_' })
-      .withMessage("Parameter name must be alphanumeric"),
+      .withMessage("Parameter name must be alphanumeric")
+      .custom(async (param_name, { req }) => {
+          const tank_id = req.body.tankId;
+          try{
+            await parameterService.getParameter(param_name, tank_id);
+            return true;
+          }
+          catch{
+            return Promise.reject();
+          }
+        })
+      .withMessage("Parameter with this name already exists"),
     body("reference_value")
       .trim()
       .notEmpty()
@@ -43,21 +72,7 @@ const createParameterValidation = [
       .isLength({ min: 1, max: 30 })
       .withMessage("Unit of measure name must be between 3-30 characters")
       .isAlphanumeric('en-US', { ignore: ' -_' })
-      .withMessage("Unit of measure na must be alphanumeric"),
-    param('tankId')
-      .trim()
-      .notEmpty()
-      .withMessage('Tank ID is required')
-      .isUUID()
-      .withMessage("Tank ID must be a valid UUID")
-      .custom(async (tankId) => {
-            const tank = await tankService.getTank(tankId);
-            if (!tank) {
-                return Promise.reject();
-            }
-            return true;
-        })
-      .withMessage("Tank ID must reference an existing tank")
+      .withMessage("Unit of measure na must be alphanumeric")
 ]
 
 const createObservationValidation = [
