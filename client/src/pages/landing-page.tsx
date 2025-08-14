@@ -6,7 +6,7 @@ const LandingPage = () => {
     <div>
       <Navbar
         authenticatedPage={false}
-        fontColor = 'black'
+        fontColor = 'text-black'
         bgAlwaysSolid={false}
         bgAlwaysWhite={true}
         scrollTransitionThreshold={0}

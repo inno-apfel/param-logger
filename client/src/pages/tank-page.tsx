@@ -16,7 +16,7 @@ function TankPage() {
       <TankProvider tankId={tankId!}>
         <Navbar
           authenticatedPage={true}
-          fontColor = 'white'
+          fontColor = 'text-white'
           bgAlwaysSolid={false}
           scrollTransitionThreshold={150}
           navItems={[

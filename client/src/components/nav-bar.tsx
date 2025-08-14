@@ -55,7 +55,7 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, bg
     const navBarStyle = {
         bgColor: (scrolled || bgAlwaysSolid) ? `bg-white` : `bg-transparent`,
         textColor: (scrolled || bgAlwaysSolid) ? 'text-black' : `${fontColor}`,
-        logoColor: (scrolled || bgAlwaysSolid || (fontColor === 'black')) ? '': 'invert',
+        logoColor: (scrolled || bgAlwaysSolid || (fontColor === 'text-black')) ? '': 'invert',
         bottomBorder: (scrolled) ? "border-b border-gray-200" : "",
         textShadow: (scrolled || bgAlwaysSolid || bgAlwaysWhite) ? `text-shadow-none`: `text-shadow-md`,
         logoShadow: (scrolled || bgAlwaysSolid || bgAlwaysWhite) ? `drop-shadow-none`: `drop-shadow-[1px_1px_0_black] drop-shadow-[1px_1px_0_rgba(0,0,0,0.2)]`,

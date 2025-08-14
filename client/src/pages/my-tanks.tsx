@@ -7,7 +7,7 @@ function MyTanks() {
     <div>
       <Navbar
         authenticatedPage={true}
-        fontColor = 'black'
+        fontColor = 'text-black'
         bgAlwaysSolid={false}
         bgAlwaysWhite={true}
         scrollTransitionThreshold={Infinity}

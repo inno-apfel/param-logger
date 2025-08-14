@@ -9,7 +9,7 @@ const LoginPage = () => {
       <Navbar
         authenticatedPage={false}
         noLoginSignup={true}
-        fontColor = 'black'
+        fontColor = 'text-black'
         bgAlwaysSolid={false}
         bgAlwaysWhite={true}
         scrollTransitionThreshold={Infinity}
