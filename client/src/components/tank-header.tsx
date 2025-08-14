@@ -1,7 +1,6 @@
 import { useTank } from '@/hooks/useTank';
 import FishBG from '@/assets/reef-bg.jpeg'
 
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 function TankHeader() {
 
@@ -30,17 +29,7 @@ function TankHeader() {
                         <span className="font-semibold text-3xl text-white text-shadow-md">{tank?.name}</span>
                         <br></br>
                         <span className="text-white text-shadow-md">Default signature given to everyone~</span>
-                        <div className="h-6">
-
-                        </div>
-                        <Tabs defaultValue="account" className="absolute -bottom-4">
-                            <TabsList>
-                                <TabsTrigger value="account" className="text-xs">Profile</TabsTrigger>
-                                <TabsTrigger value="password" className="text-xs">Analytics</TabsTrigger>
-                            </TabsList>
-                            {/* <TabsContent value="account">Make changes to your account here.</TabsContent>
-                            <TabsContent value="password">Change your password here.</TabsContent> */}
-                        </Tabs>
+                        <div className="h-6" />
                     </p>
                 </div>
             </div>

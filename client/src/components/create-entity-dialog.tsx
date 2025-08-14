@@ -54,8 +54,15 @@ function CreateEntityDialog({fields, postUrl, itemName, parent_id, refreshData, 
 
         fields.forEach(({ name, type }) => {
             let value = formData.get(name);
-            const parsedValue = (type === 'number') ? parseFloat(String(value)): String(value)
-            payload[name] = parsedValue;
+            let processed_val; 
+            if (type === 'number') {
+                processed_val = parseFloat(String(value))
+            } else if (type ==='date' && typeof value === "string") {
+                processed_val = new Date(value);
+            } else {
+                processed_val = String(value);
+            } 
+            payload[name] = processed_val;
         });
         
         if (parent_id) {

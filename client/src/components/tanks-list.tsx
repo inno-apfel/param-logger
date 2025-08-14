@@ -9,6 +9,8 @@ import api from '@/lib/api'
 import { type Tank } from '@/types/prisma-models'
 import errorLogger from '@/utils/errorLogger'
 
+const today = new Date().toISOString().split("T")[0];
+
 function TanksList() {
 
   const [tanks, setTanks] = useState<Tank[] | null>(null);
@@ -47,7 +49,9 @@ function TanksList() {
 
             <CreateEntityDialog
               fields={[
-                {name: 'tank_name', label: 'Name', defaultValue: 'My Tank'}
+                {name: 'tank_name', label: 'Name', defaultValue: 'My Tank'},
+                {name: 'gallons', label: 'Gallons', defaultValue: '10', type: 'number'},
+                {name: 'setup_date', label: 'Setup Date', defaultValue: today, type: 'date'}
               ]}
               postUrl={`/tanks`}
               itemName={'Tank'}
