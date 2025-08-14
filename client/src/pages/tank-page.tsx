@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Content } from "@/components/content"
 import { Navbar } from "@/components/nav-bar"
 import { Sidebar } from "@/components/sidebar"
+import { SiteFooter } from "@/components/site-footer"
 import { TankHeader } from "@/components/tank-header"
 import { TankProvider } from '@/context/tank/provider';
 
@@ -40,7 +41,7 @@ function TankPage() {
           ]}
         />
         <TankHeader/>
-        <div className='bg-[oklch(0.9738_0.0067_277.16)] min-h-screen'>
+        <div className='bg-[oklch(0.9738_0.0067_277.16)] min-h-177'>
           <div className="flex justify-center">
             <div className="flex w-7xl">
               <Content/>
@@ -48,6 +49,7 @@ function TankPage() {
             </div>
           </div>
         </div>
+        <SiteFooter />
       </TankProvider>
     </>
   )
