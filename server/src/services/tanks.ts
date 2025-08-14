@@ -2,10 +2,12 @@ import prisma from '../db/client';
 import {type Tank} from '../generated/prisma/client';
 import NotFoundError from '../errors/NotFoundError';
 
-async function createTank(name: string, owner_id: string): Promise<Tank> {
+async function createTank(name: string, owner_id: string, gallons: number, setup_date: Date): Promise<Tank> {
   return await prisma.tank.create({
     data: {
       name,
+      gallons,
+      setup_date,
       owner: {
         connect: {id: owner_id},
       },

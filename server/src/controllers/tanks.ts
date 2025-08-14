@@ -20,6 +20,8 @@ export async function createTank(req: Request, res: Response) {
     const newTank = await tankService.createTank(
       req.body.tank_name,
       req.user!.id,
+      req.body.gallons,
+      req.body.setup_date
     );
     res.status(201).json(newTank);
 };

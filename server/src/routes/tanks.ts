@@ -23,7 +23,19 @@ const createTankValidation = [
       .isLength({ min: 3, max: 30 })
       .withMessage("Tank name must be between 3-30 characters")
       .isAlphanumeric('en-US', { ignore: ' -_' })
-      .withMessage("Tank name must be alphanumeric")
+      .withMessage("Tank name must be alphanumeric"),
+    body("gallons")
+      .trim()
+      .notEmpty()
+      .withMessage("Tank volume is required")
+      .isFloat({ min: 1 })
+      .withMessage("Gallons must be a positive number"),
+    body("setup_date")
+      .trim()
+      .notEmpty()
+      .withMessage("Setup date is required")
+      .isISO8601()
+      .withMessage("Setup date must be a valid date in YYYY-MM-DD format")
 ]
 
 const createParameterValidation = [
