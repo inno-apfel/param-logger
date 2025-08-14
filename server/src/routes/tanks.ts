@@ -63,13 +63,13 @@ const createParameterValidation = [
       .isAlphanumeric('en-US', { ignore: ' -_' })
       .withMessage("Parameter name must be alphanumeric")
       .custom(async (param_name, { req }) => {
-          const tank_id = req.body.tankId;
+          const tank_id = req.params?.tankId;
           try{
             await parameterService.getParameter(param_name, tank_id);
-            return true;
+            return Promise.reject();
           }
           catch{
-            return Promise.reject();
+            return true;
           }
         })
       .withMessage("Parameter with this name already exists"),
