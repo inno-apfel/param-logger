@@ -26,7 +26,7 @@ export function UserDropdown() {
         <div className="flex gap-2 relative">              
             <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
-                    <Avatar className="size-8 drop-shadow-md">
+                    <Avatar className="size-8">
                         <AvatarImage src="" />
                         <AvatarFallback className="text-black">CU</AvatarFallback>
                     </Avatar>

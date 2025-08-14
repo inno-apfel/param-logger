@@ -1,7 +1,6 @@
 import * as React from "react"
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu"
-import { cva } from "class-variance-authority"
-import { Dot, Fish, FishSymbol, ArrowUpRight } from "lucide-react"
+import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
@@ -58,27 +57,54 @@ function NavigationMenuItem({
   )
 }
 
-const navigationMenuTriggerStyle = cva(
+const navigationMenuTriggerVariants = cva(
   `group relative inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium  disabled:pointer-events-none 
   disabled:opacity-50 focus-visible:ring-ring/50 
-  outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1`
+  outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1`,
+  {
+    variants: {
+      variant: {
+        default:
+          "",
+        with_underline:
+          "",
+      }
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
 )
 
+const underlineColors = {
+  primary: "group-data-[state=open]:bg-navbar-primary",
+  secondary: "group-data-[state=open]:bg-navbar-secondary",
+}
 
 function NavigationMenuTrigger({
   className,
   children,
-  underlineColor,
+  variant = "default",
+  underline_color = 'primary',
   ...props
-}: React.ComponentProps<typeof NavigationMenuPrimitive.Trigger> & { underlineColor?: string }) {
+}: React.ComponentProps<typeof NavigationMenuPrimitive.Trigger> &
+  VariantProps<typeof navigationMenuTriggerVariants> & 
+  { underline_color?: "primary" | "secondary" }) {
   return (
     <NavigationMenuPrimitive.Trigger
       data-slot="navigation-menu-trigger"
-      className={cn(navigationMenuTriggerStyle(), "group", className)}
+      className={cn(navigationMenuTriggerVariants({ variant }), className)}
       {...props}
     >
-      {children}{" "}
-      <span className={`absolute -bottom-2 rounded-full bg- h-1.25 w-6 duration-300 group-data-[state=open]:${underlineColor}`} />
+      {children}
+      {variant === "with_underline" && (
+  <span
+    className={cn(
+      "absolute -bottom-1.75 rounded-xs h-1 w-6 duration-300 group-data-[state=open]:drop-shadow-sm",
+      underlineColors[underline_color]
+    )}
+  />
+)}
     </NavigationMenuPrimitive.Trigger>
   )
 }
@@ -168,5 +194,5 @@ export {
   NavigationMenuLink,
   NavigationMenuIndicator,
   NavigationMenuViewport,
-  navigationMenuTriggerStyle,
+  navigationMenuTriggerVariants,
 }

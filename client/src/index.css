@@ -16,8 +16,10 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary-hover: var(--secondary-hover);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
@@ -39,6 +41,14 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-navbar-primary: var(--navbar-primary);
+  --color-navbar-primary-foreground: var(--navbar-primary-foreground);
+  --color-navbar-secondary: var(--navbar-secondary);
+  --color-navbar-secondary-foreground: var(--navbar-secondary-foreground);
+
+  --color-landing_svg_accent: var(--landing_svg_accent);
+  --color-landing_svg_accent-foreground: var(--landing_svg_accent-foreground);
 }
 
 :root {
@@ -49,10 +59,6 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
@@ -74,6 +80,21 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  /* Non-Default */
+  --primary: theme(colors.blue.500); /* Call to Action */
+  --primary-foreground: theme(colors.white);
+  --primary-hover: oklch(0.4727 0.14737 253.3486);
+  --secondary: theme(colors.white);
+  --secondary-foreground: oklch(0.205 0 0);
+  --secondary-hover: theme(colors.gray.100);
+
+  --navbar-primary: theme(colors.blue.500);
+  --navbar-primary-foreground: oklch(0.205 0 0);
+  --navbar-secondary: theme(colors.white);
+  --navbar-secondary-foreground: oklch(0.205 0 0);
+
+  --landing_svg_accent: theme(colors.blue.400);
+  --landing_svg_accent-foreground: oklch(0.205 0 0);
 }
 
 .dark {

@@ -55,7 +55,9 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, sc
         bgColor: (scrolled || bgAlwaysSolid) ? `bg-white` : `bg-transparent`,
         textColor: (scrolled || bgAlwaysSolid) ? 'black' : `${fontColor}`,
         logoColor: (scrolled || bgAlwaysSolid || (fontColor === 'black')) ? '': 'invert',
-        bottomBorder: (scrolled) ? "border-b border-gray-200" : ""
+        bottomBorder: (scrolled) ? "border-b border-gray-200" : "",
+        textShadow: (scrolled || bgAlwaysSolid) ? `text-shadow-none`: `text-shadow-md`,
+        logoShadow: (scrolled || bgAlwaysSolid) ? `drop-shadow-none`: `drop-shadow-[1px_1px_0_black] drop-shadow-[1px_1px_0_rgba(0,0,0,0.2)]`,
     }
     
     return (
@@ -69,8 +71,8 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, sc
                     <div className="flex items-center gap-6">
                         {/* Logo */}
                         <Link to="/" className="flex items-center gap-2">
-                            <img src={logo.src} className={`max-h-8 filter drop-shadow-[1px_1px_0_black] drop-shadow-[1px_1px_0_rgba(0,0,0,0.2)] ${navBarStyle.logoColor}`} alt={logo.alt} />
-                            <span className="text-xl font-semibold tracking-tighter leading-none text-shadow-md">
+                            <img src={logo.src} className={`max-h-8 filter ${navBarStyle.logoShadow} ${navBarStyle.logoColor}`} alt={logo.alt} />
+                            <span className={`text-xl font-semibold tracking-tighter leading-none ${navBarStyle.textShadow}`}>
                                 {logo.title}
                             </span>
                         </Link>
@@ -81,8 +83,9 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, sc
                                         return (
                                             <NavigationMenuItem>
                                                 <NavigationMenuTrigger 
-                                                    underlineColor={`${(navBarStyle.textColor !== 'black' ? 'bg-' + navBarStyle.textColor : 'bg-blue-400')}`} 
-                                                    className="text-lg text-shadow-md leading-none"
+                                                    underline_color={navBarStyle.textColor !== 'black' ? 'secondary' : 'primary'} 
+                                                    className={`text-lg ${navBarStyle.textShadow} leading-none`}
+                                                    variant="with_underline"
                                                 >
                                                     <Link to={to_url}>
                                                         {label}
@@ -119,26 +122,29 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, sc
                             {authenticatedPage ? (
                                 <UserDropdown />
                             ) : (
-                                <div className="flex gap-2"> 
+                                <div className="flex"> 
                                     <NavigationMenu className="">
                                         <NavigationMenuList>
                                             <NavigationMenuItem>
-                                                <NavigationMenuTrigger 
-                                                    underlineColor={`${(navBarStyle.textColor !== 'black' ? 'bg-' + navBarStyle.textColor : 'bg-blue-400')}`} 
+                                                <NavigationMenuTrigger
                                                     className="text-md leading-none"
                                                 >
                                                     <Link to="/login">
-                                                        Login
+                                                        {/* <div className="hover:bg-gray-100 py-2 px-3 rounded-sm pb-2">
+                                                            Log in
+                                                        </div> */}
+                                                        <Button variant="secondary" size="sm">
+                                                            Log in
+                                                        </Button>
                                                     </Link>
                                                 </NavigationMenuTrigger>
                                             </NavigationMenuItem>
                                             <NavigationMenuItem>
                                                 <NavigationMenuTrigger 
-                                                    underlineColor={`${(navBarStyle.textColor !== 'black' ? 'bg-' + navBarStyle.textColor : 'bg-blue-400')}`} 
                                                     className="text-xl leading-none"
                                                 >
                                                     <Link to="/signup">
-                                                    <Button className="bg-blue-500">
+                                                    <Button>
                                                         Get ParamLogger Free
                                                     </Button>
                                                         
