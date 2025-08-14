@@ -2,6 +2,7 @@ import api from '@/lib/api'
 import { useState, type ReactNode } from 'react'
 
 import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
 import {
   Dialog,
   DialogClose,
@@ -89,9 +90,21 @@ function CreateEntityDialog({fields, postUrl, itemName, parent_id, refreshData, 
                     <DialogDescription>
                         Create your {itemName} here. Click save when you're done.
                         {errors.length > 0 ? 
-                        <div className='text-red-500 pb-2'>
+                        <div className='text-red-500 text-muted-foreground text-center text-xs'>
+                            <br></br><br></br>
                             {errors.map((message) => {
-                                return <><br/>&lt;{message}&gt;</>
+                                return (
+                                <>
+                                    <Card className="rounded-md py-4 px-8 bg-red-100 border border-red-300">
+                                    <div className="flex justify-between">
+                                        <div>
+                                        {message}
+                                        </div>
+                                    </div>
+                                    </Card>
+                                    <br/>
+                                </>
+                                )
                             })}
                         </div>
                         : null}
