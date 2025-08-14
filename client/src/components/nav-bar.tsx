@@ -33,11 +33,12 @@ type Props = {
     noLoginSignup?: boolean,
     fontColor: string,
     bgAlwaysSolid: boolean,
+    bgAlwaysWhite?: boolean,
     scrollTransitionThreshold?: number,
     navItems?: navItem[],
 }
 
-function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, scrollTransitionThreshold=0, navItems=[] }: Props) {
+function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, bgAlwaysWhite, scrollTransitionThreshold=0, navItems=[] }: Props) {
 
     const [scrolled, setScrolled] = useState(false);
 
@@ -53,11 +54,11 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, sc
 
     const navBarStyle = {
         bgColor: (scrolled || bgAlwaysSolid) ? `bg-white` : `bg-transparent`,
-        textColor: (scrolled || bgAlwaysSolid) ? 'black' : `${fontColor}`,
+        textColor: (scrolled || bgAlwaysSolid) ? 'text-black' : `${fontColor}`,
         logoColor: (scrolled || bgAlwaysSolid || (fontColor === 'black')) ? '': 'invert',
         bottomBorder: (scrolled) ? "border-b border-gray-200" : "",
-        textShadow: (scrolled || bgAlwaysSolid) ? `text-shadow-none`: `text-shadow-md`,
-        logoShadow: (scrolled || bgAlwaysSolid) ? `drop-shadow-none`: `drop-shadow-[1px_1px_0_black] drop-shadow-[1px_1px_0_rgba(0,0,0,0.2)]`,
+        textShadow: (scrolled || bgAlwaysSolid || bgAlwaysWhite) ? `text-shadow-none`: `text-shadow-md`,
+        logoShadow: (scrolled || bgAlwaysSolid || bgAlwaysWhite) ? `drop-shadow-none`: `drop-shadow-[1px_1px_0_black] drop-shadow-[1px_1px_0_rgba(0,0,0,0.2)]`,
     }
     
     return (
@@ -65,7 +66,7 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, sc
             <div className="px-6">
 
                 {/* Desktop Menu */}
-                <nav className={`hidden justify-between sm:flex text-${navBarStyle.textColor}`}>
+                <nav className={`hidden justify-between sm:flex ${navBarStyle.textColor}`}>
 
                     {/* Left Nav */}
                     <div className="flex items-center gap-6">

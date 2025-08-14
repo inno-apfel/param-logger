@@ -7,7 +7,7 @@ import ExampleTwo from '../assets/landing_my_tanks_example.png';
 function HeroSection(){
     return (
         <div className='h-screen bg-white'>
-            <div className='h-16 bg-black'>
+            <div className='h-16 bg-white'>
             </div>
             
             <div className="flex flex-col items-center">

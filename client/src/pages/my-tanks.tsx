@@ -9,6 +9,7 @@ function MyTanks() {
         authenticatedPage={true}
         fontColor = 'black'
         bgAlwaysSolid={false}
+        bgAlwaysWhite={true}
         scrollTransitionThreshold={Infinity}
       />
       <TanksList/>

@@ -11,6 +11,7 @@ const LoginPage = () => {
         noLoginSignup={true}
         fontColor = 'black'
         bgAlwaysSolid={false}
+        bgAlwaysWhite={true}
         scrollTransitionThreshold={Infinity}
       />
       

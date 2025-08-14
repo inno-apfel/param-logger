@@ -6,8 +6,9 @@ const LandingPage = () => {
     <div>
       <Navbar
         authenticatedPage={false}
-        fontColor = 'white'
-        bgAlwaysSolid={true}
+        fontColor = 'black'
+        bgAlwaysSolid={false}
+        bgAlwaysWhite={true}
         scrollTransitionThreshold={0}
       />
       <HeroSection/>

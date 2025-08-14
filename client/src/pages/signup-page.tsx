@@ -10,6 +10,7 @@ const SignupPage = () => {
         noLoginSignup={true}
         fontColor = 'white'
         bgAlwaysSolid={false}
+        bgAlwaysWhite={true}
         scrollTransitionThreshold={Infinity}
       />
 
