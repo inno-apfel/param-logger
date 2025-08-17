@@ -8,6 +8,7 @@ import LoginPage from "@/pages/login-page";
 import MyTanks from "@/pages/my-tanks";
 import SignupPage from "@/pages/signup-page";
 import TankPage from "@/pages/tank-page";
+import Chat from "@/pages/chat";
 
 
 const routes: RouteObject[] = [
@@ -47,6 +48,10 @@ const routes: RouteObject[] = [
         path: "/dashboard/:tankId",
         element: <TankPage/>,
         errorElement: <Error404 />,
+      },
+      {
+        path: "/chat",
+        element: <Chat/>,
       },
     ]
   },

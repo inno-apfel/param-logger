@@ -11,6 +11,12 @@ function MyTanks() {
         bgAlwaysSolid={false}
         bgAlwaysWhite={true}
         scrollTransitionThreshold={Infinity}
+        navItems={[
+          {
+            label: 'Chat', 
+            to_url: '/chat', 
+          }
+        ]}
       />
       <TanksList/>
     </div>

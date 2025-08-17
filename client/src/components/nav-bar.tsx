@@ -56,7 +56,7 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, bg
         bgColor: (scrolled || bgAlwaysSolid) ? `bg-white` : `bg-transparent`,
         textColor: (scrolled || bgAlwaysSolid) ? 'text-black' : `${fontColor}`,
         logoColor: (scrolled || bgAlwaysSolid || (fontColor === 'text-black')) ? '': 'invert',
-        bottomBorder: (scrolled) ? "border-b border-gray-200" : "",
+        bottomBorder: (scrolled || scrollTransitionThreshold < 0) ? "border-b border-gray-200" : "",
         textShadow: (scrolled || bgAlwaysSolid || bgAlwaysWhite) ? `text-shadow-none`: `text-shadow-md`,
         logoShadow: (scrolled || bgAlwaysSolid || bgAlwaysWhite) ? `drop-shadow-none`: `drop-shadow-[1px_1px_0_black] drop-shadow-[1px_1px_0_rgba(0,0,0,0.2)]`,
     }
@@ -72,8 +72,8 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, bg
                     <div className="flex items-center gap-6">
                         {/* Logo */}
                         <Link to="/" className="flex items-center gap-2">
-                            <img src={logo.src} className={`max-h-8 filter ${navBarStyle.logoShadow} ${navBarStyle.logoColor}`} alt={logo.alt} />
-                            <span className={`text-xl font-semibold tracking-tighter leading-none ${navBarStyle.textShadow}`}>
+                            <img src={logo.src} className={`max-h-6 filter ${navBarStyle.logoShadow} ${navBarStyle.logoColor}`} alt={logo.alt} />
+                            <span className={`text-lg font-semibold tracking-tighter leading-none ${navBarStyle.textShadow}`}>
                                 {logo.title}
                             </span>
                         </Link>
@@ -84,8 +84,8 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, bg
                                         return (
                                             <NavigationMenuItem>
                                                 <NavigationMenuTrigger 
-                                                    underline_color={navBarStyle.textColor !== 'black' ? 'secondary' : 'primary'} 
-                                                    className={`text-lg ${navBarStyle.textShadow} leading-none`}
+                                                    underline_color={navBarStyle.bgColor === 'bg-white' ? 'primary' : 'secondary'} 
+                                                    className={`text-md ${navBarStyle.textShadow} leading-none`}
                                                     variant="with_underline"
                                                 >
                                                     <Link to={to_url}>

@@ -25,7 +25,7 @@ import { DatePicker } from '@/components/date-picker';
 
 import { type Todo } from '@/types/prisma-models'
 
-export function TaskList({tasks}: {tasks: Todo[]}) {
+export function TaskList() {
 
   return (
     <Card className="shadow-none min-w-100">

@@ -38,6 +38,10 @@ function TankPage() {
                   to_url: '/dashboard/25302a04-139c-47ef-8ced-7754aac35c4a'
                 }
               ]
+            },
+            {
+              label: 'Chat', 
+              to_url: '/chat', 
             }
           ]}
         />
