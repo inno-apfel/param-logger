@@ -1,13 +1,17 @@
-import {Router} from 'express';
+import {NextFunction, Router} from 'express';
 import { body, param } from 'express-validator';
 
 import {
   createTank,
   createTankObservation,
   createTankParameter,
+  createTankTask,
   getAllTanksForUser,
   getTank,
   getTankObservations,
+  getTankTasks,
+  updateTankTasks,
+  deleteTankTask
 } from '../controllers/tanks';
 import handleValidationErrors from '../middlewares/handleValidationErrors'
 import checkTankOwnership from '../middlewares/checkTankOwnership'
@@ -28,7 +32,7 @@ const createTankValidation = [
       .trim()
       .notEmpty()
       .withMessage("Tank volume is required")
-      .isFloat({ min: 1 })
+      .isFloat()
       .withMessage("Gallons must be a positive number"),
     body("setup_date")
       .trim()
@@ -102,7 +106,147 @@ const createObservationValidation = [
       .withMessage("Parameter ID must be a valid UUID")
 ]
 
+export const createTaskValidation = [
+  param("tankId")
+    .trim()
+    .notEmpty()
+    .withMessage("Tank ID is required")
+    .isUUID()
+    .withMessage("Tank ID must be a valid UUID")
+    .custom(async (tankId) => {
+      try {
+        await tankService.getTank(tankId);
+        return true;
+      } catch {
+        return Promise.reject("Tank ID must reference an existing tank");
+      }
+    }),
+  body("message")
+    .trim()
+    .isLength({ min: 1, max: 255 })
+    .withMessage("Task message must be between 1-255 characters"),
+  body("deadline")
+    .trim()
+    .isISO8601()
+    .withMessage("Deadline must be a valid ISO8601 date"),
+  body("recur_interval_days")
+    .optional()
+    .isInt({ min: -1 })
+    .withMessage("Recur interval must be a positive integer or -1 for never repeat")
+    .toInt(),
+];
+
+export const updateTaskValidation = [
+  param("tankId")
+    .trim()
+    .notEmpty()
+    .withMessage("Tank ID is required")
+    .isUUID()
+    .withMessage("Tank ID must be a valid UUID")
+    .custom(async (tankId) => {
+      try {
+        await tankService.getTank(tankId);
+        return true;
+      } catch {
+        return Promise.reject("Tank ID must reference an existing tank");
+      }
+    }),
+  body("message")
+    .optional()
+    .trim()
+    .isLength({ min: 1, max: 255 })
+    .withMessage("Task message must be between 1-255 characters"),
+  body("deadline")
+    .optional()
+    .trim()
+    .isISO8601()
+    .withMessage("Deadline must be a valid ISO8601 date"),
+  body("completed")
+    .optional()
+    .isBoolean()
+    .withMessage("Completed must be a boolean"),
+  body("recur_interval_days")
+    .optional()
+    .isInt({ min: -1 })
+    .withMessage("Recur interval must be a positive integer or -1 for never repeat")
+    .toInt()
+];
+
 router.use(requireAuthentication);
+
+/**
+ * @openapi
+ * /tanks/{tankId}/tasks:
+ *   get:
+ *     tags:
+ *       - Tanks
+ *     summary: Get all tasks for a tank
+ *     parameters:
+ *       - $ref: '#/components/parameters/TankIdParam'
+ *     responses:
+ *      200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Task'
+ *      401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ *      404:
+ *         description: Not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ */
+router.get('/:tankId/tasks', checkTankOwnership, getTankTasks);
+
+/**
+ * @openapi
+ * /tanks/{tankId}/tasks:
+ *   post:
+ *     tags:
+ *       - Tanks
+ *     summary: Create a new task
+ *     parameters:
+ *       - $ref: '#/components/parameters/TankIdParam'
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreateTaskInput'
+ *     responses:
+ *      201:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/CreateTaskResponse'
+ *      400:
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ *      401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/ErrorResponse'
+ */
+router.post('/:tankId/tasks', createTaskValidation, handleValidationErrors, checkTankOwnership, createTankTask);
+
+router.put('/:tankId/tasks/:taskId', updateTaskValidation, handleValidationErrors, checkTankOwnership, updateTankTasks);
+
+router.delete('/:tankId/tasks/:taskId', checkTankOwnership, deleteTankTask);
 
 /**
  * @openapi

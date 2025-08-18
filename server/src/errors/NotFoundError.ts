@@ -1,4 +1,4 @@
-type ResourceType = 'User' | 'Tank' | 'Parameter' | 'Observation'; // Add your resource types
+type ResourceType = 'User' | 'Tank' | 'Parameter' | 'Observation' | 'Task'; // Add your resource types
 
 class NotFoundError extends Error {
   statusCode: number = 404;

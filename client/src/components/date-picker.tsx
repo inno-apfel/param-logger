@@ -9,9 +9,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-export function DatePicker() {
+export function DatePicker({date, setDate}: {date: Date | undefined, setDate:Function}) {
   const [open, setOpen] = useState(false)
-  const [date, setDate] = useState<Date | undefined>(undefined)
   return (
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>

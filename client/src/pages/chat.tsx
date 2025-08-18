@@ -30,7 +30,7 @@ const Chat = () => {
           },
         ]}
       />
-      <div className="h-17"></div>
+      <div className="h-17" />
       <div className="flex w-full h-screen justify-center items-center ">
         <div className="flex flex-col items-center mb-80">
           <h1 className="text-center text-2xl">

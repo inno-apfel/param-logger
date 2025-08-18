@@ -58,7 +58,8 @@ function CreateEntityDialog({fields, postUrl, itemName, parent_id, refreshData, 
             if (type === 'number') {
                 processed_val = parseFloat(String(value))
             } else if (type ==='date' && typeof value === "string") {
-                processed_val = new Date(value);
+                const [year, month, day] = value.split("-").map(Number);
+                processed_val = new Date(year, month - 1, day);
             } else {
                 processed_val = String(value);
             } 

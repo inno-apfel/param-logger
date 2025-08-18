@@ -27,3 +27,12 @@ export type Observation = {
   recorded_at: string;
   parameter_id: string;
 };
+
+export type Task = {
+  id: string;
+  message: number;
+  deadline: string;
+  completed: boolean;
+  recur_interval_days: number;
+  tank_id: string;
+};

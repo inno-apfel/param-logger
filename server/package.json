@@ -28,7 +28,8 @@
     "passport-google-oidc": "^0.1.0",
     "passport-local": "^1.0.0",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "zod": "^4.0.17"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.9.0",
