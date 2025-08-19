@@ -7,7 +7,9 @@ import { z } from "zod";
 import observationService from '../services/observations';
 import parameterService from '../services/parameters';
 import tankService from '../services/tanks';
+import tankJournalService from '../services/tank-journals';
 import taskService from '../services/tasks';
+import { E } from '@faker-js/faker/dist/airline-CLphikKp';
 
 const taskUpdateSchema = z.object({
   message: z.string().optional(),
@@ -118,4 +120,42 @@ export async function createTankObservation(
       req.body.param_id,
     ),
   );
+};
+
+export async function getTankJournal(
+  req: Request,
+  res: Response,
+) {
+  res.json(
+    await tankJournalService.getTankJournalByTankId(
+      req.params.tankId,
+    ),
+  );
+};
+
+/**
+ * Update a tank's Tank Journal, and create it if it doesn't exist yet
+ */
+export async function upsertTankJournal(
+  req: Request,
+  res: Response,
+) {
+  const existing = await tankJournalService.getTankJournalByTankId(req.params.tankId);
+  console.log(existing)
+  if (existing) {
+    res.json(
+      await tankJournalService.updateTankJournal(
+        existing.id,
+        req.body.content
+      ),
+    );
+  }
+  else {
+    res.status(201).json(
+      await tankJournalService.createTankJournal(
+        req.params.tankId,
+        req.body.content
+      ),
+    );
+  }
 };

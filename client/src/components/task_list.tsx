@@ -28,7 +28,7 @@ import { type Task } from '@/types/prisma-models'
 import errorLogger from '@/utils/errorLogger'
 
 import {
-    ISOToMMDD,
+    ISOToMMDDYY,
     distanceToDeadline,
     toLocalMidnight
 } from '@/utils/date'
@@ -132,7 +132,7 @@ export function TaskList() {
     for (let i=0; i < tasks.length; i++){
         const tillDeadline = distanceToDeadline(tasks[i].deadline);
         if (tasks[i].completed){
-            const label = (tillDeadline < -1*ONE_DAY) ? ISOToMMDD(tasks[i].deadline): ''
+            const label = (tillDeadline < -1*ONE_DAY) ? ISOToMMDDYY(tasks[i].deadline): ''
             const processed_task = Object.assign(tasks[i],{
                 text_color: '',
                 stroke_color: '',
@@ -141,7 +141,7 @@ export function TaskList() {
             finishedTasks.push(processed_task)
         }
         else if (tillDeadline < 0){
-            const label = (tillDeadline < -1*ONE_DAY) ? ISOToMMDD(tasks[i].deadline): 'YESTERDAY'
+            const label = (tillDeadline < -1*ONE_DAY) ? ISOToMMDDYY(tasks[i].deadline): 'YESTERDAY'
             const processed_task = Object.assign(tasks[i],{
                 text_color: 'text-red-700',
                 stroke_color: 'stroke-red-700',
@@ -158,7 +158,7 @@ export function TaskList() {
             todaysTasks.push(processed_task)
         }
         else {
-            const label = (tillDeadline < 2*ONE_DAY) ? 'TOMMOROW': ISOToMMDD(tasks[i].deadline)
+            const label = (tillDeadline < 2*ONE_DAY) ? 'TOMMOROW': ISOToMMDDYY(tasks[i].deadline)
             const processed_task = Object.assign(tasks[i],{
                 text_color: 'text-gray-300',
                 stroke_color: 'stroke-gray-300',

@@ -34,10 +34,11 @@ model Tank {
 }
 
 model TankJournal {
-  id      String @id @default(uuid())
-  content Json
-  tank    Tank   @relation(fields: [tank_id], references: [id])
-  tank_id String @unique
+  id         String   @id @default(uuid())
+  content    Json
+  tank       Tank     @relation(fields: [tank_id], references: [id])
+  tank_id    String   @unique
+  updated_at DateTime @updatedAt
 }
 
 model Task {

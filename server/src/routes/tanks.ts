@@ -11,7 +11,9 @@ import {
   getTankObservations,
   getTankTasks,
   updateTankTasks,
-  deleteTankTask
+  deleteTankTask,
+  getTankJournal,
+  upsertTankJournal
 } from '../controllers/tanks';
 import handleValidationErrors from '../middlewares/handleValidationErrors'
 import checkTankOwnership from '../middlewares/checkTankOwnership'
@@ -173,6 +175,9 @@ export const updateTaskValidation = [
 ];
 
 router.use(requireAuthentication);
+
+router.get('/:tankId/journal', checkTankOwnership, getTankJournal);
+router.put('/:tankId/journal', checkTankOwnership, upsertTankJournal);
 
 /**
  * @openapi

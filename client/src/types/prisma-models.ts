@@ -1,3 +1,5 @@
+import { type JSONContent } from "@tiptap/core";
+
 export type User = {
   id: string;
   username: string;
@@ -35,4 +37,11 @@ export type Task = {
   completed: boolean;
   recur_interval_days: number;
   tank_id: string;
+};
+
+export type TankJournal = {
+  id: string;
+  content: JSONContent;
+  tank_id: string;
+  updated_at: string
 };

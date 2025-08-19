@@ -1,0 +1,207 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": { "level": 2 },
+      "content": [{ "type": "text", "text": "📸 Photo Highlights" }]
+    },
+    {
+      "type": "paragraph",
+      "content": [{ "type": "text", "text": "Add 3–6 of your favorite shots below." }]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "image", "attrs": { "src": "", "alt": "Full tank shot", "title": "FTS - {{Date}}" } },
+        { "type": "text", "text": " " },
+        { "type": "image", "attrs": { "src": "", "alt": "Side angle", "title": "Side Angle" } },
+        { "type": "text", "text": " " },
+        { "type": "image", "attrs": { "src": "", "alt": "Macro coral", "title": "Macro Coral" } }
+      ]
+    },
+
+    { "type": "horizontalRule" },
+
+    {
+      "type": "heading",
+      "attrs": { "level": 2 },
+      "content": [{ "type": "text", "text": "🧪 Tank Specs" }]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "{{Display Volume & Dimensions}} (e.g., 20g Long — 30\" x 12\" x 12\")" }] }] },
+        { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Display: {{Brand/Model}}" }] }] },
+        { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Lighting: {{Fixture(s), Spectrum/K, Photoperiod}}" }] }] },
+        { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Filtration: {{HOB/Skimmer/Media Reactor/Refugium details}}" }] }] },
+        { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Flow: {{Pumps/Powerheads & GPH}}" }] }] },
+        { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Heater/Controller: {{Brand, Wattage}}" }] }] },
+        { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Rock & Sand: {{~lbs Live Rock}} / {{substrate type & depth}}" }] }] },
+        { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Add-ons: {{ATO, Doser, UV, etc.}}" }] }] }
+      ]
+    },
+
+    { "type": "horizontalRule" },
+
+    {
+      "type": "heading",
+      "attrs": { "level": 2 },
+      "content": [{ "type": "text", "text": "📖 Story & Inspiration" }]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "text": "Share how you got started, why you chose a nano reef, and any early challenges (e.g., cyano/diatoms) and breakthroughs." }
+      ]
+    },
+
+    {
+      "type": "heading",
+      "attrs": { "level": 3 },
+      "content": [{ "type": "text", "text": "Early Days Photos (optional)" }]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "image", "attrs": { "src": "", "alt": "Day 1 aquascape", "title": "Early Aquascape" } },
+        { "type": "text", "text": " " },
+        { "type": "image", "attrs": { "src": "", "alt": "First corals", "title": "First Corals" } }
+      ]
+    },
+
+    { "type": "horizontalRule" },
+
+    {
+      "type": "heading",
+      "attrs": { "level": 2 },
+      "content": [{ "type": "text", "text": "🐠 Inhabitants" }]
+    },
+    {
+      "type": "heading",
+      "attrs": { "level": 3 },
+      "content": [{ "type": "text", "text": "Fish" }]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "{{Qty}} × {{Species Common Name}} ({{Scientific name}}, optional)" }] }] }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": { "level": 3 },
+      "content": [{ "type": "text", "text": "Invertebrates" }]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "{{Snails/Hermits/Shrimp/Stars, quantities}}" }] }] }
+      ]
+    },
+
+    {
+      "type": "heading",
+      "attrs": { "level": 3 },
+      "content": [{ "type": "text", "text": "Corals" }]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Softies: {{Zoas, Mushrooms, Xenia, GSP, etc.}}" }] }] },
+        { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "LPS: {{Frogspawn, Blastomussa, Brain corals, etc.}}" }] }] },
+        { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "SPS: {{Acropora, Montipora (digi/cap), Birdsnest, etc.}}" }] }] },
+        { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Clams: {{Crocea/Maxima/Squamosa}}" }] }] },
+        { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Anemones: {{Species}}" }] }] }
+      ]
+    },
+
+    { "type": "horizontalRule" },
+
+    {
+      "type": "heading",
+      "attrs": { "level": 2 },
+      "content": [{ "type": "text", "text": "🧼 Maintenance" }]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "text": "Salt: {{Brand}} | Weekly water change: {{X}} gallons | Salinity: {{1.025}} | Temp: {{78–81°F}} | ATO: {{Brand}}" }
+      ]
+    },
+    {
+      "type": "taskList",
+      "content": [
+        { "type": "taskItem", "attrs": { "checked": false }, "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Change carbon & phosphate media (monthly)" }] }] },
+        { "type": "taskItem", "attrs": { "checked": false }, "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Clean glass/magnet and scrape algae (2–3× weekly)" }] }] },
+        { "type": "taskItem", "attrs": { "checked": false }, "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Prune refugium macroalgae (every ~3 weeks)" }] }] },
+        { "type": "taskItem", "attrs": { "checked": false }, "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Test: Alk/Ca/Mg/NO3/PO4 (schedule: {{e.g., 2× weekly}})" }] }] },
+        { "type": "taskItem", "attrs": { "checked": false }, "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Dose two-part / trace as needed (target Ca ≈ 420 ppm)" }] }] }
+      ]
+    },
+
+    {
+      "type": "heading",
+      "attrs": { "level": 3 },
+      "content": [{ "type": "text", "text": "Feeding" }]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Fish: {{Pellets/Flake}} — {{1–2× daily}}" }] }] },
+        { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Corals: {{Target feed list}} — {{2–3× weekly}}" }] }] },
+        { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Phyto/Zooplankton/Golden Pearls: {{Schedule}}" }] }] }
+      ]
+    },
+
+    { "type": "horizontalRule" },
+
+    {
+      "type": "heading",
+      "attrs": { "level": 2 },
+      "content": [{ "type": "text", "text": "🧠 Tips, Challenges & Lessons" }]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "text": "Note any chemical warfare, space management, fragging, or stability tricks that helped your nano thrive." }
+      ]
+    },
+
+    {
+      "type": "blockquote",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [{ "type": "text", "text": "“May all your corals be fluffy!” — add your favorite reefing motto here." }]
+        }
+      ]
+    },
+
+    { "type": "horizontalRule" },
+
+    {
+      "type": "heading",
+      "attrs": { "level": 2 },
+      "content": [{ "type": "text", "text": "🙏 Acknowledgments" }]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "text": "Shoutouts to local fish stores, online vendors, and reefing friends who helped along the way: {{Names/Stores/Clubs}}" }
+      ]
+    },
+
+    {
+      "type": "heading",
+      "attrs": { "level": 2 },
+      "content": [{ "type": "text", "text": "🔭 What’s Next" }]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "text": "Future plans: {{New corals/fish, equipment upgrades, larger system plans}}." }
+      ]
+    }
+  ]
+}

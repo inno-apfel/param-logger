@@ -1,12 +1,7 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-import { Analytics } from './analytics'
+import { Analytics } from '@/components//analytics'
+import { TankProfile } from '@/components/tank-profile'
 
 /**
  * Main content block for tanks dashboard
@@ -25,19 +20,7 @@ function Content() {
         <Analytics />
       </TabsContent>
       <TabsContent value="profile">
-        <div className="grid grid-cols-2 grow-5 pt-2">
-          <Card className="col-span-2 m-2 shadow-none grow">
-            <CardHeader>
-              <CardTitle>
-                  Profile
-              </CardTitle>
-              <hr className="-mx-6 mt-4  border-gray-100" />
-            </CardHeader>
-            <CardContent>
-                JSON Content
-            </CardContent>
-          </Card>
-        </div>
+        <TankProfile />
       </TabsContent>
     </Tabs>
   )

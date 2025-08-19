@@ -3,13 +3,17 @@ export function formatToDMY(dateString: number): string {
   const day = String(date.getDate()).padStart(2, '0');
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
+  return `${month}/${day}/${year}`;
 }
 
-export function ISOToMMDD(ISOString: string){
+export function ISOToMMDDYY(ISOString: string, includeY?: boolean){
     const date = new Date(ISOString);
     const mm = String(date.getMonth() + 1).padStart(2, "0");
     const dd = String(date.getDate()).padStart(2, "0");
+    if (includeY) {
+        const year = date.getFullYear();
+        return `${mm}/${dd}/${year}`;
+    }
     return `${mm}/${dd}`;
 }
 
