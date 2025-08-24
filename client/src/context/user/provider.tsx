@@ -26,7 +26,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     fetchUser();
-  })
+  }, [])
 
   const refreshUser = async () => {
     setLoading(true);
