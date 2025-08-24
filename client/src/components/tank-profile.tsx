@@ -71,7 +71,7 @@ function TankProfile() {
                 <hr className="mt-4" />
             </CardHeader>
             <CardContent>
-                <SimpleEditor editable={false} content={profile?.content} onChange={setTextInput}/>
+                <SimpleEditor editable={true} content={profile?.content} onChange={setTextInput}/>
                 <hr className="mt-10 mb-6" />
                 <div className="flex justify-between items-center">
                 <p className="text-sm text-muted-foreground">
