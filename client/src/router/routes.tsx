@@ -9,6 +9,7 @@ import MyTanks from "@/pages/my-tanks";
 import SignupPage from "@/pages/signup-page";
 import TankPage from "@/pages/tank-page";
 import Chat from "@/pages/chat";
+import Account from "@/pages/account";
 
 
 const routes: RouteObject[] = [
@@ -52,6 +53,10 @@ const routes: RouteObject[] = [
       {
         path: "/chat",
         element: <Chat/>,
+      },
+      {
+        path: "/account",
+        element: <Account/>,
       },
     ]
   },

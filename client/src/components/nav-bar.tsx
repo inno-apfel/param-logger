@@ -130,26 +130,26 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, bg
                                                 <NavigationMenuTrigger
                                                     className="text-md leading-none"
                                                 >
-                                                    <Link to="/login">
-                                                        {/* <div className="hover:bg-gray-100 py-2 px-3 rounded-sm pb-2">
-                                                            Log in
-                                                        </div> */}
+                                                    
                                                         <Button variant="secondary" size="sm">
-                                                            Log in
+                                                            <Link to="/login">
+                                                                Log in
+                                                            </Link>
                                                         </Button>
-                                                    </Link>
+                                                    
                                                 </NavigationMenuTrigger>
                                             </NavigationMenuItem>
                                             <NavigationMenuItem>
                                                 <NavigationMenuTrigger 
                                                     className="text-xl leading-none"
                                                 >
+                                                    
+                                                <Button>
                                                     <Link to="/signup">
-                                                    <Button>
-                                                        Get ParamLogger Free
-                                                    </Button>
-                                                        
+                                                    Get ParamLogger Free
                                                     </Link>
+                                                </Button>
+                                                
                                                 </NavigationMenuTrigger>
                                             </NavigationMenuItem>
                                         </NavigationMenuList>

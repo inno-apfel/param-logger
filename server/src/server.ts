@@ -4,6 +4,7 @@ import session from 'express-session';
 import passport from 'passport';
 
 import authRouter from './routes/auth';
+import userRouter from './routes/users';
 import tankRouter from './routes/tanks';
 import globalErrorHandler from './middlewares/globalErrorHandler';
 
@@ -32,8 +33,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/tanks', tankRouter)
 app.use('/auth', authRouter)
+app.use('/users', userRouter)
+app.use('/tanks', tankRouter)
 app.get('/', async (req: Request, res: Response) => {
   res.send('OK')
 });

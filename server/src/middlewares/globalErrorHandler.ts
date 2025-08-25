@@ -3,6 +3,7 @@ import {
     Response, 
     NextFunction 
 } from 'express';
+import { MulterError } from 'multer'
 
 import BadUsernamePasswordError from '../errors/BadUsernamePasswordError'
 import ForbiddenError from '../errors/ForbiddenError'
@@ -21,6 +22,13 @@ const globalErrorHandler = (err: Error, req: Request, res: Response, next: NextF
         params: req.params,
         timestamp: new Date().toISOString()
     });
+    // Handle multer errors
+    if (err instanceof MulterError){
+        res.status(400).json({
+            messages: [err.message],
+            timestamp: new Date().toISOString()
+        });
+    }
     // Handle custom errors
     if (err instanceof NotFoundError || 
         err instanceof NotAuthenticatedError ||

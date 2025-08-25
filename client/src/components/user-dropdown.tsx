@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from 'react-router-dom';
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -27,14 +27,18 @@ export function UserDropdown() {
             <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
                     <Avatar className="size-8">
-                        <AvatarImage src="" />
+                        <AvatarImage src={user?.avatar} />
                         <AvatarFallback className="text-black">CU</AvatarFallback>
                     </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="absolute right-0 top-3 border-0 shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
                     <DropdownMenuLabel>{user?.username}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                    <Link to="/account">
+                        <DropdownMenuItem>
+                            Profile
+                        </DropdownMenuItem>
+                    </Link>
                     <DropdownMenuItem>Settings</DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>

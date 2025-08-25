@@ -9,7 +9,6 @@ import parameterService from '../services/parameters';
 import tankService from '../services/tanks';
 import tankJournalService from '../services/tank-journals';
 import taskService from '../services/tasks';
-import { E } from '@faker-js/faker/dist/airline-CLphikKp';
 
 const taskUpdateSchema = z.object({
   message: z.string().optional(),
