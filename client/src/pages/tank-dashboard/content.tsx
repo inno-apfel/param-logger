@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-import { Analytics } from '@/components//analytics'
-import { TankProfile } from '@/components/tank-profile'
+import { Analytics } from './analytics'
+import { TankProfile } from './tank-profile'
 
 /**
  * Main content block for tanks dashboard

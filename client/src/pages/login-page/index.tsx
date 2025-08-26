@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/nav-bar"
 
-import { LoginForm } from "@/components/login-form"
+import { LoginForm } from "./login-form"
 
 const LoginPage = () => {
 

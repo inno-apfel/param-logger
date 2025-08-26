@@ -1,15 +1,15 @@
 import { useParams } from 'react-router-dom';
 
-import { Content } from "@/components/content";
 import { Navbar } from "@/components/nav-bar";
-import { Sidebar } from "@/components/sidebar";
 import { SiteFooter } from "@/components/site-footer";
-import { TankHeader } from "@/components/tank-header";
+import { Content } from "./content";
+import { Sidebar } from "./sidebar";
+import { TankHeader } from "./tank-header";
+
 import { TankProvider } from '@/context/tank/provider';
 
 function TankPage() {
   
-
   const { tankId } = useParams()
 
   return (

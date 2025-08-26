@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card"
 
 import CreateEntityDialog from '@/components/create-entity-dialog'
-import { ParamChart } from "@/components/param-chart"
+import { ParamChart } from "./param-chart"
 
 import api from '@/lib/api'
 import { useTank } from "@/hooks/useTank";

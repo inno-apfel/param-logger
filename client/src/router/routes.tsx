@@ -1,16 +1,15 @@
 import { Outlet, type RouteObject } from "react-router-dom";
 
 import { ProtectedRoute } from '@/components/protected-route';
-import { RedirectIfAuthenticated } from '@/components/redirect-if-authenticed';
+import { RedirectIfAuthenticated } from '@/components/redirect-if-authenticated';
 import LandingPage from "@/pages/landing-page";
 import Error404 from "@/pages/error-404";
 import LoginPage from "@/pages/login-page";
 import MyTanks from "@/pages/my-tanks";
 import SignupPage from "@/pages/signup-page";
-import TankPage from "@/pages/tank-page";
+import TankPage from "@/pages/tank-dashboard";
 import Chat from "@/pages/chat";
 import Account from "@/pages/account";
-
 
 const routes: RouteObject[] = [
   {

@@ -7,15 +7,15 @@ export function RedirectIfAuthenticated({ children }: { children: React.ReactNod
 
     const navigate = useNavigate();
     const { user, loading } = useUser();
-
-    if (loading) return null;
-
+    
     useEffect(() => {
         if (user !== null){
             alert('Already Logged In');
             navigate('/my-tanks')
         }
     },[user])
+
+    if (loading) return null;
 
     return <>{children}</>;
 }

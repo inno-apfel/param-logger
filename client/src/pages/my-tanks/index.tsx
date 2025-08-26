@@ -1,5 +1,6 @@
-import TanksList from '@/components/tanks-list'
 import { Navbar } from "@/components/nav-bar"
+
+import TanksList from './tanks-list'
 
 function MyTanks() {
 

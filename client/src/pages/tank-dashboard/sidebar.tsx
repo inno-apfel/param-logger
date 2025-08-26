@@ -1,4 +1,4 @@
-import { TaskList } from '@/components/task_list'
+import { TaskList } from './task-list'
 
 function Sidebar() {
 

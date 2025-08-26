@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/nav-bar"
 
-import { SignupForm } from "@/components/signup-form"
+import { SignupForm } from "./signup-form"
 
 const SignupPage = () => {
   return (

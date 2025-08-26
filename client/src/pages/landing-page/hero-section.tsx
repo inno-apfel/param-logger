@@ -1,8 +1,8 @@
 import { Activity, List, Bot } from "lucide-react";
 import { SiteFooter } from "@/components/site-footer";
-import ReactLogo from '../assets/react_logo.svg';
-import ExampleOne from '../assets/landing_parameters_example.png';
-import ExampleTwo from '../assets/landing_my_tanks_example.png';
+import ReactLogo from '@/assets/react_logo.svg';
+import ExampleOne from '@/assets/landing_parameters_example.png';
+import ExampleTwo from '@/assets/landing_my_tanks_example.png';
 
 function HeroSection(){
     return (
