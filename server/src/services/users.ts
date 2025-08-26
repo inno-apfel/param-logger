@@ -4,6 +4,7 @@ import {
   DeleteObjectCommand
 } from "@aws-sdk/client-s3"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
+import bcrypt from 'bcryptjs'
 import sharp from 'sharp'
 
 import prisma from '../db/client';
@@ -47,10 +48,22 @@ async function getUserByUsername(username: string): Promise<User> {
   return user
 }
 
-async function updateUser(id: string, data: Partial<Omit<User, "id" | "username">>): Promise<User> {
-  return await prisma.user.update({
+async function updateUser(
+  id: string, 
+  data: {
+    username?: string;
+    password?: string;
+  }
+): Promise<User> {
+
+  const updateData = {
+    ...(data.username && { username: data.username }),
+    ...(data.password && { password_hash: await bcrypt.hash(data.password, 10) }),
+  };
+
+  return prisma.user.update({
     where: { id },
-    data
+    data: updateData,
   });
 }
 
@@ -93,6 +106,13 @@ export async function updateUserAvatar(userId: string, file: Express.Multer.File
   return fileName;
 }
 
+async function deleteUser(id: string): Promise<User> {
+  const user = await prisma.user.delete({
+    where: {id},
+  });
+  return user
+}
+
 async function getAvatarUrlIfExists(avatarFileName: string | null){
   if (!avatarFileName) return null;
   const command = new GetObjectCommand({
@@ -108,6 +128,7 @@ export default {
   getUserById,
   getUserByUsername,
   updateUser,
-  updateUserAvatar
+  updateUserAvatar,
+  deleteUser
 };
 

@@ -37,7 +37,7 @@ model Tank {
 model TankJournal {
   id         String   @id @default(uuid())
   content    Json
-  tank       Tank     @relation(fields: [tank_id], references: [id])
+  tank       Tank     @relation(fields: [tank_id], references: [id], onDelete: Cascade)
   tank_id    String   @unique
   updated_at DateTime @updatedAt
 }

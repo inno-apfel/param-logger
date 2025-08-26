@@ -1,8 +1,47 @@
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 import { Button } from '@/components/ui/button'
+import { Card } from "@/components/ui/card"
 
 import { TriangleExclamation } from '@/components/icons'
+import { useUser } from '@/hooks/useUser'
+import api from '@/lib/api'
+import errorLogger from '@/utils/errorLogger'
 
 function DeleteAccount() {
+
+  const { user, logout } = useUser();
+  const [errors, setErrors] = useState<string[]>([]);
+  const navigate = useNavigate();
+  
+  const handleDelete = async (e: React.FormEvent) => {
+      e.preventDefault()
+      try {
+          await api.delete(
+              `/users/${user?.id}`,
+          );
+          alert('Account Succesfully Deleted')
+          navigate('/')
+          await logout()
+          setErrors([]);
+      } 
+      catch (error: any) {
+          const caught_errors = errorLogger(error, 'alert');
+          setErrors(caught_errors);
+      }
+  }
 
   return (
     <div className="pt-6">
@@ -37,13 +76,54 @@ function DeleteAccount() {
           </div>
         </div>
       </div>
+      {errors.length > 0 ? 
+      <div className='text-red-500 text-muted-foreground text-center text-xs'>
+          <br></br><br></br>
+          {errors.map((message) => {
+              return (
+              <>
+                  <Card className="rounded-md py-4 px-8 bg-red-100 border border-red-300">
+                  <div className="flex justify-between">
+                      <div>
+                      {message}
+                      </div>
+                  </div>
+                  </Card>
+                  <br/>
+              </>
+              )
+          })}
+      </div>
+      : null}
       <div className="mt-6 flex justify-end">
-        <Button
-          variant="destructive"
-          className="bg-gradient-to-r from-red-800 to-red-900 transition-all duration-300 hover:from-red-700 hover:to-red-800 hover:shadow-lg"
-        >
-          Delete My Account
-        </Button>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button
+              variant="destructive"
+              className="bg-gradient-to-r from-red-800 to-red-900 transition-all duration-300 hover:from-red-700 hover:to-red-800 hover:shadow-lg"
+            >
+              Delete My Account
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete your
+                account and remove your data from our servers.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction 
+                onClick={handleDelete}
+                className="bg-gradient-to-r from-red-800 to-red-900 transition-all duration-300 hover:from-red-700 hover:to-red-800 hover:shadow-lg"
+              >
+                Delete My Account
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </div>
   )
