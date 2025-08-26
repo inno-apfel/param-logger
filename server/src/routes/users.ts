@@ -48,6 +48,7 @@ const userIdValidation = [
 
 const updateUserValidation = [
     body("username")
+        .optional()
         .trim()
         .isLength({ min: 3, max: 30 })
         .withMessage("Username must be between 3-30 characters")
@@ -67,6 +68,7 @@ const updateUserValidation = [
         })
         .withMessage("Username already exists"),
     body("password")
+        .optional()
         .isLength({ min: 8, max: 128 })
         .withMessage("Password must be between 8-128 characters")
         .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/)
