@@ -107,10 +107,24 @@ export async function updateUserAvatar(userId: string, file: Express.Multer.File
 }
 
 async function deleteUser(id: string): Promise<User> {
-  const user = await prisma.user.delete({
+  // delete images from s3
+  const user = await prisma.user.findUnique({ where: { id } });
+  if (!user){
+    throw new NotFoundError('User', id); 
+  }
+  if (user.avatar) {
+    await s3.send(
+      new DeleteObjectCommand({
+        Bucket: BUCKET_NAME,
+        Key: user.avatar,
+      })
+    );
+  }
+
+  const deletedUser = await prisma.user.delete({
     where: {id},
   });
-  return user
+  return deletedUser
 }
 
 async function getAvatarUrlIfExists(avatarFileName: string | null){
