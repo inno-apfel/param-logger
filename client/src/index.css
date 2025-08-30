@@ -3,6 +3,31 @@
 
 @import './styles/_variables.scss';
 @import './styles/_keyframe-animations.scss';
+@import 'tiptap-extension-resizable-image/styles.css';
+
+.image-component {
+  position: relative;
+  display: inline-block;               /* makes border hug the content */
+  --box-color: theme(colors.gray.400);                   /* default color (can override) */
+}
+.image-component .image-resizer {
+  position: absolute;
+  border: 2px solid var(--box-color);
+  border-radius: 0;
+  background: transparent;
+  width: 0.5rem;
+  height: 0.5rem;
+}
+.node-image.ProseMirror-selectednode .image-component {
+	outline: 2px dotted var(--box-color)
+}
+/* Hide mid-edge handles */
+.image-resizer-n,
+.image-resizer-e,
+.image-resizer-s,
+.image-resizer-w {
+  visibility: hidden;
+}
 
 @custom-variant dark (&:is(.dark *));
 

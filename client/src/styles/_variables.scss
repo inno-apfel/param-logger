@@ -62,17 +62,18 @@
   --tt-gray-dark-900: rgba(245, 245, 245, 1);
 
   /* Brand colors */
-  --tt-brand-color-50: rgba(239, 238, 255, 1);
-  --tt-brand-color-100: rgba(222, 219, 255, 1);
-  --tt-brand-color-200: rgba(195, 189, 255, 1);
-  --tt-brand-color-300: rgba(157, 138, 255, 1);
-  --tt-brand-color-400: rgba(122, 82, 255, 1);
-  --tt-brand-color-500: rgba(98, 41, 255, 1);
-  --tt-brand-color-600: rgba(84, 0, 229, 1);
-  --tt-brand-color-700: rgba(75, 0, 204, 1);
-  --tt-brand-color-800: rgba(56, 0, 153, 1);
-  --tt-brand-color-900: rgba(43, 25, 102, 1);
-  --tt-brand-color-950: hsla(257, 100%, 9%, 1);
+  /* Tailwind Blue palette */
+  --tt-brand-color-50:  #eff6ff; /* blue-50 */
+  --tt-brand-color-100: #dbeafe; /* blue-100 */
+  --tt-brand-color-200: #bfdbfe; /* blue-200 */
+  --tt-brand-color-300: #93c5fd; /* blue-300 */
+  --tt-brand-color-400: #60a5fa; /* blue-400 */
+  --tt-brand-color-500: #3b82f6; /* blue-500 */
+  --tt-brand-color-600: #2563eb; /* blue-600 */
+  --tt-brand-color-700: #1d4ed8; /* blue-700 */
+  --tt-brand-color-800: #1e40af; /* blue-800 */
+  --tt-brand-color-900: #1e3a8a; /* blue-900 */
+  --tt-brand-color-950: #172554; /* blue-950 */
 
   /* Green */
   --tt-color-green-inc-5: hsla(129, 100%, 97%, 1);

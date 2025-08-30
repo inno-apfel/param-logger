@@ -6,6 +6,7 @@ import passport from 'passport';
 import authRouter from './routes/auth';
 import userRouter from './routes/users';
 import tankRouter from './routes/tanks';
+import uploadRouter from './routes/uploads';
 import globalErrorHandler from './middlewares/globalErrorHandler';
 
 import swaggerDocs from '../docs/swagger';
@@ -36,6 +37,7 @@ app.use(passport.session());
 app.use('/auth', authRouter)
 app.use('/users', userRouter)
 app.use('/tanks', tankRouter)
+app.use('/upload', uploadRouter)
 app.get('/', async (req: Request, res: Response) => {
   res.send('OK')
 });

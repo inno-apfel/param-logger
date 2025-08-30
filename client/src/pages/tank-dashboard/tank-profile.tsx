@@ -34,6 +34,7 @@ function TankProfile() {
         try {
             const response = await api.get(`/tanks/${tank?.id}/journal`);
             setProfile(response.data);
+            alert(JSON.stringify(response.data))
         } 
         catch (error: any) {
             errorLogger(error, 'log');

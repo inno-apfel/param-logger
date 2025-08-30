@@ -72,6 +72,10 @@ import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils"
 // --- Styles ---
 import "@/components/tiptap-templates/simple/simple-editor.scss"
 
+// Extra Extensions
+import { ResizableAlignableImage } from './extensions/resizeable-image-with-align'
+
+// Etc.
 import defaultContent from "@/components/tiptap-templates/simple/data/content.json"
 
 const MainToolbarContent = ({
@@ -190,6 +194,7 @@ export function SimpleEditor({editable, content, onChange}: {editable: boolean, 
   >("main")
   const toolbarRef = React.useRef<HTMLDivElement>(null)
 
+
   const editor = useEditor({
     editable,
     content: defaultContent,
@@ -212,12 +217,14 @@ export function SimpleEditor({editable, content, onChange}: {editable: boolean, 
           enableClickSelection: true,
         },
       }),
+      ResizableAlignableImage.configure({
+        maxWidth: 640,
+      }),
       HorizontalRule,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
       TaskList,
       TaskItem.configure({ nested: true }),
       Highlight.configure({ multicolor: true }),
-      Image,
       Typography,
       Superscript,
       Subscript,
@@ -235,6 +242,7 @@ export function SimpleEditor({editable, content, onChange}: {editable: boolean, 
       const json = editor.getJSON();
       onChange?.(json);
     },
+    
   })
 
   const rect = useCursorVisibility({

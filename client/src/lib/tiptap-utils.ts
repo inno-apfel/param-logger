@@ -1,6 +1,10 @@
 import type { Node as TiptapNode } from "@tiptap/pm/model"
 import { NodeSelection, Selection, TextSelection } from "@tiptap/pm/state"
 import type { Editor } from "@tiptap/react"
+import { useState } from 'react'
+
+import api from '@/lib/api'
+import errorLogger from '@/utils/errorLogger'
 
 export const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 
@@ -304,15 +308,38 @@ export const handleImageUpload = async (
 
   // For demo/testing: Simulate upload progress. In production, replace the following code
   // with your own upload implementation.
-  for (let progress = 0; progress <= 100; progress += 10) {
-    if (abortSignal?.aborted) {
-      throw new Error("Upload cancelled")
-    }
-    await new Promise((resolve) => setTimeout(resolve, 500))
-    onProgress?.({ progress })
+
+  const formData = new FormData();
+  formData.append("image", file);
+
+  try {
+    const response = await api.post<{ url: string }>(
+      `/upload/images`,
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+        signal: abortSignal,
+        // Progress tracking
+        onUploadProgress: (progressEvent) => {
+          console.log("UPLOAD PROGRESS", progressEvent.loaded, progressEvent.total);
+          if (progressEvent.total) {
+            const progress = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
+            onProgress?.({ progress });
+          }
+        },
+      }
+    );
+    console.log("BACKEND RESPONSE", response.data);
+
+    return response.data.url; // URL returned by backend
+  } catch (error: any) {
+    alert('error')
+    errorLogger(error, 'alert');
+    throw new Error(error?.message || "Upload failed");
   }
 
-  return "/images/tiptap-ui-placeholder-image.jpg"
 }
 
 type ProtocolOptions = {

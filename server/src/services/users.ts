@@ -1,21 +1,15 @@
-import { 
-  GetObjectCommand, 
-  PutObjectCommand,
-  DeleteObjectCommand
-} from "@aws-sdk/client-s3"
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 import bcrypt from 'bcryptjs'
 import sharp from 'sharp'
 
 import prisma from '../db/client';
 import {
-  s3, 
-  BUCKET_NAME 
+  uploadFileToS3,
+  getFileUrlFromS3,
+  deleteFileFromS3
 } from '../db/s3'
 import {type User} from '../generated/prisma/client';
 import NotFoundError from '../errors/NotFoundError'
 import generateFileName from '../utils/generateFileName'
-
 
 async function createUser(username: string, password_hash: string): Promise<User> {
   return await prisma.user.create({
@@ -75,26 +69,17 @@ export async function updateUserAvatar(userId: string, file: Express.Multer.File
     .toBuffer();
   // push image to s3
   const fileName = generateFileName();
-  await s3.send(new PutObjectCommand({
-    Bucket: BUCKET_NAME,
-    Key: fileName,
-    Body: buffer,
-    ContentType: file.mimetype
-  }));
+  await uploadFileToS3(fileName, buffer, file.mimetype)
   // delete old image
   const user = await prisma.user.findUnique({
-      where: {id: userId},
-    });
+    where: {id: userId},
+  });
   if (!user){
     throw new NotFoundError('User', userId); 
   }
   const oldAvatar = user.avatar;
   if (oldAvatar){
-    console.log(oldAvatar)
-    await s3.send(new DeleteObjectCommand({
-      Bucket: BUCKET_NAME,
-      Key: oldAvatar,
-    }))
+    deleteFileFromS3(oldAvatar);
   }
   // save filename in Postgres
   await prisma.user.update({
@@ -113,12 +98,7 @@ async function deleteUser(id: string): Promise<User> {
     throw new NotFoundError('User', id); 
   }
   if (user.avatar) {
-    await s3.send(
-      new DeleteObjectCommand({
-        Bucket: BUCKET_NAME,
-        Key: user.avatar,
-      })
-    );
+    deleteFileFromS3(user.avatar)
   }
 
   const deletedUser = await prisma.user.delete({
@@ -129,12 +109,7 @@ async function deleteUser(id: string): Promise<User> {
 
 async function getAvatarUrlIfExists(avatarFileName: string | null){
   if (!avatarFileName) return null;
-  const command = new GetObjectCommand({
-    Bucket: BUCKET_NAME,
-    Key: avatarFileName
-  });
-  const url = await getSignedUrl(s3, command, { expiresIn: 60 });
-  return url;
+  return await getFileUrlFromS3(avatarFileName);
 }
 
 export default {
