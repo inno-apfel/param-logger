@@ -83,10 +83,16 @@ function UpdateTankDialog({fields, putUrl, itemName, refreshData, children}: Pro
         const formData = new FormData();
 
         fields.forEach(({ name, type }) => {
-            const value = rawFormData.get(name);
-            if (type === 'date' && value === null) {
-                formData.append(name, String(dates[name]));
+            // handle dates seperately since date inputs are handled with custom state and selector
+            // to circumvent <Input type=date>'s default styling
+            if (type === 'date'){
+                const date = dates[name];
+                if (date){
+                    formData.append(name, String(dates[name]));
+                }
+                return 
             }
+            const value = rawFormData.get(name);
             if (value === null || value === "") return;
             if (type === "number") {
                 formData.append(name, String(parseFloat(String(value))));
@@ -189,8 +195,8 @@ function UpdateTankDialog({fields, putUrl, itemName, refreshData, children}: Pro
                                 {file &&
                                 <div className='w-full'>
                                     <div className="flex items-center justify-between">
-                                        <div>
-                                            <p className="font-medium">{file?.name}</p>
+                                        <div className="max-w-93">
+                                            <p className="font-medium truncate">{file?.name}</p>
                                             <p className="text-sm text-muted-foreground">{(file.size / 1024).toFixed(2)} KB</p>
                                         </div>
                                     </div>

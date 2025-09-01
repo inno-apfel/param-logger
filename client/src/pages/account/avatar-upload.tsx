@@ -133,8 +133,8 @@ function AvatarUpload() {
                         {file ? (
                             <div className='w-full'>
                                 <div className="flex items-center justify-between">
-                                    <div>
-                                        <p className="font-medium">{file?.name}</p>
+                                    <div className="max-w-93">
+                                        <p className="font-medium truncate">{file?.name}</p>
                                         <p className="text-sm text-muted-foreground">{(file.size / 1024).toFixed(2)} KB</p>
                                     </div>
                                     <Button type="submit">Upload</Button>

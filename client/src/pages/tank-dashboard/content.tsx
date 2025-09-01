@@ -16,10 +16,10 @@ function Content() {
         <TabsTrigger value="profile" className="text-xs">Profile</TabsTrigger>
         <TabsTrigger value="analytics" className="text-xs">Analytics</TabsTrigger>
       </TabsList>
-      <TabsContent value="analytics">
+      <TabsContent value="analytics" className="w-full">
         <Analytics />
       </TabsContent>
-      <TabsContent value="profile">
+      <TabsContent value="profile" className="w-full">
         <TankProfile />
       </TabsContent>
     </Tabs>
