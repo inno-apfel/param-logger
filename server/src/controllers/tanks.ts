@@ -10,6 +10,12 @@ import tankService from '../services/tanks';
 import tankJournalService from '../services/tank-journals';
 import taskService from '../services/tasks';
 
+const tankUpdateSchema = z.object({
+  name: z.string().optional(),
+  gallons: z.number().optional(),
+  setup_date: z.date().optional()
+});
+
 const taskUpdateSchema = z.object({
   message: z.string().optional(),
   deadline: z.date().optional(),
@@ -21,6 +27,20 @@ export async function getTank(req: Request, res: Response) {
   res.json(await tankService.getTank(req.params.tankId));
 };
 
+export async function updateTank(req: Request, res: Response) {
+  const parsed = tankUpdateSchema.parse({
+    name: req.body.name || undefined,
+    gallons: req.body.gallons ? parseFloat(req.body.gallons) : undefined,
+    setup_date: req.body.setup_date ? new Date(req.body.setup_date) : undefined,
+  });
+  return res.json(
+      await tankService.updateTank(
+        req.params.tankId, 
+        parsed, 
+        req.file)
+  );
+};
+
 export async function getAllTanksForUser(req: Request, res: Response) {
   const tanks = await tankService.getAllTanksForUser(req.user!.id)
   res.json(tanks);
@@ -28,7 +48,7 @@ export async function getAllTanksForUser(req: Request, res: Response) {
 
 export async function createTank(req: Request, res: Response) {
     const newTank = await tankService.createTank(
-      req.body.tank_name,
+      req.body.name,
       req.user!.id,
       parseFloat(req.body.gallons),
       req.body.setup_date

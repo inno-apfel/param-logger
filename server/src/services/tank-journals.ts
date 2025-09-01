@@ -21,7 +21,7 @@ async function getTankJournalByTankId(tank_id: string): Promise<TankJournal | nu
   return tank;
 }
 
-async function updateTankJournal(id: string, content: any): Promise<TankJournal> {
+async function updateTankJournal(id: string, content: Record<string, any>): Promise<TankJournal> {
   return await prisma.tankJournal.update({
     where: { id },
     data: {

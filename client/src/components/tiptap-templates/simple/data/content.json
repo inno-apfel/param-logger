@@ -10,16 +10,6 @@
       "type": "paragraph",
       "content": [{ "type": "text", "text": "Add 3–6 of your favorite shots below." }]
     },
-    {
-      "type": "paragraph",
-      "content": [
-        { "type": "image", "attrs": { "src": "", "alt": "Full tank shot", "title": "FTS - {{Date}}" } },
-        { "type": "text", "text": " " },
-        { "type": "image", "attrs": { "src": "", "alt": "Side angle", "title": "Side Angle" } },
-        { "type": "text", "text": " " },
-        { "type": "image", "attrs": { "src": "", "alt": "Macro coral", "title": "Macro Coral" } }
-      ]
-    },
 
     { "type": "horizontalRule" },
 
@@ -56,20 +46,6 @@
       ]
     },
 
-    {
-      "type": "heading",
-      "attrs": { "level": 3 },
-      "content": [{ "type": "text", "text": "Early Days Photos (optional)" }]
-    },
-    {
-      "type": "paragraph",
-      "content": [
-        { "type": "image", "attrs": { "src": "", "alt": "Day 1 aquascape", "title": "Early Aquascape" } },
-        { "type": "text", "text": " " },
-        { "type": "image", "attrs": { "src": "", "alt": "First corals", "title": "First Corals" } }
-      ]
-    },
-
     { "type": "horizontalRule" },
 
     {
@@ -99,7 +75,6 @@
         { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "{{Snails/Hermits/Shrimp/Stars, quantities}}" }] }] }
       ]
     },
-
     {
       "type": "heading",
       "attrs": { "level": 3 },

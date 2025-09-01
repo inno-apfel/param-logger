@@ -42,7 +42,7 @@ async function getTasksForTank(tank_id: string): Promise<Task[]> {
   return tasks;
 }
 
-async function updateTaskForTank(id: string, data: Partial<Omit<Task, "id">>): Promise<Task> {
+async function updateTaskForTank(id: string, data: Partial<Omit<Task, "id" | "tank_id">>): Promise<Task> {
   return await prisma.task.update({
     where: { id },
     data,

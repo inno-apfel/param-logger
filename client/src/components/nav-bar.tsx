@@ -84,7 +84,7 @@ function Navbar({ authenticatedPage, noLoginSignup, fontColor, bgAlwaysSolid, bg
                                         return (
                                             <NavigationMenuItem>
                                                 <NavigationMenuTrigger 
-                                                    underline_color={navBarStyle.bgColor === 'bg-white' ? 'primary' : 'secondary'} 
+                                                    underline_color={(navBarStyle.bgColor === 'bg-white') || (bgAlwaysWhite) ? 'primary' : 'secondary'} 
                                                     className={`text-md ${navBarStyle.textShadow} leading-none`}
                                                     variant="with_underline"
                                                 >

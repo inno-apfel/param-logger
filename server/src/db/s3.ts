@@ -48,11 +48,15 @@ export async function deleteFileFromS3(fileName: string): Promise<void> {
   );
 }
 
-
 export async function getFileUrlFromS3(fileName: string, expiresIn = 3600): Promise<string> {
   const command = new GetObjectCommand({
     Bucket: BUCKET_NAME,
     Key: fileName,
   });
   return await getSignedUrl(s3, command, { expiresIn });
+}
+
+export async function getPreSignedUrlIfExists(avatarFileName: string | null){
+  if (!avatarFileName) return null;
+  return await getFileUrlFromS3(avatarFileName);
 }

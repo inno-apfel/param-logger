@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { DatePicker } from '@/components/date-picker';
 import errorLogger from '@/utils/errorLogger'
 
 type Field = {
@@ -40,6 +41,7 @@ type Props = {
 
 function CreateEntityDialog({fields, postUrl, itemName, parent_id, refreshData, children}: Props) {
 
+    const [dates, setDates] = useState<{ [key: string]: Date }>({});
     const [dialogOpen, setDialogOpen] = useState(false);
     const [errors, setErrors] = useState<string[]>([]);
 
@@ -53,16 +55,20 @@ function CreateEntityDialog({fields, postUrl, itemName, parent_id, refreshData, 
         const payload: Record<string, any> = {};
 
         fields.forEach(({ name, type }) => {
-            let value = formData.get(name);
-            let processed_val; 
-            if (type === 'number') {
-                processed_val = parseFloat(String(value))
-            } else if (type ==='date' && typeof value === "string") {
-                const [year, month, day] = value.split("-").map(Number);
-                processed_val = new Date(year, month - 1, day);
+            let value = formData.get(name); // string | File | null
+            let processed_val: any;
+
+            // date values are stored in dates state not form input
+            // custom date picker to avoid default input styling
+            // formData.get() returns null for invalid keys
+            if (type === 'date' && value === null) {
+                processed_val = dates[name];
+            } else if (type === 'number') {
+                processed_val = value !== null ? parseFloat(String(value)) : null;
             } else {
-                processed_val = String(value);
-            } 
+                processed_val = value !== null ? String(value) : null;
+            }
+
             payload[name] = processed_val;
         });
         
@@ -82,6 +88,10 @@ function CreateEntityDialog({fields, postUrl, itemName, parent_id, refreshData, 
             const caught_errors = errorLogger(error, 'alert');
             setErrors(caught_errors);
         }
+    };
+
+    const handleDateChange = (name: string, value: Date) => {
+        setDates(prev => ({ ...prev, [name]: value }));
     };
 
     return (
@@ -130,7 +140,15 @@ function CreateEntityDialog({fields, postUrl, itemName, parent_id, refreshData, 
                     return (
                         <div className="grid gap-3">
                             <Label htmlFor={name}>{label}</Label>
-                            <Input id={name} name={name} type={type}  step={step} defaultValue={defaultValue} />
+                            {type === 'date' ? (
+                                <DatePicker 
+                                    date={dates[name]}
+                                    setDate={(date: Date) => handleDateChange(name, date)}
+                                    className="shadow-xs"
+                                />
+                            ): (
+                                <Input id={name} name={name} type={type}  step={step} defaultValue={defaultValue} />
+                            )}
                         </div>
                     )
                 })}

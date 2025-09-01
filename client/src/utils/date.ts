@@ -25,3 +25,10 @@ export function distanceToDeadline(deadlineISOString: string){
 export function toLocalMidnight(date: Date): Date {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1, 0, 0, 0, -1);
 }
+
+export function daysSince(ISOString: string){
+    const MILISECONDS_IN_A_DAY = (1000 * 60 * 60 * 24);
+    const today = new Date();
+    const millisecondsSince = today.getTime() - new Date(ISOString).getTime();
+    return millisecondsSince / MILISECONDS_IN_A_DAY;
+}

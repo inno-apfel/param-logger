@@ -1,5 +1,6 @@
-import {NextFunction, Router} from 'express';
+import { Router} from 'express';
 import { body, param } from 'express-validator';
+import multer from 'multer'
 
 import {
   createTank,
@@ -13,7 +14,8 @@ import {
   updateTankTasks,
   deleteTankTask,
   getTankJournal,
-  upsertTankJournal
+  upsertTankJournal,
+  updateTank
 } from '../controllers/tanks';
 import handleValidationErrors from '../middlewares/handleValidationErrors'
 import checkTankOwnership from '../middlewares/checkTankOwnership'
@@ -24,7 +26,7 @@ import parameterService from '../services/parameters';
 const router = Router();
 
 const createTankValidation = [
-    body("tank_name")
+    body("name")
       .trim()
       .isLength({ min: 3, max: 30 })
       .withMessage("Tank name must be between 3-30 characters")
@@ -43,6 +45,44 @@ const createTankValidation = [
       .isISO8601()
       .withMessage("Setup date must be a valid date in YYYY-MM-DD format")
 ]
+
+const updateTankValidation = [
+  param("tankId")
+    .trim()
+    .notEmpty()
+    .withMessage("Tank ID is required")
+    .isUUID()
+    .withMessage("Tank ID must be a valid UUID")
+    .custom(async (tankId) => {
+      try {
+        await tankService.getTank(tankId);
+        return true;
+      } catch {
+        return Promise.reject("Tank ID must reference an existing tank");
+      }
+    }),
+  body("name")
+    .optional()
+    .trim()
+    .isLength({ min: 3, max: 30 })
+    .withMessage("Tank name must be between 3-30 characters")
+    .isAlphanumeric('en-US', { ignore: ' -_' })
+    .withMessage("Tank name must be alphanumeric"),
+  body("gallons")
+    .optional()
+    .trim()
+    .notEmpty()
+    .withMessage("Tank volume is required")
+    .isFloat()
+    .withMessage("Gallons must be a positive number"),
+  body("setup_date")
+    .optional()
+    .trim()
+    .notEmpty()
+    .withMessage("Setup date is required")
+    .isISO8601()
+    .withMessage("Setup date must be a valid date in YYYY-MM-DD format")
+];
 
 const createParameterValidation = [
     param('tankId')
@@ -108,7 +148,7 @@ const createObservationValidation = [
       .withMessage("Parameter ID must be a valid UUID")
 ]
 
-export const createTaskValidation = [
+const createTaskValidation = [
   param("tankId")
     .trim()
     .notEmpty()
@@ -138,7 +178,7 @@ export const createTaskValidation = [
     .toInt(),
 ];
 
-export const updateTaskValidation = [
+const updateTaskValidation = [
   param("tankId")
     .trim()
     .notEmpty()
@@ -173,6 +213,22 @@ export const updateTaskValidation = [
     .withMessage("Recur interval must be a positive integer or -1 for never repeat")
     .toInt()
 ];
+
+const storage = multer.memoryStorage()
+const upload = multer({ 
+    storage, 
+    fileFilter: (
+        req: Express.Request, 
+        file: Express.Multer.File, 
+        cb: multer.FileFilterCallback
+    ) => {
+        if (file.mimetype.startsWith("image/")) {
+            cb(null, true);
+        } else {
+            cb(new multer.MulterError("LIMIT_UNEXPECTED_FILE"));
+        }
+    }
+});
 
 router.use(requireAuthentication);
 
@@ -390,6 +446,8 @@ router.post('/:tankId/parameters', createParameterValidation, handleValidationEr
  *                $ref: '#/components/schemas/ErrorResponse'
  */
 router.get('/:tankId', checkTankOwnership, getTank);
+
+router.put('/:tankId', updateTankValidation, handleValidationErrors, checkTankOwnership, upload.single('banner'), updateTank);
 
 /**
  * @openapi

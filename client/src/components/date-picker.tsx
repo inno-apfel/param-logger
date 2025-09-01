@@ -9,15 +9,17 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-export function DatePicker({date, setDate}: {date: Date | undefined, setDate:Function}) {
+import { cn } from "@/lib/utils";
+
+export function DatePicker({date, setDate, className}: {date: Date | undefined, setDate:Function, className?: string}) {
   const [open, setOpen] = useState(false)
   return (
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover open={open} onOpenChange={setOpen} modal={true}>
         <PopoverTrigger asChild>
           <Button
             variant="outline"
             id="date"
-            className="justify-between font-normal text-muted-foreground shadow-none"
+            className={cn("justify-between font-normal text-muted-foreground shadow-none", className)}
           >
             {date ? date.toLocaleDateString() : "Select date"}
             <ChevronDownIcon className="size-4 opacity-50" />

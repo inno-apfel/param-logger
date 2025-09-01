@@ -11,6 +11,9 @@ export type User = {
 export type Tank = {
   id: string;
   name: string;
+  gallons: number;
+  setup_date: string;
+  banner: string;
   owner_id: string;
   parameters: Parameter[];
 };

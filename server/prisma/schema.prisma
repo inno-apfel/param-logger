@@ -32,6 +32,7 @@ model Tank {
   parameters Parameter[]
   task       Task[]
   journal    TankJournal?
+  banner     String?
 }
 
 model TankJournal {

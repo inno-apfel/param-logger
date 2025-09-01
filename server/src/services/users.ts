@@ -4,8 +4,8 @@ import sharp from 'sharp'
 import prisma from '../db/client';
 import {
   uploadFileToS3,
-  getFileUrlFromS3,
-  deleteFileFromS3
+  deleteFileFromS3,
+  getPreSignedUrlIfExists
 } from '../db/s3'
 import {type User} from '../generated/prisma/client';
 import NotFoundError from '../errors/NotFoundError'
@@ -27,7 +27,7 @@ async function getUserById(id: string): Promise<User> {
   if (!user){
     throw new NotFoundError('User', id); 
   }
-  user.avatar = await getAvatarUrlIfExists(user.avatar);
+  user.avatar = await getPreSignedUrlIfExists(user.avatar);
   return user
 }
 
@@ -38,7 +38,7 @@ async function getUserByUsername(username: string): Promise<User> {
   if (!user){
     throw new NotFoundError('User', username); 
   }
-  user.avatar = await getAvatarUrlIfExists(user.avatar);
+  user.avatar = await getPreSignedUrlIfExists(user.avatar);
   return user
 }
 
@@ -105,11 +105,6 @@ async function deleteUser(id: string): Promise<User> {
     where: {id},
   });
   return deletedUser
-}
-
-async function getAvatarUrlIfExists(avatarFileName: string | null){
-  if (!avatarFileName) return null;
-  return await getFileUrlFromS3(avatarFileName);
 }
 
 export default {
