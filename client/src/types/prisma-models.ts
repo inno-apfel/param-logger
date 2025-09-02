@@ -34,6 +34,11 @@ export type Observation = {
   parameter_id: string;
 };
 
+export type ObservationWithParameter = Observation & {
+  parameter_name: string;
+  unit_of_measure: string;
+};
+
 export type Task = {
   id: string;
   message: number;

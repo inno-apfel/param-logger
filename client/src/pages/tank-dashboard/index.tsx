@@ -1,8 +1,5 @@
 import { useParams } from 'react-router-dom';
 
-import { Button } from '@/components/ui/button'
-
-import CreateEntityDialog from "@/components/create-entity-dialog";
 import { Navbar } from "@/components/nav-bar";
 import { SiteFooter } from "@/components/site-footer";
 import { Content } from "./content";

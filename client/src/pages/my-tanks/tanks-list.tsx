@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Card, CardHeader } from '@/components/ui/card'
-
 import CreateEntityDialog from '@/components/create-entity-dialog'
 
 import api from '@/lib/api'
@@ -37,7 +36,11 @@ function TanksList() {
 
             {tanks?.map(tank => (
               <Link to={`/dashboard/${tank.id}`} key={tank.id}>
-                <Card key={tank.id} className="bg-neutral-200 rounded-lg w-4xl h-40 py-3">
+                <Card 
+                  key={tank.id} 
+                  className="bg-neutral-200 rounded-lg w-4xl h-40 py-3 bg-repeat-x bg-top bg-[length:auto_18.75rem]"
+                  style={{ backgroundImage: `url("${tank.banner}")` }}
+                >
                   <CardHeader className="w-4xl px-3">
                     <p className="bg-white rounded-md py-2 px-4 w-fit font-bold">
                       {tank.name}

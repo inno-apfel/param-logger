@@ -95,9 +95,16 @@ async function updateTank(id: string, data: Partial<Omit<Tank, "id" | "owner_id"
 }
 
 async function getAllTanksForUser(owner_id: string): Promise<Tank[]> {
-  return await prisma.tank.findMany({
-    where: {owner_id},
+  const tanks = await prisma.tank.findMany({
+    where: { owner_id },
   });
+
+  return await Promise.all(
+    tanks.map(async (tank) => {
+      tank.banner = await getPreSignedUrlIfExists(tank.banner);
+      return tank;
+    })
+  );
 }
 
 export default {
