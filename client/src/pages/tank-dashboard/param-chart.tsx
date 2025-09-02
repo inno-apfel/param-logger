@@ -52,7 +52,8 @@ export function ParamChart({ param, refreshObservations }: { param: Parameter, r
               <CardTitle>{param.name}</CardTitle>
               <CreateEntityDialog
                 fields={[
-                  {name: 'value', label: 'Value', defaultValue: '1.025', type: 'number'}
+                  {name: 'value', label: 'Value', defaultValue: '1.025', type: 'number'},
+                  {name: 'recorded_at', label: 'Date Recorded', defaultValue: '', type: 'date'}
                 ]}
                 postUrl={`/tanks/${tank?.id}/observations`}
                 itemName={'Observation'}

@@ -141,6 +141,12 @@ const createObservationValidation = [
       .withMessage('Value is required')
       .isFloat()
       .withMessage("Value must be a valid numerical value"),
+    body("recorded_at")
+      .trim()
+      .notEmpty()
+      .withMessage("Date recorded is required")
+      .isISO8601()
+      .withMessage("Date recorded must be a valid ISO8601 date"),
     body('param_id')
       .trim()
       .notEmpty()
@@ -170,6 +176,8 @@ const createTaskValidation = [
     .withMessage("Task message must be between 1-255 characters"),
   body("deadline")
     .trim()
+    .notEmpty()
+    .withMessage("Deadline is required")
     .isISO8601()
     .withMessage("Deadline must be a valid ISO8601 date"),
   body("recur_interval_days")

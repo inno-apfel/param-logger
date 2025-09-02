@@ -140,6 +140,7 @@ export async function createTankObservation(
   res.status(201).json(
     await observationService.createObservation(
       parseFloat(req.body.value),
+      req.body.recorded_at,
       req.body.param_id,
     ),
   );

@@ -12,10 +12,11 @@ async function getObservation(id: string): Promise<Observation> {
   return observation
 }
 
-async function createObservation(value: number, parameter_id: string): Promise<Observation> {
+async function createObservation(value: number, recorded_at: Date, parameter_id: string): Promise<Observation> {
   return await prisma.observation.create({
     data: {
       value,
+      recorded_at,
       parameter: {
         connect: {id: parameter_id},
       },
