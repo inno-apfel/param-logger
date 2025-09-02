@@ -1,6 +1,18 @@
-import { UploadIcon } from 'lucide-react'
+import { UploadIcon, TrashIcon } from 'lucide-react'
 import { useState, type ReactNode } from 'react'
+import { useNavigate } from 'react-router-dom';
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 import { Button } from '@/components/ui/button'
 import { Card } from "@/components/ui/card"
 import {
@@ -21,6 +33,7 @@ import { useTank } from '@/hooks/useTank';
 import api from '@/lib/api'
 import errorLogger from '@/utils/errorLogger'
 
+
 export function EditTank() {
   
     const { tank, refreshTank } = useTank();
@@ -30,12 +43,13 @@ export function EditTank() {
         <>
             <UpdateTankDialog
                 fields={[
+                    {name: 'banner', label: 'Banner Image', placeholder: '', type: 'file'},
                     {name: 'name', label: 'Name', placeholder: tank.name},
                     {name: 'gallons', label: 'Gallons', placeholder: String(tank.gallons), type: 'number'},
                     {name: 'setup_date', label: 'Setup Date', placeholder: '', type: 'date'},
-                    {name: 'banner', label: 'Banner Image', placeholder: '', type: 'file'}
+                    
                 ]}
-                putUrl={`/tanks/${tank?.id}`}
+                resourceUrl={`/tanks/${tank?.id}`}
                 itemName={'Tank'}
                 refreshData={refreshTank}
                 >
@@ -43,6 +57,7 @@ export function EditTank() {
                     Edit
                 </Button>
             </UpdateTankDialog>
+            
         </>
     )
 }
@@ -56,24 +71,26 @@ type Field = {
 
 type Props = {
     fields: Field[], 
-    putUrl: string, 
+    resourceUrl: string, 
     itemName: string, 
     refreshData: () => void, 
     children: ReactNode;
 }
 
-function UpdateTankDialog({fields, putUrl, itemName, refreshData, children}: Props) {
+function UpdateTankDialog({fields, resourceUrl, itemName, refreshData, children}: Props) {
 
+    const navigate = useNavigate();
     const [dates, setDates] = useState<{ [key: string]: Date }>({});
     const [dialogOpen, setDialogOpen] = useState(false);
     const [file, setFile] = useState<File | null>(null);
     const [errors, setErrors] = useState<string[]>([]);
+    
 
     const handleFileChange = (e: any) => {
         setFile(e.target.files[0])
     }
 
-    const handleCreateNew = async (e: React.FormEvent) => {
+    const handleUpdate = async (e: React.FormEvent) => {
 
         e.preventDefault();
 
@@ -109,7 +126,7 @@ function UpdateTankDialog({fields, putUrl, itemName, refreshData, children}: Pro
 
         try {
             await api.put(
-                putUrl,
+                resourceUrl,
                 formData,
                 { 
                     headers: {'Content-Type': 'multipart/form-data'}
@@ -129,6 +146,22 @@ function UpdateTankDialog({fields, putUrl, itemName, refreshData, children}: Pro
         setDates(prev => ({ ...prev, [name]: value }));
     };
 
+    const handleDelete = async (e: React.FormEvent) => {
+        e.preventDefault()
+        try {
+            await api.delete(
+                resourceUrl,
+            );
+            alert('Tank Succesfully Deleted')
+            navigate('/my-tanks')
+            setErrors([]);
+        } 
+        catch (error: any) {
+            const caught_errors = errorLogger(error, 'alert');
+            setErrors(caught_errors);
+        }
+    }
+
     return (
           <Dialog 
               open={dialogOpen} 
@@ -145,7 +178,7 @@ function UpdateTankDialog({fields, putUrl, itemName, refreshData, children}: Pro
           </DialogTrigger>
 
           <DialogContent className="sm:max-w-[425px]">
-            <form onSubmit={handleCreateNew} className="space-y-4">
+            <form onSubmit={handleUpdate} className="space-y-4">
                 <DialogHeader>
                     <DialogTitle>Update {itemName}</DialogTitle>
                     <DialogDescription>
@@ -228,10 +261,37 @@ function UpdateTankDialog({fields, putUrl, itemName, refreshData, children}: Pro
                 })}
 
                 <DialogFooter>
-                    <DialogClose asChild>
-                        <Button variant="outline">Cancel</Button>
-                    </DialogClose>
-                    <Button type="submit">Save changes</Button>
+                    <div className="flex justify-between w-full">
+                        <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                            <TrashIcon className="ml-2 h-8 w-4 hover:stroke-destructive"/>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                            <AlertDialogHeader>
+                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                This action cannot be undone. This will permanently delete the tank and remove it&#39;s data from our servers.
+                            </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction 
+                                onClick={handleDelete}
+                                className="bg-gradient-to-r from-red-800 to-red-900 transition-all duration-300 hover:from-red-700 hover:to-red-800 hover:shadow-lg"
+                            >
+                                Delete Tank
+                            </AlertDialogAction>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                        </AlertDialog>
+                        
+                        <div className="flex gap-2">
+                            <DialogClose asChild>
+                                <Button variant="outline">Cancel</Button>
+                            </DialogClose>
+                            <Button type="submit">Save changes</Button>
+                        </div>
+                    </div>
                 </DialogFooter>
             </form>
           </DialogContent>

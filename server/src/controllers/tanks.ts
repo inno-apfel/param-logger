@@ -41,6 +41,10 @@ export async function updateTank(req: Request, res: Response) {
   );
 };
 
+export async function deleteTank(req: Request, res: Response) {
+  res.json(await tankService.deleteTank(req.params.tankId));
+};
+
 export async function getAllTanksForUser(req: Request, res: Response) {
   const tanks = await tankService.getAllTanksForUser(req.user!.id)
   res.json(tanks);

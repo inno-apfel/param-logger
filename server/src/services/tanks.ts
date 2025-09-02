@@ -36,6 +36,23 @@ async function getTank(id: string): Promise<Tank> {
   return tank;
 }
 
+async function deleteTank(id: string): Promise<Tank> {
+  // delete images from s3
+  const tank = await prisma.tank.findUnique({ where: { id } });
+  if (!tank){
+    throw new NotFoundError('Tank', id); 
+  }
+  if (tank.banner) {
+    deleteFileFromS3(tank.banner)
+  }
+  const deletedTank = await prisma.tank.delete({
+    where: {
+      id,
+    },
+  });
+  return deletedTank;
+}
+
 async function updateTank(id: string, data: Partial<Omit<Tank, "id" | "owner_id">>, file?: Express.Multer.File): Promise<Tank> {
 
   const updates: any = {
@@ -86,6 +103,7 @@ async function getAllTanksForUser(owner_id: string): Promise<Tank[]> {
 export default {
   createTank,
   getTank,
+  deleteTank,
   updateTank,
   getAllTanksForUser,
 };

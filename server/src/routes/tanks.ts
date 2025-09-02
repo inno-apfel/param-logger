@@ -13,6 +13,7 @@ import {
   getTankTasks,
   updateTankTasks,
   deleteTankTask,
+  deleteTank,
   getTankJournal,
   upsertTankJournal,
   updateTank
@@ -448,6 +449,8 @@ router.post('/:tankId/parameters', createParameterValidation, handleValidationEr
 router.get('/:tankId', checkTankOwnership, getTank);
 
 router.put('/:tankId', updateTankValidation, handleValidationErrors, checkTankOwnership, upload.single('banner'), updateTank);
+
+router.delete('/:tankId', checkTankOwnership, deleteTank);
 
 /**
  * @openapi
