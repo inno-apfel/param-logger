@@ -37,11 +37,13 @@ export function ParamChart({ param, refreshObservations }: { param: Parameter, r
 
   const { tank } = useTank();
 
-  const dates = param.observations.map(obs => new Date(obs.recorded_at));
+  const chartData = [...param.observations].sort((a, b) => new Date(a.recorded_at).getTime() - new Date(b.recorded_at).getTime());
+
+  const dates = chartData.map(obs => new Date(obs.recorded_at));
   const minDate = formatToDMY(Math.min(...dates.map(d => d.getTime())))
   const maxDate = formatToDMY(Math.max(...dates.map(d => d.getTime())))
 
-  const values = param.observations.map(obs => obs.value);
+  const values = chartData.map(obs => obs.value);
   const minVal = Math.min(...values);
   const maxVal = Math.max(...values);
 
@@ -75,7 +77,7 @@ export function ParamChart({ param, refreshObservations }: { param: Parameter, r
         <ChartContainer config={chartConfig}>
           <LineChart
             accessibilityLayer
-            data={param.observations}
+            data={chartData}
             margin={{
               left: 12,
               right: 12,

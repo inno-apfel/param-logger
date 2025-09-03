@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dialog"
 
 import { columns, ObservationsTable } from "./observations-table"
+import { NewObservations } from "./new-observations"
 
 import { useParameters } from "@/hooks/useParameters";
 import { type ObservationWithParameter } from "@/types/prisma-models"
@@ -45,22 +46,7 @@ function AnalyticsSummary() {
             <div className="w-full bg-red-500 h-20 mb-6">
             </div>
             <div className="flex gap-2">
-                <Dialog>
-                    <DialogTrigger asChild>
-                        <Button>
-                            New Observations
-                        </Button>
-                    </DialogTrigger>
-                    <DialogContent className="">
-                        <DialogHeader>
-                            <DialogTitle>New Observations</DialogTitle>
-                            <DialogDescription>
-                                Log multiple test results at one time.
-                            </DialogDescription>
-                        </DialogHeader>
-                            content
-                    </DialogContent>
-                </Dialog>
+                <NewObservations/>
                 <Dialog>
                     <DialogTrigger asChild>
                         <Button>

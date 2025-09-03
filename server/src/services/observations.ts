@@ -24,6 +24,15 @@ async function createObservation(value: number, recorded_at: Date, parameter_id:
   });
 }
 
+async function createBatchObservation(recorded_at: Date, observations: any[]): Promise<{ count: number }> {
+  const data = observations.map((obs: any) => ({
+      parameter_id: obs.parameter_id,
+      value: parseFloat(obs.value),
+      recorded_at,
+    }));
+  return await prisma.observation.createMany({data});
+}
+
 async function deleteObservation(id: string): Promise<Observation> {
   return await prisma.observation.delete({
     where: {id},
@@ -33,5 +42,6 @@ async function deleteObservation(id: string): Promise<Observation> {
 export default {
   getObservation,
   createObservation,
+  createBatchObservation,
   deleteObservation
 };
