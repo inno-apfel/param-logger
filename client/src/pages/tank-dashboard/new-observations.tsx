@@ -75,7 +75,7 @@ export function NewObservations() {
   return (
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogTrigger asChild>
-        <Button>New Observations</Button>
+        <Button className="text-xs h-8">Log Values</Button>
       </DialogTrigger>
       <DialogContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

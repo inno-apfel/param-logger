@@ -1,3 +1,5 @@
+import * as d3 from "d3";
+
 import {
   Card,
   CardContent,
@@ -15,11 +17,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 
+import { ActionsTakenHeatmap } from './actions-taken-heatmap'
 import { columns, ObservationsTable } from "./observations-table"
 import { NewObservations } from "./new-observations"
 
 import { useParameters } from "@/hooks/useParameters";
 import { type ObservationWithParameter } from "@/types/prisma-models"
+
  
 function AnalyticsSummary() {
 
@@ -42,15 +46,15 @@ function AnalyticsSummary() {
             </CardDescription>
             <hr className="mt-4" />
         </CardHeader>
-        <CardContent>
-            <div className="w-full bg-red-500 h-20 mb-6">
-            </div>
+        <CardContent className="flex flex-col gap-6">
+            <ActionsTakenHeatmap />
+            <hr className="-mt-2" />
             <div className="flex gap-2">
                 <NewObservations/>
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button>
-                            All Observations
+                        <Button className="text-xs h-8">
+                            Check Observations
                         </Button>
                     </DialogTrigger>
                     <DialogContent className="">
@@ -67,6 +71,46 @@ function AnalyticsSummary() {
         </CardContent>
     </Card>
   )
+}
+
+export default function LinePlot({
+  data,
+  width = 640,
+  height = 400,
+  marginTop = 20,
+  marginRight = 20,
+  marginBottom = 20,
+  marginLeft = 20
+}:{
+  data: number[],
+  width?: number,
+  height?: number,
+  marginTop?: number,
+  marginRight?: number,
+  marginBottom?: number,
+  marginLeft?: number
+}) {
+
+  const x = d3.scaleLinear()
+    .domain([0, data.length - 1])
+    .range([marginLeft, width - marginRight]);
+
+  const y = d3.scaleLinear()
+    .domain(d3.extent(data) as [number, number])
+    .range([height - marginBottom, marginTop]);
+
+  const line = d3.line<number>()
+    .x((d, i) => x(i))
+    .y(d => y(d));
+
+  return (
+    <svg width={width} height={height}>
+      <path fill="none" stroke="currentColor" strokeWidth={1.5} d={line(data) || undefined} />
+      <g fill="white" stroke="currentColor" strokeWidth={1.5}>
+        {data.map((d, i) => (<circle key={i} cx={x(i)} cy={y(d)} r={2.5} />))}
+      </g>
+    </svg>
+  );
 }
 
 export { AnalyticsSummary }
