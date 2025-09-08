@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest",
+    "build": "NODE_ENV=production tsc",
+    "serve": "node build/src/server.js",
     "coverage": "vitest run --coverage",
     "dev": "ts-node src/server.ts"
   },

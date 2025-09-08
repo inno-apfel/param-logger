@@ -10,9 +10,11 @@
   },
   "include": [
     "src",
-    "test",
     "types",
     "package.json",
     "docs/swagger.ts"
   ],
+  "exclude": [
+    "src/tests"
+  ]
 }
