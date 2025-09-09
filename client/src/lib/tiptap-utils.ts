@@ -1,7 +1,6 @@
 import type { Node as TiptapNode } from "@tiptap/pm/model"
 import { NodeSelection, Selection, TextSelection } from "@tiptap/pm/state"
 import type { Editor } from "@tiptap/react"
-import { useState } from 'react'
 
 import api from '@/lib/api'
 import errorLogger from '@/utils/errorLogger'

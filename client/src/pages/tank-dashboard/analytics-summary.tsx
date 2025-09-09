@@ -100,7 +100,7 @@ export default function LinePlot({
     .range([height - marginBottom, marginTop]);
 
   const line = d3.line<number>()
-    .x((d, i) => x(i))
+    .x((_, i) => x(i))
     .y(d => y(d));
 
   return (
