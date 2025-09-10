@@ -12,6 +12,12 @@ import globalErrorHandler from './middlewares/globalErrorHandler';
 
 import swaggerDocs from '../docs/swagger';
 
+import dotenv from 'dotenv'
+
+dotenv.config()
+
+const isProd = process.env.NODE_ENV === 'production';
+
 const app = express();
 const port = 8080;
 
@@ -21,7 +27,9 @@ app.use(express.urlencoded({ extended: false }));
 app.set("trust proxy", 1);
 
 app.use(cors({
-  origin: ["https://main.dlc2uo0dxtxql.amplifyapp.com"],
+  origin: isProd 
+    ? [`https://${process.env.CLIENT_URL}`, `https://www.${process.env.CLIENT_URL}`] 
+    : [String(process.env.CLIENT_URL)],
   credentials: true
 }));
 
@@ -30,8 +38,8 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: true, // set true in production with HTTPS
-    sameSite: 'none'
+    secure: isProd,                   // true in production, false in dev
+    sameSite: isProd ? 'none' : 'lax' // cross-site in prod, relaxed in dev
   }
 }));
 app.use(passport.initialize());
