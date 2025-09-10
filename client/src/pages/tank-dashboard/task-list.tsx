@@ -317,7 +317,7 @@ function TaskGroup(
                                 checked={task.completed} 
                                 onCheckedChange={(checked) => setCompletionStatus(task.id, Boolean(checked))} 
                             />
-                            <label className={`ml-3 ${task.completed ? "line-through text-gray-500" : ""}`}>
+                            <label className={`ml-3 text-sm ${task.completed ? "line-through text-gray-500" : ""}`}>
                                 {task.message}
                             </label>
                         </div>
