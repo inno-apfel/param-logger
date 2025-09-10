@@ -18,8 +18,10 @@ const port = 8080;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.set("trust proxy", 1);
+
 app.use(cors({
-  origin: ["http://localhost:5173"],
+  origin: ["https://main.dlc2uo0dxtxql.amplifyapp.com"],
   credentials: true
 }));
 
@@ -28,8 +30,8 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: false, // set true in production with HTTPS
-    sameSite: 'lax'
+    secure: true, // set true in production with HTTPS
+    sameSite: 'none'
   }
 }));
 app.use(passport.initialize());
