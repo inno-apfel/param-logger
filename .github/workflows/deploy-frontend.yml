@@ -1,0 +1,29 @@
+name: Deploy Frontend
+
+# Trigger only on pushes to main (or your branch) 
+# AND only if files in the client folder changed
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'client/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    container:
+      image: node:20
+    steps:
+      - name: Checkout only client
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            client/**
+      - name: Deploy Frontend
+        working-directory: client
+        run: |
+          npm ci
+          npm run build
+          npm run deploy
