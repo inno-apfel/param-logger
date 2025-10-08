@@ -13,8 +13,10 @@ import {
 
 import { UserDropdown } from '@/components/user-dropdown'
 
+import coralLogo from "@/assets/logo.svg";
+
 const logo = {
-    src: "https://www.svgrepo.com/show/216069/coral.svg",
+    src: coralLogo,
     alt: "logo",
     title: "ParamLogger",
 }
