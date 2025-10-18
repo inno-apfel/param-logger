@@ -19,7 +19,7 @@ dotenv.config()
 const isProd = process.env.NODE_ENV === 'production';
 
 const app = express();
-const port = 8080;
+const port = 80;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
