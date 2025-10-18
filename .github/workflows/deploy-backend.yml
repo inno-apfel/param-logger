@@ -55,4 +55,4 @@ jobs:
         REVISION_ARN=$(aws ecs register-task-definition --cli-input-json "$NEW_TASK_DEF" --query 'taskDefinition.taskDefinitionArn' --output text)
 
         # Update service
-        aws ecs update-service --cluster param-logger-cluster --service param-logger-api-service --task-definition $REVISION_ARN
+        aws ecs update-service --cluster param-logger-api-cluster --service param-logger-api-service --task-definition $REVISION_ARN
