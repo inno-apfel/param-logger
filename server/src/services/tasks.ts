@@ -1,5 +1,5 @@
 import prisma from '../db/client';
-import {type Task} from '../generated/prisma/client';
+import {type Task} from '@prisma/client';
 
 const SECONDS_IN_DAY = 86400;
 

@@ -6,7 +6,7 @@ import {
   deleteFileFromS3, 
   getPreSignedUrlIfExists 
 } from '../db/s3';
-import {type Tank} from '../generated/prisma/client';
+import {type Tank} from '@prisma/client';
 import NotFoundError from '../errors/NotFoundError';
 import generateFileName from '../utils/generateFileName';
 

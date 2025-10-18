@@ -1,6 +1,6 @@
 import prisma from '../db/client';
 import NotFoundError from '../errors/NotFoundError'
-import {type Observation} from '../generated/prisma/client';
+import {type Observation} from '@prisma/client';
 
 async function getObservation(id: string): Promise<Observation> {
   const observation = await prisma.observation.findUnique({

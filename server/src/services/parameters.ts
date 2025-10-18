@@ -1,5 +1,5 @@
 import prisma from '../db/client';
-import {type Parameter} from '../generated/prisma/client';
+import {type Parameter} from '@prisma/client';
 import NotFoundError from '../errors/NotFoundError'
 
 async function createParameter(

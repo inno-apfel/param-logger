@@ -1,5 +1,5 @@
 import prisma from '../db/client';
-import {type TankJournal} from '../generated/prisma/client';
+import {type TankJournal} from '@prisma/client';
 
 async function createTankJournal(tank_id: string, content: any): Promise<TankJournal> {
   return await prisma.tankJournal.create({
