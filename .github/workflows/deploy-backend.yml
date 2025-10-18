@@ -1,0 +1,58 @@
+name: Deploy Backend
+
+# Trigger only on manual deploy
+# since automated testing yet to be implemented
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.CICD_AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.CICD_AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-west-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Get AWS Account ID
+      run: |
+        ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+        echo "AWS_ACCOUNT_ID=$ACCOUNT_ID" >> $GITHUB_ENV
+
+    - name: Build Docker image
+      working-directory: server
+      run: |
+        IMAGE_TAG=${GITHUB_SHA::8}
+        docker build -t param_logger_api:$IMAGE_TAG .
+        docker tag param_logger_api:$IMAGE_TAG ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-1.amazonaws.com/param_logger_api:$IMAGE_TAG
+
+    - name: Push to ECR
+      run: |
+        IMAGE_TAG=${GITHUB_SHA::8}
+        docker push ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-1.amazonaws.com/param_logger_api:$IMAGE_TAG
+
+    - name: Update ECS service
+      run: |
+        IMAGE_TAG=${GITHUB_SHA::8}
+
+        # Get current task definition
+        TASK_DEF=$(aws ecs describe-task-definition --task-definition param-logger-task-definition)
+
+        # Replace image
+        NEW_TASK_DEF=$(echo $TASK_DEF | jq --arg IMAGE "${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-1.amazonaws.com/param_logger_api:$IMAGE_TAG" '.taskDefinition | .containerDefinitions[0].image=$IMAGE | {family: .family, containerDefinitions: .containerDefinitions, taskRoleArn: .taskRoleArn, executionRoleArn: .executionRoleArn, networkMode: .networkMode, requiresCompatibilities: .requiresCompatibilities, cpu: .cpu, memory: .memory}')
+
+        # Register new task definition
+        REVISION_ARN=$(aws ecs register-task-definition --cli-input-json "$NEW_TASK_DEF" --query 'taskDefinition.taskDefinitionArn' --output text)
+
+        # Update service
+        aws ecs update-service --cluster param-logger-cluster --service param-logger-api-service --task-definition $REVISION_ARN
