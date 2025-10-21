@@ -47,6 +47,7 @@ Web-first tank-management dashboard for aquarium and reef tank enthusiasts, enab
     │       ├── assets/       
     │       ├── index.css
     │       └── main.tsx            # Main client entry point
+    │
     ├── server/                     # Backend Express API
     │   ├── docs/                   # Swagger API docs
     │   ├── tests/
@@ -60,6 +61,7 @@ Web-first tank-management dashboard for aquarium and reef tank enthusiasts, enab
     │       ├── middlewares/
     │       ├── utils/    
     │       └── errors/
+    │
     └── docs/                       # Project-level documentation and assets               
 ```
 
