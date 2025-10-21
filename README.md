@@ -17,6 +17,17 @@ A web application designed to help aquarium and reef tank owners log, visualize,
 - 🔍 Filter by date ranges or parameter type
 - 📲 Mobile-friendly responsive design
 
+<!-- ![aws diagram](docs/assets/param_logger_aws.png) -->
+
+## Documentation
+
+#### AWS Architecture Diagram
+
+<div align="center">
+  <img src="docs/assets/param_logger_aws.png" alt="Logo" width="600">
+</div>
+
+
 ## Tech Stack
 
 - **Frontend:** React / TailwindCSS
