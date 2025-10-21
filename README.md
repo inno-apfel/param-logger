@@ -43,7 +43,7 @@ Web-first tank-management dashboard for aquarium and reef tank enthusiasts, enab
     │       ├── utils/
     │       ├── lib/        
     │       ├── types/
-    │       ├── styles/             # Tiptap scss files
+    │       ├── styles/             # Tiptap Sass files
     │       ├── assets/       
     │       ├── index.css
     │       └── main.tsx            # Main client entry point
